@@ -1,3 +1,5 @@
+@import '~src/theme';
+
 .page-content {
   display: flex;
   width: 100%;
@@ -6,7 +8,7 @@
 
 .sidebar-container {
   flex: 1;
-  border-right: 1px solid #eeeeee;
+  border-right: 1px solid $border-color;
 }
 
 .content-container {
@@ -15,6 +17,6 @@
 }
 
 .trends-container {
-  border-left: 1px solid #eeeeee;
+  border-left: 1px solid $border-color;
   flex: 1;
 }

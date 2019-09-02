@@ -1,0 +1,12 @@
+@import '~src/theme';
+
+.container {
+  border-bottom: 1px solid $border-color;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}

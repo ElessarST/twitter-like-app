@@ -5,9 +5,11 @@ import { FileUploadModule } from 'ng2-file-upload'
 import { MaterialComponentsModule } from '../material-components/material-components.module'
 import { SidebarComponent } from './sidebar/sidebar.component'
 import { RouterModule } from '@angular/router'
+import { CreateTweetComponent } from './create-tweet/create-tweet.component'
+import { PageTitleComponent } from './page-title/page-title.component'
 
 @NgModule({
-  declarations: [SidebarComponent],
+  declarations: [SidebarComponent, CreateTweetComponent, PageTitleComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
@@ -20,6 +22,8 @@ import { RouterModule } from '@angular/router'
     ReactiveFormsModule,
     FileUploadModule,
     SidebarComponent,
+    CreateTweetComponent,
+    PageTitleComponent,
   ],
 })
 export class SharedModule {}

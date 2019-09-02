@@ -2,7 +2,6 @@
 
 html, body {
   height: 100%;
-  background-color: #fafafa;
   color: $text-color;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -18,4 +17,10 @@ button {
 a {
   text-decoration: none;
   color: $text-color;
+}
+
+button.icon-button-highlight {
+  &:hover {
+    background: $background-color;
+  }
 }

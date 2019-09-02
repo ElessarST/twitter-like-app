@@ -1,0 +1,15 @@
+<div class="create-tweet-form">
+  <div class="avatar"></div>
+  <div class="create-tweet-content">
+    <mat-form-field appearance="outline" class="full-width">
+      <textarea matInput placeholder="What's happening?" #tweet></textarea>
+      <mat-hint align="end">{{ tweet.value.length }} / 256</mat-hint>
+    </mat-form-field>
+    <div class="create-tweet-actions">
+      <button mat-icon-button color="primary" class="icon-button-highlight">
+        <mat-icon>image</mat-icon>
+      </button>
+      <button mat-flat-button color="primary">Tweet</button>
+    </div>
+  </div>
+</div>
