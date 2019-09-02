@@ -1,2 +1,9 @@
-<app-header></app-header>
-<router-outlet class="router-flex"></router-outlet>
+<div class="page-content">
+  <div class="sidebar-container" *ngIf="isLoggedIn">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="trends-container" *ngIf="isLoggedIn"></div>
+</div>

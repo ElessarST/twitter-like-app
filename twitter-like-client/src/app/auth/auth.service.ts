@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
-import { BehaviorSubject, from, Observable } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, from, Observable, EMPTY } from 'rxjs';
 
-import { User } from '../models/User'
+import { User } from '../models/User';
+import { HttpClient } from '@angular/common/http';
+import { flatMap, map } from 'rxjs/operators';
+import { UserService } from '../core/user.service'
 
 const TOKEN_KEY = 'token'
 
@@ -11,7 +13,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>
   public currentUser: Observable<User>
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService ) {
     this.currentUserSubject = new BehaviorSubject<User>(null)
     this.currentUser = this.currentUserSubject.asObservable()
   }
@@ -29,14 +31,18 @@ export class AuthService {
   }
 
   fetchCurrentUser(): Observable<User> {
-    this.currentUserSubject.next({ email: 'st@gmail.com', avatarUrl: '' })
-    return from(Promise.resolve({ email: 'st@gmail.com', avatarUrl: '' }))
+    if (!AuthService.token) { return EMPTY; }
+    return this.userService.getCurrentUser()
+      .pipe(
+        map(resp => {
+          this.currentUserSubject.next(resp.data.currentUser);
+          return resp.data && resp.data.currentUser
+        }),
+      );
   }
 
   login(email: string, password: string) {
-    localStorage.setItem(TOKEN_KEY, 'token')
-    return this.fetchCurrentUser()
-    /*return this.http.post<any>(`http://localhost:3000/login`, { email, password })
+    return this.http.post<any>(`http://localhost:3000/login`, { email, password })
       .pipe(
         map(resp => {
           if (resp && resp.token) {
@@ -51,7 +57,7 @@ export class AuthService {
           }
           return from(null);
         }),
-      );*/
+      );
   }
 
   logout() {

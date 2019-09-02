@@ -3,21 +3,23 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { FileUploadModule } from 'ng2-file-upload'
 import { MaterialComponentsModule } from '../material-components/material-components.module'
-import { HeaderComponent } from './header/header.component'
+import { SidebarComponent } from './sidebar/sidebar.component'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [SidebarComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
     ReactiveFormsModule,
     FileUploadModule,
+    RouterModule,
   ],
   exports: [
     MaterialComponentsModule,
     ReactiveFormsModule,
     FileUploadModule,
-    HeaderComponent,
+    SidebarComponent,
   ],
 })
 export class SharedModule {}

@@ -1,8 +1,13 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
+
+  type Comment {
+    text: String
+  }
+
   type Post {
-    text: [Vote]
+    text: String
     photos: [String]
     createdBy: User
     favoritesCount: Int
@@ -18,7 +23,7 @@ export const typeDefs = gql`
     email: String
     photoUrl: String
     followers: [User]
-    following: [Vote]
+    following: [User]
     favorites: [Post]
     post: [Post]
   }

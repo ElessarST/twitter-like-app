@@ -18,6 +18,7 @@ import {
   MatSelectModule,
   MatSlideToggleModule,
   MatToolbarModule,
+  MatSidenavModule,
 } from '@angular/material'
 
 @NgModule({
@@ -41,6 +42,7 @@ import {
     MatNativeDateModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatSidenavModule,
   ],
   exports: [
     MatCardModule,
@@ -60,6 +62,7 @@ import {
     MatNativeDateModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatSidenavModule,
   ],
   providers: [MatDatepickerModule],
 })
