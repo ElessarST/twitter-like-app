@@ -4,26 +4,25 @@ import { Apollo } from 'apollo-angular'
 import { User } from '../models/User'
 
 const getCurrentUser = gql`
-{
-  currentUser {
-    name,
-    email,
-    photoUrl
+  {
+    currentUser {
+      name
+      email
+      photoUrl
+    }
   }
-}
-`;
+`
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {
+  }
 
   getCurrentUser() {
-    return this.apollo
-      .query<{ currentUser: User }>({
-        query: getCurrentUser,
-      })
+    return this.apollo.query<{ currentUser: User }>({
+      query: getCurrentUser,
+    })
   }
 }

@@ -1,8 +1,8 @@
 import { IUser, UserModel } from '../database'
-import { Types } from 'mongoose'
+import { Schema, Types } from 'mongoose'
 import * as bcrypt from 'bcrypt'
 
-function findById(id: string): Promise<IUser> {
+function findById(id: string | Schema.Types.ObjectId): Promise<IUser> {
   return UserModel.findById(new Types.ObjectId(id)).exec()
 }
 

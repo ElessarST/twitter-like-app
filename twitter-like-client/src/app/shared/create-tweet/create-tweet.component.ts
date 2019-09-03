@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import { AuthService } from '../../auth/auth.service'
 import { User } from '../../models/User'
+import { TweetsService } from '../../core/tweets.service'
 
 @Component({
   selector: 'app-create-tweet',
@@ -12,7 +13,11 @@ import { User } from '../../models/User'
 export class CreateTweetComponent implements OnInit {
   public createTweetForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private tweetsService: TweetsService,
+  ) {
     this.createTweetForm = formBuilder.group({
       text: ['', Validators.required],
       photos: formBuilder.array([]),
@@ -33,10 +38,7 @@ export class CreateTweetComponent implements OnInit {
   })
 
   ngOnInit() {
-    this.fileUploader.onBuildItemForm = (
-      fileItem: any,
-      form: FormData,
-    ): any => {
+    this.fileUploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
       form.append('upload_preset', 'dtihy6pt')
       form.append('folder', 'home')
       form.append('file', fileItem)
@@ -61,5 +63,17 @@ export class CreateTweetComponent implements OnInit {
 
   get currentUser(): User {
     return this.authService.currentUserValue
+  }
+
+  submit() {
+    const { text, photos } = this.createTweetForm.value
+    this.tweetsService.createTweet(text, photos).subscribe(
+      ({ data }) => {
+        console.log('got data', data)
+      },
+      error => {
+        console.log('there was an error sending the query', error)
+      },
+    )
   }
 }
