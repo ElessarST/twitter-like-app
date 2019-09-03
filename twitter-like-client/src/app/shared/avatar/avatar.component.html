@@ -1,0 +1,13 @@
+<div class="container">
+  <img [src]="avatarUrl" class="avatar" [class.avatar-large]="large"/>
+  <label for="avatar" class="avatar-input-wrapper" mat-ripple *ngIf="changeable">
+    <input
+      type="file"
+      ng2FileSelect
+      [uploader]="fileUploader"
+      id="avatar"
+      class="avatar-input"
+    />
+    Upload
+  </label>
+</div>

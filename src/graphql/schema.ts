@@ -1,35 +1,35 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
-
-  type Comment {
-    text: String
-  }
-
-  type Post {
+  type Tweet {
     text: String
     photos: [String]
     createdBy: User
+    createdAt: Int
     favoritesCount: Int
     repostCount: Int
-    comments: [Comment]
-    tags: [String]
-    replies: [Post]
+    replies: [Tweet]
+    replyTo: [Tweet]
   }
 
   type User {
     username: String
     name: String
     email: String
+    bio: String
     photoUrl: String
     followers: [User]
     following: [User]
-    favorites: [Post]
-    post: [Post]
+    favorites: [Tweet]
+    tweets: [Tweet]
   }
 
   type Query {
     users: [User]
     currentUser: User
+  }
+  
+  type Mutation {
+    createTweet(text: String!, photos: [String]): Tweet
   }
 `

@@ -1,5 +1,2 @@
-import mongoose from 'mongoose'
-
-mongoose.connect(process.env.DB_URL)
-
-export default mongoose
+export { default } from './connection'
+export { default as UserModel, IUser } from './IUser'

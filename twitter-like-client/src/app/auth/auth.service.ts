@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable, EMPTY } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject, EMPTY, from, Observable } from 'rxjs'
 
-import { User } from '../models/User';
-import { HttpClient } from '@angular/common/http';
-import { flatMap, map } from 'rxjs/operators';
+import { User } from '../models/User'
+import { HttpClient } from '@angular/common/http'
+import { flatMap, map } from 'rxjs/operators'
 import { UserService } from '../core/user.service'
 
 const TOKEN_KEY = 'token'
@@ -58,6 +58,25 @@ export class AuthService {
           return from(null);
         }),
       );
+  }
+
+  signUp(user) {
+    return this.http.post<any>(`http://localhost:3000/signUp`, user)
+      .pipe(
+        map(resp => {
+          if (resp && resp.token) {
+            localStorage.setItem(TOKEN_KEY, resp.token)
+            return resp.token
+          }
+          return null
+        }),
+        flatMap(token => {
+          if (token) {
+            return this.fetchCurrentUser()
+          }
+          return from(null)
+        }),
+      )
   }
 
   logout() {

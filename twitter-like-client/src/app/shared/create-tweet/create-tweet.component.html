@@ -1,15 +1,38 @@
 <div class="create-tweet-form">
-  <div class="avatar"></div>
-  <div class="create-tweet-content">
-    <mat-form-field appearance="outline" class="full-width">
-      <textarea matInput placeholder="What's happening?" #tweet></textarea>
-      <mat-hint align="end">{{ tweet.value.length }} / 256</mat-hint>
-    </mat-form-field>
-    <div class="create-tweet-actions">
-      <button mat-icon-button color="primary" class="icon-button-highlight">
-        <mat-icon>image</mat-icon>
-      </button>
-      <button mat-flat-button color="primary">Tweet</button>
-    </div>
+  <div class="avatar-container">
+    <app-avatar [url]="currentUser.photoUrl"></app-avatar>
   </div>
+  <form class="create-tweet-content" [formGroup]="createTweetForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <textarea matInput placeholder="What's happening?" formControlName="text"></textarea>
+      <mat-hint align="end">{{ createTweetForm.value.text.length }} / 256</mat-hint>
+    </mat-form-field>
+    <div class="attachments-container">
+      <div *ngFor="let photo of createTweetForm.value.photos; let ind = index" class="attachment">
+        <img [src]="photo" class="attachment-photo"/>
+        <button mat-icon-button (click)="removePhoto(ind)" class="remove-attachment">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="attachment" *ngIf="isUploading">
+        <mat-spinner diameter="32"></mat-spinner>
+      </div>
+    </div>
+    <div class="create-tweet-actions">
+      <label for="attachments" class="attach-image-button" mat-ripple>
+        <input
+          type="file"
+          multiple
+          ng2FileSelect
+          [uploader]="fileUploader"
+          id="attachments"
+          class="attachments-input"
+        />
+        <mat-icon>image</mat-icon>
+      </label>
+      <button mat-flat-button color="primary" [disabled]="createTweetForm.invalid || fileUploader.isUploading">
+        Tweet
+      </button>
+    </div>
+  </form>
 </div>

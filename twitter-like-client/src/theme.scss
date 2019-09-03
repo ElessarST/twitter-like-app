@@ -13,7 +13,7 @@ $app-accent:  mat-palette($mat-light-blue);
 $app-warn: mat-palette($mat-pink);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+$app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -23,6 +23,6 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 // Export theme colors
 $primary-color: mat-color($app-primary);
 $accent-color: mat-color($app-accent);
-$background-color: #eeeeee;
-$border-color: #eeeeee;
-$text-color: #2b2b2b;
+$background-color: #253341;
+$border-color: #38444d;
+$text-color: #ffffff;

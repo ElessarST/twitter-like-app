@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as dotenv from 'dotenv'
 import express from 'express'
-import { graphqlLogin, login } from './auth'
+import { graphqlLogin, login, signUp } from './auth'
 import { resolvers } from './graphql'
 import { typeDefs } from './graphql/schema'
 
@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/graphql', graphqlLogin)
 
 app.post('/login', [...login])
+app.post('/signUp', signUp)
 
 const apolloServer: ApolloServer = new ApolloServer({
   context: ({ req }) => {

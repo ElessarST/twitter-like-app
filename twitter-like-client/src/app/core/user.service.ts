@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
-import gql from 'graphql-tag';
+import { Injectable } from '@angular/core'
+import gql from 'graphql-tag'
 import { Apollo } from 'apollo-angular'
 import { User } from '../models/User'
 
 const getCurrentUser = gql`
 {
   currentUser {
-    name
+    name,
+    email,
+    photoUrl
   }
 }
 `;

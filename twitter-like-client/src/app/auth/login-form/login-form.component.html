@@ -1,16 +1,19 @@
 <mat-card class="card-container">
-  <mat-card-title>Advice Me</mat-card-title>
+  <mat-card-title>Login to Twitter Like App</mat-card-title>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-card-content class="card-content">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email" type="email">
+        <input matInput placeholder="Email" formControlName="email" type="email"/>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" type="password" formControlName="password">
+        <input matInput placeholder="Password" type="password" formControlName="password"/>
       </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
+      <div class="actions">
+        <button mat-raised-button color="primary" [disabled]="loginForm.invalid" class="login-action">Login</button>
+        <a routerLink="/signUp" class="signup-action">Don't have an account? Sign Up Here!</a>
+      </div>
     </mat-card-content>
   </form>
 </mat-card>

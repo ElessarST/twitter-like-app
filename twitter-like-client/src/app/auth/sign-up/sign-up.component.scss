@@ -8,6 +8,8 @@
 }
 
 .card-content {
+  margin-left: 16px;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -18,11 +20,15 @@
   align-items: center;
 }
 
-.login-action {
+.signup-action {
   flex: 1;
   margin-right: 16px;
 }
 
-.signup-action {
+.signup-wrapper {
+  display: flex;
+}
+
+.login-action {
   color: white;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 import { AuthService } from './auth/auth.service'
 
 @Component({
@@ -7,8 +7,9 @@ import { AuthService } from './auth/auth.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  private isLoading: boolean = true
   constructor(private authService: AuthService) {
-    authService.fetchCurrentUser().subscribe()
+    authService.fetchCurrentUser().subscribe(() => this.isLoading = false)
   }
 
   title = 'twitter-like-client';

@@ -4,19 +4,16 @@ import * as jwt from 'jsonwebtoken'
 import passport from 'passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { usersList } from './tmpdata'
-
-// generate a jwt token for testing purposes
-console.log(jwt.sign(usersList[0], 'secret'))
+import { UserService } from './services'
 
 const params = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: 'secret',
 }
 
-const strategy = new Strategy(params, (payload, done) => {
-  const user = usersList.find(u => u._id === payload._id) || null
-
+const strategy = new Strategy(params, async (payload, done) => {
+  const { _id } = payload
+  const user = await UserService.findById(_id)
   return done(null, user)
 })
 
@@ -26,13 +23,11 @@ passport.use(
       passwordField: 'password',
       usernameField: 'email',
     },
-    (email, password, done) => {
-      console.log(usersList)
-      const user =
-        usersList.find(
-          u => u.email === email && bcrypt.compareSync(password, u.password)
-        ) || null
-      if (!user) {
+    async (email, password, done) => {
+      const user = await UserService.findByEmail(email)
+      const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+
+      if (!user || !isPasswordCorrect) {
         return done(null, false, { message: 'Incorrect email or password.' })
       }
       return done(null, user)
@@ -47,10 +42,20 @@ passport.initialize()
 export const login = [
   passport.authenticate('local', { session: false }),
   (req: Express.Request, res: Express.Response) => {
-    const token = jwt.sign(req.user, 'secret')
+    // @ts-ignore
+    const token = jwt.sign(req.user.toJSON(), 'secret')
     return res.json({ token })
   },
 ]
+
+export async function signUp(req: Express.Request, res: Express.Response, next) {
+  const { username, email } = req.body
+  const existedUser = await UserService.findByEmailOrUsername(email, username)
+  if (existedUser) return { message: 'User already exists' }
+  const user = await UserService.createUser(req.body)
+  const token = jwt.sign({ _id: user._id }, 'secret')
+  return res.json({ token })
+}
 
 export const graphqlLogin = (
   req: Express.Request,
