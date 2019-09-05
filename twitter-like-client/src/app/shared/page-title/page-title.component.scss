@@ -1,11 +1,14 @@
 @import '~src/theme';
 
 .container {
+  position: sticky;
+  top: 0;
+  background-color: $page-background-color;
   border-bottom: 1px solid $border-color;
   padding: 16px;
   display: flex;
   align-items: center;
-
+  z-index: 1;
   h1 {
     margin-bottom: 0;
   }

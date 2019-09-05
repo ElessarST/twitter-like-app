@@ -8,7 +8,9 @@
 
 .sidebar-container {
   flex: 1;
-  border-right: 1px solid $border-color;
+  display: flex;
+  justify-content: flex-end;
+  height: 100vh;
 }
 
 .content-container {
@@ -16,12 +18,11 @@
   max-width: 600px;
 }
 
-.trends-container {
+.content {
   border-left: 1px solid $border-color;
-  flex: 1;
+  border-right: 1px solid $border-color;
 }
 
-.full-width-spinner-container {
-  align-items: center;
-  justify-content: center;
+.trends-container {
+  flex: 1;
 }

@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router'
 import { CreateTweetComponent } from './create-tweet/create-tweet.component'
 import { PageTitleComponent } from './page-title/page-title.component'
 import { AvatarComponent } from './avatar/avatar.component'
+import { TweetComponent } from './tweet/tweet.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AvatarComponent } from './avatar/avatar.component'
     CreateTweetComponent,
     PageTitleComponent,
     AvatarComponent,
+    TweetComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { AvatarComponent } from './avatar/avatar.component'
     PageTitleComponent,
     AvatarComponent,
     RouterModule,
+    TweetComponent,
   ],
 })
 export class SharedModule {}

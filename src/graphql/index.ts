@@ -11,6 +11,9 @@ export const resolvers = {
       const user = await UserService.findById(tweet.createdBy)
       return user.toObject()
     },
+    createdAt(tweet: ITweet) {
+      return tweet.createdAt.getTime()
+    },
   },
   Mutation: {
     createTweet: async (parent, args, context) => {

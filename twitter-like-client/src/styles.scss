@@ -3,7 +3,7 @@
 html, body {
   height: 100%;
   color: $text-color;
-  background-color: #15202b;;
+  background-color: $page-background-color;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -23,5 +23,25 @@ a {
 button.icon-button-highlight {
   &:hover {
     background: $background-color;
+  }
+}
+
+.full-width-spinner-container {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.small-icon-button {
+  width: 32px !important;
+  height: 32px !important;;
+  line-height: 32px !important;;
+
+  .mat-icon {
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    font-size: 16px;
   }
 }
