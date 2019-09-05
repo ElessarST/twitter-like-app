@@ -1,0 +1,27 @@
+<div class="tweet-container">
+  <app-avatar [url]="tweet.createdBy.photoUrl"></app-avatar>
+  <div class="tweet-content">
+    <div class="tweet-meta-info">
+      <span class="tweet-meta-info-name">{{ tweet.createdBy.name }}</span>
+      <span class="tweet-meta-info-secondary">@{{ tweet.createdBy.username }}</span>
+      <span class="tweet-meta-info-secondary">{{ tweet.createdAt | date }}</span>
+    </div>
+    <div>
+      <span>{{ tweet.text }}</span>
+    </div>
+    <div *ngIf="tweet.photos && tweet.photos.length" class="tweet-photos">
+      <img [src]="tweet.photos[0]" class="tweet-photo"/>
+    </div>
+    <div class="tweet-actions">
+      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
+        <mat-icon>comment</mat-icon>
+      </button>
+      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
+        <mat-icon>share</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
