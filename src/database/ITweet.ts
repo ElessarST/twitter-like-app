@@ -1,10 +1,10 @@
-import { Document, model, Schema } from 'mongoose'
+import { Document, model, Schema, Types } from 'mongoose'
 
 export interface ITweet extends Document {
   text: string
   photos: string[]
   replyTo?: string
-  createdBy: Schema.Types.ObjectId
+  createdBy: Types.ObjectId
   createdAt: Date
 }
 

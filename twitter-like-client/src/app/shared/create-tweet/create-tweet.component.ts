@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
-import { AuthService } from '../../auth/auth.service'
-import { User } from '../../models/User'
 import { TweetsService } from '../../core/tweets.service'
+import { IAppState } from '../../store/app/state'
+import { Store } from '@ngrx/store'
+import { Response, Tweet, User } from '../../models'
+import { selectCurrentUser } from '../../store/auth/selectors'
+import { Observable } from 'rxjs'
+import { setServerErrors } from '../../utils/response'
 
 @Component({
   selector: 'app-create-tweet',
@@ -12,11 +16,13 @@ import { TweetsService } from '../../core/tweets.service'
 })
 export class CreateTweetComponent implements OnInit {
   public createTweetForm: FormGroup
+  public currentUser$: Observable<User>
+  public isCreating: boolean = false
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
     private tweetsService: TweetsService,
+    private store: Store<IAppState>,
   ) {
     this.createTweetForm = formBuilder.group({
       text: ['', Validators.required],
@@ -38,6 +44,7 @@ export class CreateTweetComponent implements OnInit {
   })
 
   ngOnInit() {
+    this.currentUser$ = this.store.select(selectCurrentUser).pipe()
     this.fileUploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
       form.append('upload_preset', 'dtihy6pt')
       form.append('folder', 'home')
@@ -61,19 +68,19 @@ export class CreateTweetComponent implements OnInit {
     return this.fileUploader.isUploading
   }
 
-  get currentUser(): User {
-    return this.authService.currentUserValue
-  }
-
   submit() {
+    this.isCreating = true
     const { text, photos } = this.createTweetForm.value
     this.tweetsService.createTweet(text, photos).subscribe(
-      ({ data }) => {
-        console.log('got data', data)
+      tweet => {
+        console.log(tweet)
+        this.createTweetForm.reset()
       },
-      error => {
-        console.log('there was an error sending the query', error)
+      (error: Response<Tweet>) => {
+        setServerErrors(this.createTweetForm, error.fieldErrors)
+        this.isCreating = false
       },
+      () => (this.isCreating = false),
     )
   }
 }

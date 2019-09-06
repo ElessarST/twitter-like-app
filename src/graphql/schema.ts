@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
+  scalar JSON
+
   type Tweet {
     text: String
     photos: [String]
@@ -30,6 +32,19 @@ export const typeDefs = gql`
   }
   
   type Mutation {
-    createTweet(text: String!, photos: [String]): Tweet
+    createTweet(text: String!, photos: [String]): CreateTweetMutationResponse
+  }
+  
+  interface MutationResponse {
+    status: String!
+    error: String
+    fieldErrors: JSON
+  }
+  
+  type CreateTweetMutationResponse implements MutationResponse {
+    status: String!
+    error: String
+    fieldErrors: JSON
+    data: Tweet
   }
 `

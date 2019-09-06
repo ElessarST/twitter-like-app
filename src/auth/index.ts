@@ -4,7 +4,9 @@ import * as jwt from 'jsonwebtoken'
 import passport from 'passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { UserService } from './services'
+import { UserService } from '../services'
+import { sendError, sendSuccess } from '../utils/response'
+import { SignUpSchema } from './validationSchemas'
 
 const params = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -25,7 +27,7 @@ passport.use(
     },
     async (email, password, done) => {
       const user = await UserService.findByEmail(email)
-      const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+      const isPasswordCorrect = user ? bcrypt.compareSync(password, user.password) : false
 
       if (!user || !isPasswordCorrect) {
         return done(null, false, { message: 'Incorrect email or password.' })
@@ -44,17 +46,19 @@ export const login = [
   (req: Express.Request, res: Express.Response) => {
     // @ts-ignore
     const token = jwt.sign(req.user.toJSON(), 'secret')
-    return res.json({ token })
+    return sendSuccess(res, { token })
   },
 ]
 
-export async function signUp(req: Express.Request, res: Express.Response, next) {
-  const { username, email } = req.body
-  const existedUser = await UserService.findByEmailOrUsername(email, username)
-  if (existedUser) return { message: 'User already exists' }
-  const user = await UserService.createUser(req.body)
-  const token = jwt.sign({ _id: user._id }, 'secret')
-  return res.json({ token })
+export async function signUp(req: Express.Request, res: Express.Response) {
+  try {
+    await SignUpSchema.validate(req.body, { abortEarly: false })
+    const user = await UserService.createUser(req.body)
+    const token = jwt.sign({ _id: user._id }, 'secret')
+    return sendSuccess(res, { token })
+  } catch (err) {
+    return sendError(res, '', err)
+  }
 }
 
 export const graphqlLogin = (

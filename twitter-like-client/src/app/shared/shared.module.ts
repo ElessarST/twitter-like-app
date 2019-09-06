@@ -9,6 +9,7 @@ import { CreateTweetComponent } from './create-tweet/create-tweet.component'
 import { PageTitleComponent } from './page-title/page-title.component'
 import { AvatarComponent } from './avatar/avatar.component'
 import { TweetComponent } from './tweet/tweet.component'
+import { ServerErrorComponent } from './server-error/server-error.component'
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TweetComponent } from './tweet/tweet.component'
     PageTitleComponent,
     AvatarComponent,
     TweetComponent,
+    ServerErrorComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { TweetComponent } from './tweet/tweet.component'
     AvatarComponent,
     RouterModule,
     TweetComponent,
+    ServerErrorComponent,
   ],
 })
 export class SharedModule {}

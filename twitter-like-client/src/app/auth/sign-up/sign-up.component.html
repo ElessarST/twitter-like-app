@@ -12,21 +12,33 @@
         <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
           <input matInput placeholder="Username" formControlName="username"/>
+          <mat-error>
+            <app-server-error [form]="signUpForm" field="username"></app-server-error>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email" type="email"/>
+          <mat-error>
+            <app-server-error [form]="signUpForm" field="email"></app-server-error>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Name" formControlName="name"/>
+          <app-server-error [form]="signUpForm" field="name"></app-server-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput placeholder="Password" type="password" formControlName="password"/>
         </mat-form-field>
         <div class="actions">
-          <button mat-raised-button color="primary" [disabled]="signUpForm.invalid" class="signup-action">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="signUpForm.invalid"
+            class="signup-action"
+          >
             Sign Up
           </button>
           <a routerLink="/login" class="login-action">Already have an account? Login Here!</a>

@@ -1,5 +1,7 @@
 import { TweetService, UserService } from '../services'
 import { ITweet } from '../database'
+import GraphQLJSON from 'graphql-type-json'
+import { createErrorResponse, createSuccessResponse } from '../utils/response'
 
 export const resolvers = {
   Query: {
@@ -18,8 +20,13 @@ export const resolvers = {
   Mutation: {
     createTweet: async (parent, args, context) => {
       const { text, photos } = args
-      const newTweet = await TweetService.create({ text, photos }, context.user._id)
-      return newTweet.toObject()
+      try {
+        const newTweet = await TweetService.create({ text, photos }, context.user._id)
+        return createSuccessResponse<ITweet>(newTweet)
+      } catch (errors) {
+        return createErrorResponse('', errors)
+      }
     },
   },
+  JSON: GraphQLJSON,
 }

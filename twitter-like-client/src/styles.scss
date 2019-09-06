@@ -26,6 +26,12 @@ button.icon-button-highlight {
   }
 }
 
+.centered-spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .full-width-spinner-container {
   padding: 16px;
   display: flex;

@@ -1,6 +1,7 @@
 <mat-card class="card-container">
   <mat-card-title>Login to Twitter Like App</mat-card-title>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p class="mat-error" *ngIf="!!error">{{ error }}</p>
     <mat-card-content class="card-content">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -11,7 +12,17 @@
         <input matInput placeholder="Password" type="password" formControlName="password"/>
       </mat-form-field>
       <div class="actions">
-        <button mat-raised-button color="primary" [disabled]="loginForm.invalid" class="login-action">Login</button>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="loginForm.invalid || isLogging"
+          class="login-action"
+        >
+          <span *ngIf="!isLogging">Login</span>
+          <div class="centered-spinner-container" *ngIf="isLogging">
+            <mat-spinner [diameter]="32"></mat-spinner>
+          </div>
+        </button>
         <a routerLink="/signUp" class="signup-action">Don't have an account? Sign Up Here!</a>
       </div>
     </mat-card-content>

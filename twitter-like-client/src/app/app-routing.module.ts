@@ -5,6 +5,7 @@ import { LoginFormComponent } from './auth/login-form/login-form.component'
 import { HomePageComponent } from './home/home-page/home-page.component'
 import { LogoutComponent } from './auth/logout/logout.component'
 import { SignUpComponent } from './auth/sign-up/sign-up.component'
+import { NoAuthGuard } from './auth/no-auth.guard'
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginFormComponent,
+    canActivate: [NoAuthGuard],
   },
   {
     path: 'signUp',
@@ -28,7 +30,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true } )],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {

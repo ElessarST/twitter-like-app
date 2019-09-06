@@ -1,8 +1,8 @@
 import { IUser, UserModel } from '../database'
-import { Schema, Types } from 'mongoose'
+import { Types } from 'mongoose'
 import * as bcrypt from 'bcrypt'
 
-function findById(id: string | Schema.Types.ObjectId): Promise<IUser> {
+function findById(id: string | Types.ObjectId): Promise<IUser> {
   return UserModel.findById(new Types.ObjectId(id)).exec()
 }
 
@@ -10,10 +10,8 @@ function findByEmail(email: string): Promise<IUser> {
   return UserModel.findOne({ email }).exec()
 }
 
-function findByEmailOrUsername(email: string, username: string): Promise<IUser> {
-  return UserModel.findOne({
-    or: [{ email, username }],
-  }).exec()
+function findByUsername(username: string): Promise<IUser> {
+  return UserModel.findOne({ username }).exec()
 }
 
 async function createUser({ password, ...user }: Partial<IUser>) {
@@ -25,6 +23,6 @@ async function createUser({ password, ...user }: Partial<IUser>) {
 export default {
   findByEmail,
   findById,
-  findByEmailOrUsername,
+  findByUsername,
   createUser,
 }

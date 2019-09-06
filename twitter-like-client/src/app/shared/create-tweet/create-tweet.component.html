@@ -1,4 +1,4 @@
-<div class="create-tweet-form">
+<div class="create-tweet-form" *ngIf="currentUser$ | async as currentUser">
   <div class="avatar-container">
     <app-avatar [url]="currentUser.photoUrl"></app-avatar>
   </div>
@@ -6,6 +6,9 @@
     <mat-form-field appearance="outline" class="full-width">
       <textarea matInput placeholder="What's happening?" formControlName="text"></textarea>
       <mat-hint align="end">{{ createTweetForm.value.text.length }} / 256</mat-hint>
+      <mat-error>
+        <app-server-error [form]="createTweetForm" field="text"></app-server-error>
+      </mat-error>
     </mat-form-field>
     <div class="attachments-container">
       <div *ngFor="let photo of createTweetForm.value.photos; let ind = index" class="attachment">
@@ -30,8 +33,15 @@
         />
         <mat-icon>image</mat-icon>
       </label>
-      <button mat-flat-button color="primary" [disabled]="createTweetForm.invalid || fileUploader.isUploading">
-        Tweet
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="createTweetForm.invalid || fileUploader.isUploading || isCreating"
+      >
+        <span *ngIf="!isCreating">Tweet</span>
+        <div class="centered-spinner-container" *ngIf="isCreating">
+          <mat-spinner [diameter]="32"></mat-spinner>
+        </div>
       </button>
     </div>
   </form>

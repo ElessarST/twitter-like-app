@@ -1,86 +1,55 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, EMPTY, from, Observable } from 'rxjs'
+import { Observable, throwError } from 'rxjs'
 
-import { User } from '../models/User'
+import { Response, User } from '../models'
 import { HttpClient } from '@angular/common/http'
-import { flatMap, map } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { UserService } from '../core/user.service'
 
 const TOKEN_KEY = 'token'
 
+type TokenResponse = {
+  token: string
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User>
-  public currentUser: Observable<User>
-
-  constructor(private http: HttpClient, private userService: UserService ) {
-    this.currentUserSubject = new BehaviorSubject<User>(null)
-    this.currentUser = this.currentUserSubject.asObservable()
+  constructor(private http: HttpClient, private userService: UserService) {
   }
 
   public static get token(): string {
     return localStorage.getItem(TOKEN_KEY)
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value
-  }
-
-  public get getIsLoggedIn(): boolean {
-    return !!this.currentUserValue
-  }
-
   fetchCurrentUser(): Observable<User> {
-    if (!AuthService.token) { return EMPTY; }
+    if (!AuthService.token) {
+      return throwError('No token')
+    }
     return this.userService.getCurrentUser()
-      .pipe(
-        map(resp => {
-          this.currentUserSubject.next(resp.data.currentUser);
-          return resp.data && resp.data.currentUser
-        }),
-      );
   }
 
   login(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:3000/login`, { email, password })
+    return this.http
+      .post<Response<TokenResponse>>(`http://localhost:3000/login`, { email, password })
       .pipe(
         map(resp => {
-          if (resp && resp.token) {
-            localStorage.setItem(TOKEN_KEY, resp.token);
-            return resp.token;
-          }
-          return null;
-        }),
-        flatMap(token => {
-          if (token) {
-            return this.fetchCurrentUser();
-          }
-          return from(null);
-        }),
-      );
+          const { token } = resp.data
+          localStorage.setItem(TOKEN_KEY, token)
+          return resp.data.token
+        })
+      )
   }
 
   signUp(user) {
-    return this.http.post<any>(`http://localhost:3000/signUp`, user)
-      .pipe(
-        map(resp => {
-          if (resp && resp.token) {
-            localStorage.setItem(TOKEN_KEY, resp.token)
-            return resp.token
-          }
-          return null
-        }),
-        flatMap(token => {
-          if (token) {
-            return this.fetchCurrentUser()
-          }
-          return from(null)
-        }),
-      )
+    return this.http.post<Response<TokenResponse>>(`http://localhost:3000/signUp`, user).pipe(
+      map(resp => {
+        localStorage.setItem(TOKEN_KEY, resp.data.token)
+        return resp.data.token
+      }),
+    )
   }
 
   logout() {
     localStorage.removeItem(TOKEN_KEY)
-    this.currentUserSubject.next(null)
   }
 }

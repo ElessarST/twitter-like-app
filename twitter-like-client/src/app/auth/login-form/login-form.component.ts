@@ -1,59 +1,58 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { first } from 'rxjs/operators'
+import { Store } from '@ngrx/store'
 
+import { IAppState } from '../../store/app/state'
+import { GetCurrentUser } from '../../store/auth/actions'
 import { AuthService } from '../auth.service'
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  error = '';
+  loginForm: FormGroup
+  returnUrl: string
+  error = ''
+  isLogging: boolean
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<IAppState>,
   ) {
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-
-    this.authService.logout();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  }
-
-  get f() {
-    return this.loginForm.controls;
+      password: ['', Validators.required],
+    })
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.loginForm.invalid) {
-      return;
+      return
     }
 
-    this.loading = true;
-    this.authService.login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        () => this.router.navigate([this.returnUrl]),
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+    const { email, password } = this.loginForm.value
+    this.isLogging = true
+    this.error = ''
+    this.authService.login(email, password).subscribe(
+      () => {
+        this.store.dispatch(new GetCurrentUser())
+        this.router.navigate([this.returnUrl])
+      },
+      () => {
+        this.isLogging = false
+        this.error = 'Invalid Email or Password'
+      },
+      () => (this.isLogging = false),
+    )
   }
 }
