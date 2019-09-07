@@ -2,7 +2,7 @@
   <mat-spinner diameter="32"></mat-spinner>
 </div>
 <div *ngIf="!isLoading">
-  <div *ngFor="let tweet of tweets" class="tweet-wrapper">
+  <div *ngFor="let tweet of tweets$ | async" class="tweet-wrapper">
     <app-tweet [tweet]="tweet"></app-tweet>
   </div>
 </div>

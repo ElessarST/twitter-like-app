@@ -1,4 +1,4 @@
-import { User } from '../../models/User'
+import { User } from '../../models'
 
 export interface IAuthState {
   currentUser: User

@@ -5,7 +5,7 @@
   <form class="create-tweet-content" [formGroup]="createTweetForm" (ngSubmit)="submit()">
     <mat-form-field appearance="outline" class="full-width">
       <textarea matInput placeholder="What's happening?" formControlName="text"></textarea>
-      <mat-hint align="end">{{ createTweetForm.value.text.length }} / 256</mat-hint>
+      <mat-hint align="end">{{ textLength }} / 256</mat-hint>
       <mat-error>
         <app-server-error [form]="createTweetForm" field="text"></app-server-error>
       </mat-error>

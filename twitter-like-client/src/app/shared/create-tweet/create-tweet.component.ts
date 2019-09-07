@@ -1,3 +1,4 @@
+import { get } from 'lodash'
 import { Component, OnInit } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
@@ -8,6 +9,7 @@ import { Response, Tweet, User } from '../../models'
 import { selectCurrentUser } from '../../store/auth/selectors'
 import { Observable } from 'rxjs'
 import { setServerErrors } from '../../utils/response'
+import { addTweet } from '../../store/feed/actions'
 
 @Component({
   selector: 'app-create-tweet',
@@ -24,10 +26,7 @@ export class CreateTweetComponent implements OnInit {
     private tweetsService: TweetsService,
     private store: Store<IAppState>,
   ) {
-    this.createTweetForm = formBuilder.group({
-      text: ['', Validators.required],
-      photos: formBuilder.array([]),
-    })
+    this.setFormInitialState()
   }
 
   public fileUploader: FileUploader = new FileUploader({
@@ -68,13 +67,24 @@ export class CreateTweetComponent implements OnInit {
     return this.fileUploader.isUploading
   }
 
+  get textLength(): number {
+    return get(this.createTweetForm.value, 'text.length', 0)
+  }
+
+  setFormInitialState() {
+    this.createTweetForm = this.formBuilder.group({
+      text: ['', Validators.required],
+      photos: this.formBuilder.array([]),
+    })
+  }
+
   submit() {
     this.isCreating = true
     const { text, photos } = this.createTweetForm.value
     this.tweetsService.createTweet(text, photos).subscribe(
-      tweet => {
-        console.log(tweet)
-        this.createTweetForm.reset()
+      ({ data: tweet }) => {
+        this.setFormInitialState()
+        this.store.dispatch(addTweet({ tweet }))
       },
       (error: Response<Tweet>) => {
         setServerErrors(this.createTweetForm, error.fieldErrors)

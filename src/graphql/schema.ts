@@ -2,12 +2,14 @@ import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
   scalar JSON
+  scalar Date
 
   type Tweet {
+    _id: String
     text: String
     photos: [String]
     createdBy: User
-    createdAt: Int
+    createdAt: Date
     favoritesCount: Int
     repostCount: Int
     replies: [Tweet]
@@ -15,6 +17,7 @@ export const typeDefs = gql`
   }
 
   type User {
+    _id: String
     username: String
     name: String
     email: String

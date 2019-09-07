@@ -9,7 +9,7 @@ export interface ITweet extends Document {
 }
 
 const TweetSchema: Schema = new Schema({
-  text: { type: String, required: true, unique: true },
+  text: { type: String, required: true },
   photos: [String],
   replyTo: Schema.Types.ObjectId,
   createdBy: { type: Schema.Types.ObjectId, required: true },

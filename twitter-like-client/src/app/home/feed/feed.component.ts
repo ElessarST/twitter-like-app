@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { TweetsService } from '../../core/tweets.service'
-import { Tweet } from '../../models/Tweet'
+import { Tweet } from '../../models'
+import { Store } from '@ngrx/store'
+import { IAppState } from '../../store/app/state'
+import { selectFeedTweets, selectIsLoading } from '../../store/feed/selectors'
+import { Observable } from 'rxjs'
+import { getFeed } from '../../store/feed/actions'
 
 @Component({
   selector: 'app-feed',
@@ -9,19 +14,14 @@ import { Tweet } from '../../models/Tweet'
 })
 export class FeedComponent implements OnInit {
   private isLoading: boolean = true
-  private isError: boolean = false
-  private tweets: Tweet[] = []
+  private tweets$: Observable<Tweet[]>
 
-  constructor(private tweetService: TweetsService) {
+  constructor(private tweetService: TweetsService, private store: Store<IAppState>) {
   }
 
   ngOnInit() {
-    this.tweetService
-      .getTweets()
-      .subscribe(
-        tweets => (this.tweets = tweets),
-        () => (this.isError = true),
-        () => (this.isLoading = false),
-      )
+    this.store.dispatch(getFeed({}))
+    this.store.select(selectIsLoading).subscribe(isLoading => (this.isLoading = isLoading))
+    this.tweets$ = this.store.select(selectFeedTweets)
   }
 }

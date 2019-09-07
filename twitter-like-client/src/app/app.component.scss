@@ -19,8 +19,10 @@
 }
 
 .content {
-  border-left: 1px solid $border-color;
-  border-right: 1px solid $border-color;
+  .content-authorized {
+    border-left: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+  }
   min-height: 100vh;
 }
 

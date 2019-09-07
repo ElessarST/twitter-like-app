@@ -12,8 +12,15 @@ const createTweet = gql`
       error
       fieldErrors
       data {
+         _id
         text
         photos
+        createdAt
+        createdBy {
+          name
+          username
+          photoUrl
+        }
       }
     }
   }
@@ -22,6 +29,7 @@ const createTweet = gql`
 const getTweets = gql`
   query {
     feed {
+      _id
       text
       photos
       createdAt

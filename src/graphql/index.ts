@@ -24,6 +24,7 @@ export const resolvers = {
         const newTweet = await TweetService.create({ text, photos }, context.user._id)
         return createSuccessResponse<ITweet>(newTweet)
       } catch (errors) {
+        console.log(errors)
         return createErrorResponse('', errors)
       }
     },

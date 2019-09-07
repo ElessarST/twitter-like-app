@@ -17,6 +17,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor'
 import { SharedModule } from './shared/shared.module'
 import { appReducers } from './store/app/reducer'
 import { AuthEffects } from './store/auth/effects'
+import { FeedEffects } from './store/feed/effects'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AuthEffects } from './store/auth/effects'
     HomeModule,
     CoreModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, FeedEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
