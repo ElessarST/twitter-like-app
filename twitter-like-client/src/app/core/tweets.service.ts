@@ -4,42 +4,41 @@ import gql from 'graphql-tag'
 import { Response, ResponseStatus, Tweet } from '../models'
 import { map, switchMap } from 'rxjs/operators'
 import { Observable, of, throwError } from 'rxjs'
+import { CommonFragments, TweetFragments } from './fragments'
 
 const createTweet = gql`
   mutation createTweet($text: String!, $photos: [String]) {
     createTweet(text: $text, photos: $photos) {
-      status
-      error
-      fieldErrors
+      ...ResponseFragment
       data {
-         _id
-        text
-        photos
-        createdAt
-        createdBy {
-          name
-          username
-          photoUrl
-        }
+        ...TweetFragment
       }
     }
   }
+  ${TweetFragments}
+  ${CommonFragments}
 `
 
 const getTweets = gql`
   query {
     feed {
-      _id
-      text
-      photos
-      createdAt
-      createdBy {
-        name
-        username
-        photoUrl
+     ...TweetFragment
+    }
+  }
+  ${TweetFragments}
+`
+
+const likeTweet = gql`
+  mutation likeTweet($tweetId: String!, $isLike: Boolean) {
+    likeTweet(tweetId: $tweetId, isLike: $isLike) {
+      ...ResponseFragment
+      data {
+        ...TweetFragment
       }
     }
   }
+  ${TweetFragments}
+  ${CommonFragments}
 `
 
 @Injectable({
@@ -71,5 +70,21 @@ export class TweetsService {
         query: getTweets,
       })
       .pipe(map(result => result.data.feed))
+  }
+
+  likeTweet(tweetId: string, isLike: boolean): Observable<Response<Tweet>> {
+    return this.apollo.mutate<{ likeTweet: Response<Tweet> }>({
+      mutation: likeTweet,
+      variables: { tweetId, isLike },
+    }).pipe(
+      map(result => result.data),
+      map(result => result.likeTweet),
+      switchMap(data => {
+        if (data.status === ResponseStatus.Error) {
+          return throwError(data)
+        }
+        return of(data)
+      }),
+    )
   }
 }

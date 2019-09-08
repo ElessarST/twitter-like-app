@@ -4,6 +4,7 @@ export interface ITweet extends Document {
   text: string
   photos: string[]
   replyTo?: string
+  likedBy?: string[]
   createdBy: Types.ObjectId
   createdAt: Date
 }
@@ -11,6 +12,7 @@ export interface ITweet extends Document {
 const TweetSchema: Schema = new Schema({
   text: { type: String, required: true },
   photos: [String],
+  likedBy: { type: [Schema.Types.ObjectId], required: true },
   replyTo: Schema.Types.ObjectId,
   createdBy: { type: Schema.Types.ObjectId, required: true },
   createdAt: { type: Date, required: true },

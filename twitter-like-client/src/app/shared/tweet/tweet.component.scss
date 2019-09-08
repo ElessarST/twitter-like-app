@@ -40,9 +40,17 @@
   margin-left: -8px;
 }
 
+.tweet-action-desc {
+  margin-left: 4px;
+}
+
 .tweet-action {
   margin-right: 32px;
   color: $text-secondary-color;
+
+  &.active {
+    color: $primary-color
+  }
 }
 
 .tweet-photo {

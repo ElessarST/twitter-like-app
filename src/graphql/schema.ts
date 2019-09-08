@@ -12,6 +12,7 @@ export const typeDefs = gql`
     createdAt: Date
     favoritesCount: Int
     repostCount: Int
+    likedBy: [User]
     replies: [Tweet]
     replyTo: [Tweet]
   }
@@ -35,7 +36,8 @@ export const typeDefs = gql`
   }
   
   type Mutation {
-    createTweet(text: String!, photos: [String]): CreateTweetMutationResponse
+    createTweet(text: String!, photos: [String]): TweetMutationResponse
+    likeTweet(tweetId: String!, isLike: Boolean): TweetMutationResponse
   }
   
   interface MutationResponse {
@@ -44,7 +46,7 @@ export const typeDefs = gql`
     fieldErrors: JSON
   }
   
-  type CreateTweetMutationResponse implements MutationResponse {
+  type TweetMutationResponse implements MutationResponse {
     status: String!
     error: String
     fieldErrors: JSON

@@ -16,8 +16,14 @@
       <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
         <mat-icon>comment</mat-icon>
       </button>
-      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
+      <button
+        mat-icon-button
+        class="icon-button-highlight tweet-action small-icon-button"
+        [class.active]="isLiked"
+        (click)="like()"
+      >
         <mat-icon>favorite</mat-icon>
+        <span class="tweet-action-desc">{{ likesCount }}</span>
       </button>
       <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
         <mat-icon>share</mat-icon>

@@ -6,4 +6,5 @@ export type Tweet = {
   photos: string[]
   createdAt: Date
   createdBy: User
+  likedBy: User[]
 }

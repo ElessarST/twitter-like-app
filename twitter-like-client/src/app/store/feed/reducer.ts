@@ -11,4 +11,5 @@ export const feedReducer = createReducer(
     isLoading: false,
   })),
   on(FeedActions.addTweet, (state, { tweet }) => adapter.addOne(tweet, state)),
+  on(FeedActions.updateTweet, (state, { tweet }) => adapter.upsertOne(tweet, state)),
 )
