@@ -37,6 +37,6 @@ export class TweetComponent implements OnInit {
   like() {
     this.tweetService
       .likeTweet(this.tweet._id, !this.isLiked)
-      .subscribe(({ data: tweet }) => this.store.dispatch(updateTweet({ tweet })), () => null)
+      .subscribe(({ data: tweet }) => this.store.dispatch(updateTweet({ tweet })))
   }
 }

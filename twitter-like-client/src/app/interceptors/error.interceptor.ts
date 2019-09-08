@@ -3,17 +3,28 @@ import { Injectable } from '@angular/core'
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
 
 import { Observable, throwError } from 'rxjs'
-import { catchError } from 'rxjs/operators'
+import { catchError, tap } from 'rxjs/operators'
 
 import { AuthService } from '../auth/auth.service'
+import { AlertsService } from '../core/alerts.service'
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthService) {
+  constructor(private authenticationService: AuthService, private alertsService: AlertsService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
+      tap((res: any) => {
+        if (res.body && res.body.data) {
+          const data = res.body.data || {}
+          const graphqlKey = Object.keys(data)
+          const responseData = data[graphqlKey[0]]
+          if (responseData.error) {
+            this.alertsService.push(responseData.error)
+          }
+        }
+      }),
       catchError(err => {
         if (
           err.status === 500 &&
@@ -25,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
 
         return throwError(err.error)
-      }),
+      })
     )
   }
 }

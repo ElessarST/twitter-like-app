@@ -11,6 +11,7 @@ import { AvatarComponent } from './avatar/avatar.component'
 import { TweetComponent } from './tweet/tweet.component'
 import { ServerErrorComponent } from './server-error/server-error.component'
 import { TweetDatePipe } from './tweet-date.pipe'
+import { AlertsComponent } from './alerts/alerts.component'
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TweetDatePipe } from './tweet-date.pipe'
     TweetComponent,
     ServerErrorComponent,
     TweetDatePipe,
+    AlertsComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { TweetDatePipe } from './tweet-date.pipe'
     TweetComponent,
     ServerErrorComponent,
     TweetDatePipe,
+    AlertsComponent,
   ],
 })
 export class SharedModule {}

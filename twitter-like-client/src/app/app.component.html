@@ -1,6 +1,7 @@
 <div class="page-content full-width-spinner-container" *ngIf="isLoading">
   <mat-spinner></mat-spinner>
 </div>
+<app-alerts></app-alerts>
 <div class="page-content" *ngIf="!isLoading">
   <div class="sidebar-container" *ngIf="isLoggedIn">
     <app-sidebar></app-sidebar>

@@ -31,7 +31,7 @@ export const resolvers = {
         const newTweet = await TweetService.create({ text, photos }, getUserId(context))
         return createSuccessResponse<ITweet>(newTweet)
       } catch (errors) {
-        return createErrorResponse('', errors)
+        return createErrorResponse('There was an error while creating tweet', errors)
       }
     },
     likeTweet: async (parent, args, context) => {

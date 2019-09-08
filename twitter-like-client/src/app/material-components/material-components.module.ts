@@ -16,9 +16,10 @@ import {
   MatProgressSpinnerModule,
   MatRippleModule,
   MatSelectModule,
-  MatSlideToggleModule,
-  MatToolbarModule,
   MatSidenavModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatToolbarModule,
 } from '@angular/material'
 
 @NgModule({
@@ -43,6 +44,7 @@ import {
     MatSelectModule,
     MatSlideToggleModule,
     MatSidenavModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatCardModule,
@@ -63,6 +65,7 @@ import {
     MatSelectModule,
     MatSlideToggleModule,
     MatSidenavModule,
+    MatSnackBarModule,
   ],
   providers: [MatDatepickerModule],
 })
