@@ -4,7 +4,7 @@
     <div class="tweet-meta-info">
       <span class="tweet-meta-info-name">{{ tweet.createdBy.name }}</span>
       <span class="tweet-meta-info-secondary">@{{ tweet.createdBy.username }}</span>
-      <span class="tweet-meta-info-secondary">{{ tweet.createdAt | date }}</span>
+      <span class="tweet-meta-info-secondary">{{ tweet.createdAt | tweetDate }}</span>
     </div>
     <div>
       <span>{{ tweet.text }}</span>

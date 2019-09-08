@@ -19,7 +19,7 @@
 }
 
 .content {
-  .content-authorized {
+  &.content-authorized {
     border-left: 1px solid $border-color;
     border-right: 1px solid $border-color;
   }

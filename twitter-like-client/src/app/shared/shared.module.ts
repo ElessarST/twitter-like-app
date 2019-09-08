@@ -10,6 +10,7 @@ import { PageTitleComponent } from './page-title/page-title.component'
 import { AvatarComponent } from './avatar/avatar.component'
 import { TweetComponent } from './tweet/tweet.component'
 import { ServerErrorComponent } from './server-error/server-error.component'
+import { TweetDatePipe } from './tweet-date.pipe'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ServerErrorComponent } from './server-error/server-error.component'
     AvatarComponent,
     TweetComponent,
     ServerErrorComponent,
+    TweetDatePipe,
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { ServerErrorComponent } from './server-error/server-error.component'
     RouterModule,
     TweetComponent,
     ServerErrorComponent,
+    TweetDatePipe,
   ],
 })
 export class SharedModule {}
