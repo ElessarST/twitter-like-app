@@ -1,6 +1,6 @@
 <app-page-title title="Home"></app-page-title>
 <div class="create-tweet-container">
-  <app-create-tweet></app-create-tweet>
+  <app-create-tweet (onCreate)="onTweetCreate($event)"></app-create-tweet>
 </div>
 <div class="divider"></div>
 <app-feed></app-feed>

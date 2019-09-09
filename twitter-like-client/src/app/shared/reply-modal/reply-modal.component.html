@@ -5,7 +5,11 @@
   </button>
 </div>
 <mat-dialog-content>
-  <app-create-tweet placeholder="Add Comment" [replyTo]="tweet" (onCreate)="onCreate()"></app-create-tweet>
+  <app-create-tweet
+    placeholder="Add Comment"
+    [replyTo]="tweet"
+    (onCreate)="onCreate($event)"
+  ></app-create-tweet>
   <h3>Reply To</h3>
   <app-tweet [tweet]="tweet" hideActions="true"></app-tweet>
 </mat-dialog-content>

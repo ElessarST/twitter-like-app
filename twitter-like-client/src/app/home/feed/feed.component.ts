@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
 import { selectIsLoading, selectSortedFeed } from '../../store/feed/selectors'
 import { Observable } from 'rxjs'
-import { getFeed } from '../../store/feed/actions'
+import { addReply, addRetweet, getFeed, updateTweet } from '../../store/feed/actions'
 
 @Component({
   selector: 'app-feed',
@@ -26,5 +26,17 @@ export class FeedComponent implements OnInit {
 
   getId(tweet: Tweet) {
     return tweet._id
+  }
+
+  onReply(tweet: Tweet, reply: Tweet) {
+    this.store.dispatch(addReply({ reply, tweet }))
+  }
+
+  onRetweet(tweet: Tweet, retweet: Tweet) {
+    this.store.dispatch(addRetweet({ retweet, tweet }))
+  }
+
+  onLike(tweet: Tweet) {
+    this.store.dispatch(updateTweet({ tweet }))
   }
 }

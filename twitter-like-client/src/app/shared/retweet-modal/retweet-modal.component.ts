@@ -25,7 +25,7 @@ export class RetweetModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  onCreate() {
-    this.dialogRef.close()
+  onCreate(tweet) {
+    this.dialogRef.close(tweet)
   }
 }

@@ -15,8 +15,8 @@ export class TweetEffects {
       this.tweetsService.getTweetById(action.tweetId).pipe(
         map(tweet => TweetActions.getTweetSuccess(tweet)),
         catchError(() => of(TweetActions.getTweetError({}))),
-      ),
-    ),
+      )
+    )
   )
 
   constructor(private tweetsService: TweetsService, private _actions$: Actions) {

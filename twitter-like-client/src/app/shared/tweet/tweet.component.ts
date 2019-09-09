@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Tweet, User } from '../../models'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
 import { selectCurrentUser } from '../../store/auth/selectors'
 import { TweetsService } from '../../core/tweets.service'
-import { updateTweet } from '../../store/feed/actions'
 import { MatDialog } from '@angular/material'
 import { RetweetModalComponent } from '../retweet-modal/retweet-modal.component'
 import { ReplyModalComponent } from '../reply-modal/reply-modal.component'
@@ -19,6 +18,9 @@ export class TweetComponent implements OnInit {
   @Input() tweet: Tweet
   @Input() hideActions?: boolean = false
   @Input() hideSubTweets?: boolean = false
+  @Output() onReply: EventEmitter<Tweet> = new EventEmitter<Tweet>()
+  @Output() onRetweet: EventEmitter<Tweet> = new EventEmitter<Tweet>()
+  @Output() onLike: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   private currentUser: User
 
   constructor(
@@ -53,30 +55,32 @@ export class TweetComponent implements OnInit {
     return !!this.likedBy.find(likedBy => likedBy._id === this.currentUser._id)
   }
 
-  like() {
+  like(event) {
+    event.stopPropagation()
     this.tweetService
       .likeTweet(this.tweet._id, !this.isLiked)
-      .subscribe(({ data: tweet }) => this.store.dispatch(updateTweet({ tweet })))
+      .subscribe(({ data: tweet }) => this.onLike.emit(tweet))
   }
 
-  openRetweetDialog() {
-    const dialogRef = this.dialog.open(RetweetModalComponent, {
+  openDialog(event, dialog, onCreate) {
+    event.stopPropagation()
+    const dialogRef = this.dialog.open(dialog, {
       data: { tweet: this.tweet },
     })
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
+    dialogRef.afterClosed().subscribe(tweet => {
+      if (tweet) {
+        onCreate(tweet)
+      }
     })
   }
 
-  openReplyDialog() {
-    const dialogRef = this.dialog.open(ReplyModalComponent, {
-      data: { tweet: this.tweet },
-    })
+  openRetweetDialog(event) {
+    this.openDialog(event, RetweetModalComponent, tweet => this.onRetweet.emit(tweet))
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
-    })
+  openReplyDialog(event) {
+    this.openDialog(event, ReplyModalComponent, tweet => this.onReply.emit(tweet))
   }
 
   goToTweet() {

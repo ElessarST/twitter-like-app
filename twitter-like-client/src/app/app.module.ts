@@ -20,6 +20,7 @@ import { AuthEffects } from './store/auth/effects'
 import { FeedEffects } from './store/feed/effects'
 import { TweetEffects } from './store/tweet/effects'
 import { TweetPageModule } from './tweet-page/tweet-page.module'
+import { ProfilePageModule } from './profile-page/profile-page.module'
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TweetPageModule } from './tweet-page/tweet-page.module'
     SharedModule,
     AuthModule,
     HomeModule,
+    ProfilePageModule,
     CoreModule,
     TweetPageModule,
     StoreModule.forRoot(appReducers),

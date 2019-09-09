@@ -7,4 +7,5 @@ export const tweetReducer = createReducer(
   on(TweetActions.getTweet, state => ({ ...state, isLoading: true })),
   on(TweetActions.getTweetSuccess, (state, tweet) => ({ ...state, tweet, isLoading: false })),
   on(TweetActions.getTweetError, (state) => ({ ...state, isLoading: false })),
+  on(TweetActions.updateTweet, (state, tweet) => ({ ...state, tweet })),
 )

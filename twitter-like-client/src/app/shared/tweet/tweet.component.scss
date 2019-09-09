@@ -20,15 +20,17 @@
 .tweet-meta-info {
   display: flex;
 
-  & > span {
+  & a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  & .tweet-meta-item {
+    font-weight: bold;
     margin-right: 8px;
   }
 
   margin-bottom: 8px;
-}
-
-.tweet-meta-info-name {
-  font-weight: bold;
 }
 
 .tweet-meta-info-secondary {

@@ -9,7 +9,6 @@ import { Response, Tweet, User } from '../../models'
 import { selectCurrentUser } from '../../store/auth/selectors'
 import { Observable } from 'rxjs'
 import { setServerErrors } from '../../utils/response'
-import { addTweet } from '../../store/feed/actions'
 
 @Component({
   selector: 'app-create-tweet',
@@ -23,7 +22,7 @@ export class CreateTweetComponent implements OnInit {
   @Input() public placeholder?: string = 'What\'s happening?'
   @Input() public retweetFrom?: string
   @Input() public replyTo?: string
-  @Output() onCreate: EventEmitter<void> = new EventEmitter()
+  @Output() onCreate: EventEmitter<Tweet> = new EventEmitter()
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,8 +89,7 @@ export class CreateTweetComponent implements OnInit {
       .subscribe(
         ({ data: tweet }) => {
           this.setFormInitialState()
-          this.store.dispatch(addTweet({ tweet }))
-          this.onCreate.emit()
+          this.onCreate.emit(tweet)
         },
         (error: Response<Tweet>) => {
           setServerErrors(this.createTweetForm, error.fieldErrors)
