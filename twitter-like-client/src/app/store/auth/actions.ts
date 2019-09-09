@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store'
+import { createAction, props } from '@ngrx/store'
 import { User } from '../../models'
 
 export enum AuthActionType {
@@ -8,27 +8,7 @@ export enum AuthActionType {
   Logout = '[Auth] Logout User',
 }
 
-export class GetCurrentUser implements Action {
-  public readonly type = AuthActionType.GetCurrentUser
-}
-
-export class GetCurrentUserSuccess implements Action {
-  public readonly type = AuthActionType.GetCurrentUserSuccess
-
-  constructor(public payload: User) {
-  }
-}
-
-export class GetCurrentUserError implements Action {
-  public readonly type = AuthActionType.GetCurrentUserError
-}
-
-export class LogoutAction implements Action {
-  public readonly type = AuthActionType.Logout
-}
-
-export type AuthActions =
-  | GetCurrentUser
-  | GetCurrentUserSuccess
-  | LogoutAction
-  | GetCurrentUserError
+export const getCurrentUser = createAction(AuthActionType.GetCurrentUser, props<{}>())
+export const getCurrentUserSuccess = createAction(AuthActionType.GetCurrentUserSuccess, props<User>())
+export const getCurrentUserError = createAction(AuthActionType.GetCurrentUserError, props<{}>())
+export const logout = createAction(AuthActionType.Logout, props<{}>())

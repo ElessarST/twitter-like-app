@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { IAppState } from './store/app/state'
-import { GetCurrentUser } from './store/auth/actions'
+import { getCurrentUser } from './store/auth/actions'
 import { selectIsFetchingCurrentUser, selectIsLoggedIn } from './store/auth/selectors'
 
 @Component({
@@ -17,7 +17,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this._store.dispatch(new GetCurrentUser())
+    this._store.dispatch(getCurrentUser({}))
     this._store
       .select(selectIsFetchingCurrentUser)
       .subscribe(isLoading => (this.isLoading = isLoading))

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 
 import { IAppState } from '../../store/app/state'
-import { GetCurrentUser } from '../../store/auth/actions'
+import { getCurrentUser } from '../../store/auth/actions'
 import { AuthService } from '../auth.service'
 
 @Component({
@@ -45,7 +45,7 @@ export class LoginFormComponent implements OnInit {
     this.error = ''
     this.authService.login(email, password).subscribe(
       () => {
-        this.store.dispatch(new GetCurrentUser())
+        this.store.dispatch(getCurrentUser({}))
         this.router.navigate([this.returnUrl])
       },
       () => {

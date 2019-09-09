@@ -35,6 +35,7 @@ export const typeDefs = gql`
   type Query {
     currentUser: User
     feed: [Tweet]
+    tweet(tweetId: String!): Tweet
   }
 
   type Mutation {

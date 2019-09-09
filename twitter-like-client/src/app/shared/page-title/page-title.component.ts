@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-page-title',
@@ -7,11 +8,15 @@ import { Component, Input, OnInit } from '@angular/core'
 })
 export class PageTitleComponent implements OnInit {
   @Input() private title: string
+  @Input() private canGoBack?: boolean = false
 
-  constructor() {
+  constructor(private location: Location) {
   }
 
   ngOnInit() {
   }
 
+  goBack() {
+    this.location.back()
+  }
 }

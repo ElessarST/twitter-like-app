@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AuthService } from '../auth.service'
-import { GetCurrentUser } from '../../store/auth/actions'
+import { getCurrentUser } from '../../store/auth/actions'
 import { IAppState } from '../../store/app/state'
 import { Store } from '@ngrx/store'
 
@@ -45,7 +45,7 @@ export class SignUpComponent implements OnInit {
     this.loading = true
     this.authService.signUp(this.signUpForm.value).subscribe(
       () => {
-        this.store.dispatch(new GetCurrentUser())
+        this.store.dispatch(getCurrentUser({}))
         return this.router.navigate(['/'])
       },
       error => {

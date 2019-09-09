@@ -6,6 +6,7 @@ import { HomePageComponent } from './home/home-page/home-page.component'
 import { LogoutComponent } from './auth/logout/logout.component'
 import { SignUpComponent } from './auth/sign-up/sign-up.component'
 import { NoAuthGuard } from './auth/no-auth.guard'
+import { TweetPageComponent } from './tweet-page/tweet-page/tweet-page.component'
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent,
+  },
+  {
+    path: 'tweet/:tweetId',
+    component: TweetPageComponent,
   },
   { path: '**', redirectTo: '' },
 ]

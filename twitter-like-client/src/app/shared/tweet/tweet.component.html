@@ -1,4 +1,4 @@
-<div class="tweet-container" [class.hide-actions]="hideActions">
+<div class="tweet-container" [class.hide-actions]="hideActions" (click)="goToTweet()">
   <app-avatar [url]="tweet.createdBy.photoUrl"></app-avatar>
   <div class="tweet-content">
     <div class="tweet-meta-info">
@@ -12,11 +12,11 @@
     <div *ngIf="tweet.photos && tweet.photos.length" class="tweet-photos">
       <img [src]="tweet.photos[0]" class="tweet-photo"/>
     </div>
-    <div *ngIf="tweet.retweetFrom">
+    <div *ngIf="tweet.retweetFrom && !hideSubTweets">
       <p class="sub-tweet-header">Retweet from</p>
       <app-tweet hideActions="true" [tweet]="tweet.retweetFrom"></app-tweet>
     </div>
-    <div *ngIf="tweet.replyTo">
+    <div *ngIf="tweet.replyTo && !hideSubTweets">
       <p class="sub-tweet-header">Reply to</p>
       <app-tweet hideActions="true" [tweet]="tweet.replyTo"></app-tweet>
     </div>

@@ -1,0 +1,15 @@
+@import "~src/theme";
+
+.replies-container {
+  padding: 16px;
+}
+
+.no-replies {
+  color: $text-secondary-color;
+}
+
+.replies-header {
+  padding-left: 16px;
+  border-bottom: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+}

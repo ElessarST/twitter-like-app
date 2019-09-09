@@ -1,3 +1,11 @@
 <div class="container">
+  <button
+    mat-icon-button
+    class="icon-button-highlight back-button"
+    (click)="goBack()"
+    *ngIf="canGoBack"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
   <h1 class="mat-title">{{ title }}</h1>
 </div>

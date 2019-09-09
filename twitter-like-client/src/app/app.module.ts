@@ -18,6 +18,8 @@ import { SharedModule } from './shared/shared.module'
 import { appReducers } from './store/app/reducer'
 import { AuthEffects } from './store/auth/effects'
 import { FeedEffects } from './store/feed/effects'
+import { TweetEffects } from './store/tweet/effects'
+import { TweetPageModule } from './tweet-page/tweet-page.module'
 
 @NgModule({
   declarations: [
@@ -32,8 +34,9 @@ import { FeedEffects } from './store/feed/effects'
     AuthModule,
     HomeModule,
     CoreModule,
+    TweetPageModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects, FeedEffects]),
+    EffectsModule.forRoot([AuthEffects, FeedEffects, TweetEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),

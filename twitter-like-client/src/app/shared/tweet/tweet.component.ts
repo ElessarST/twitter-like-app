@@ -8,6 +8,7 @@ import { updateTweet } from '../../store/feed/actions'
 import { MatDialog } from '@angular/material'
 import { RetweetModalComponent } from '../retweet-modal/retweet-modal.component'
 import { ReplyModalComponent } from '../reply-modal/reply-modal.component'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-tweet',
@@ -17,12 +18,14 @@ import { ReplyModalComponent } from '../reply-modal/reply-modal.component'
 export class TweetComponent implements OnInit {
   @Input() tweet: Tweet
   @Input() hideActions?: boolean = false
+  @Input() hideSubTweets?: boolean = false
   private currentUser: User
 
   constructor(
     private store: Store<IAppState>,
     private tweetService: TweetsService,
     private dialog: MatDialog,
+    private router: Router,
   ) {
     this.store.select(selectCurrentUser).subscribe(user => (this.currentUser = user))
   }
@@ -74,5 +77,9 @@ export class TweetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed')
     })
+  }
+
+  goToTweet() {
+    this.router.navigate(['tweet', this.tweet._id])
   }
 }

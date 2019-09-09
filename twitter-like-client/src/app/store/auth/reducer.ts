@@ -1,34 +1,15 @@
-import { AuthActions, AuthActionType } from './actions'
-import { IAuthState, initialAuthState } from './state'
+import { createReducer, on } from '@ngrx/store'
+import { initialAuthState } from './state'
+import * as AuthActions from './actions'
 
-export const authReducer = (state = initialAuthState, action: AuthActions): IAuthState => {
-  switch (action.type) {
-    case AuthActionType.GetCurrentUser: {
-      return {
-        ...state,
-        isFetchingCurrentUser: true,
-      }
-    }
-    case AuthActionType.GetCurrentUserSuccess: {
-      return {
-        ...state,
-        isFetchingCurrentUser: false,
-        currentUser: action.payload,
-      }
-    }
-    case AuthActionType.GetCurrentUserError: {
-      return {
-        ...state,
-        isFetchingCurrentUser: false,
-      }
-    }
-    case AuthActionType.Logout: {
-      return {
-        ...state,
-        currentUser: null,
-      }
-    }
-    default:
-      return state
-  }
-}
+export const authReducer = createReducer(
+  initialAuthState,
+  on(AuthActions.getCurrentUser, state => ({ ...state, isFetchingCurrentUser: true })),
+  on(AuthActions.getCurrentUserSuccess, (state, user) => ({
+    ...state,
+    isFetchingCurrentUser: false,
+    currentUser: user,
+  })),
+  on(AuthActions.getCurrentUserError, (state) => ({ ...state, isFetchingCurrentUser: false })),
+  on(AuthActions.logout, (state) => ({ ...state, currentUser: null })),
+)

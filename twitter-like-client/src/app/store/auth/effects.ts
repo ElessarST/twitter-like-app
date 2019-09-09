@@ -5,7 +5,7 @@ import { EMPTY, of } from 'rxjs'
 import { catchError, map, switchMap, tap } from 'rxjs/operators'
 
 import { IAppState } from '../app/state'
-import { AuthActionType, GetCurrentUser, GetCurrentUserError, GetCurrentUserSuccess, LogoutAction } from './actions'
+import * as AuthActions from './actions'
 import { AuthService } from '../../auth/auth.service'
 import { Router } from '@angular/router'
 
@@ -13,18 +13,18 @@ import { Router } from '@angular/router'
 export class AuthEffects {
   @Effect()
   getCurrentUser$ = this._actions$.pipe(
-    ofType<GetCurrentUser>(AuthActionType.GetCurrentUser),
+    ofType(AuthActions.getCurrentUser),
     switchMap(() =>
       this.authService.fetchCurrentUser().pipe(
-        map(user => new GetCurrentUserSuccess(user)),
-        catchError(() => of(new GetCurrentUserError())),
+        map(user => AuthActions.getCurrentUserSuccess(user)),
+        catchError(() => of(AuthActions.getCurrentUserError)),
       ),
     ),
   )
 
   @Effect({ dispatch: false })
   logout$ = this._actions$.pipe(
-    ofType<LogoutAction>(AuthActionType.Logout),
+    ofType(AuthActions.logout),
     tap(() => this.authService.logout()),
     tap(() => this.router.navigate(['/'])),
     switchMap(() => of(EMPTY)),

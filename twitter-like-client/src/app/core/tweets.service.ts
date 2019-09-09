@@ -28,6 +28,15 @@ const getTweets = gql`
   ${TweetFragments}
 `
 
+const getTweetById = gql`
+  query tweet($tweetId: String!) {
+    tweet(tweetId: $tweetId) {
+      ...TweetFragment
+    }
+  }
+  ${TweetFragments}
+`
+
 const likeTweet = gql`
   mutation likeTweet($tweetId: String!, $isLike: Boolean) {
     likeTweet(tweetId: $tweetId, isLike: $isLike) {
@@ -67,7 +76,7 @@ export class TweetsService {
             return throwError(data)
           }
           return of(data)
-        }),
+        })
       )
   }
 
@@ -77,6 +86,15 @@ export class TweetsService {
         query: getTweets,
       })
       .pipe(map(result => result.data.feed))
+  }
+
+  getTweetById(tweetId: string): Observable<Tweet> {
+    return this.apollo
+      .query<{ tweet: Tweet }>({
+        query: getTweetById,
+        variables: { tweetId },
+      })
+      .pipe(map(result => result.data.tweet))
   }
 
   likeTweet(tweetId: string, isLike: boolean): Observable<Response<Tweet>> {
@@ -93,7 +111,7 @@ export class TweetsService {
             return throwError(data)
           }
           return of(data)
-        }),
+        })
       )
   }
 }

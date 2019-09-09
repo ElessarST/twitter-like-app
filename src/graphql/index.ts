@@ -11,6 +11,7 @@ export const resolvers = {
   Query: {
     currentUser: (parent, args, context) => context.user,
     feed: () => TweetService.findAll(),
+    tweet: (parent, args) => TweetService.findById(args.tweetId),
   },
   Tweet: {
     async createdBy(tweet: ITweet) {

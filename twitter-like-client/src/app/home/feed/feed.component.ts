@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { TweetsService } from '../../core/tweets.service'
 import { Tweet } from '../../models'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
@@ -16,7 +15,7 @@ export class FeedComponent implements OnInit {
   private isLoading: boolean = true
   private tweets$: Observable<Tweet[]>
 
-  constructor(private tweetService: TweetsService, private store: Store<IAppState>) {
+  constructor(private store: Store<IAppState>) {
   }
 
   ngOnInit() {
