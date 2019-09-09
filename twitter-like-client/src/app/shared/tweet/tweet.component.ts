@@ -13,6 +13,7 @@ import { updateTweet } from '../../store/feed/actions'
 })
 export class TweetComponent implements OnInit {
   @Input() tweet: Tweet
+  @Input() hideActions?: boolean = false
   private currentUser: User
 
   constructor(private store: Store<IAppState>, private tweetService: TweetsService) {

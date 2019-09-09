@@ -12,7 +12,7 @@
     <div *ngIf="tweet.photos && tweet.photos.length" class="tweet-photos">
       <img [src]="tweet.photos[0]" class="tweet-photo"/>
     </div>
-    <div class="tweet-actions">
+    <div class="tweet-actions" *ngIf="!hideActions">
       <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
         <mat-icon>comment</mat-icon>
       </button>
