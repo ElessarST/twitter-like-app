@@ -4,7 +4,7 @@
   display: flex;
   padding: 16px;
 
-  &:hover {
+  &:not(.hide-actions):hover {
     background-color: #192734;
     cursor: pointer;
   }
@@ -37,7 +37,6 @@
 
 .tweet-actions {
   margin-top: 8px;
-  margin-left: -8px;
 }
 
 .tweet-action-desc {
@@ -60,4 +59,9 @@
 
 .tweet-photos {
   margin-top: 16px;
+}
+
+.sub-tweet-header {
+  color: $text-secondary-color;
+  margin-bottom: 0;
 }

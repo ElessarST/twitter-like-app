@@ -14,7 +14,9 @@ export const typeDefs = gql`
     repostCount: Int
     likedBy: [User]
     replies: [Tweet]
-    replyTo: [Tweet]
+    replyTo: Tweet
+    retweetsCount: Int
+    retweetFrom: Tweet
   }
 
   type User {
@@ -34,18 +36,23 @@ export const typeDefs = gql`
     currentUser: User
     feed: [Tweet]
   }
-  
+
   type Mutation {
-    createTweet(text: String!, photos: [String]): TweetMutationResponse
+    createTweet(
+      text: String!
+      photos: [String]
+      retweetFrom: String
+      replyTo: String
+    ): TweetMutationResponse
     likeTweet(tweetId: String!, isLike: Boolean): TweetMutationResponse
   }
-  
+
   interface MutationResponse {
     status: String!
     error: String
     fieldErrors: JSON
   }
-  
+
   type TweetMutationResponse implements MutationResponse {
     status: String!
     error: String

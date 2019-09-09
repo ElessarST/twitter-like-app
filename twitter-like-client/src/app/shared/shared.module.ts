@@ -12,6 +12,8 @@ import { TweetComponent } from './tweet/tweet.component'
 import { ServerErrorComponent } from './server-error/server-error.component'
 import { TweetDatePipe } from './tweet-date.pipe'
 import { AlertsComponent } from './alerts/alerts.component'
+import { RetweetModalComponent } from './retweet-modal/retweet-modal.component'
+import { ReplyModalComponent } from './reply-modal/reply-modal.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { AlertsComponent } from './alerts/alerts.component'
     ServerErrorComponent,
     TweetDatePipe,
     AlertsComponent,
+    RetweetModalComponent,
+    ReplyModalComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +35,7 @@ import { AlertsComponent } from './alerts/alerts.component'
     FileUploadModule,
     RouterModule,
   ],
+  entryComponents: [RetweetModalComponent, ReplyModalComponent],
   exports: [
     MaterialComponentsModule,
     ReactiveFormsModule,
@@ -44,6 +49,7 @@ import { AlertsComponent } from './alerts/alerts.component'
     ServerErrorComponent,
     TweetDatePipe,
     AlertsComponent,
+    RetweetModalComponent,
   ],
 })
 export class SharedModule {}

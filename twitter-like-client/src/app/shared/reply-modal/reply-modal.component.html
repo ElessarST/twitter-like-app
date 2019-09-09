@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h2 mat-dialog-title class="modal-title">Reply</h2>
+  <button mat-icon-button class="icon-button-highlight" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <app-create-tweet placeholder="Add Comment" [replyTo]="tweet" (onCreate)="onCreate()"></app-create-tweet>
+  <h3>Reply To</h3>
+  <app-tweet [tweet]="tweet" hideActions="true"></app-tweet>
+</mat-dialog-content>

@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import { TweetsService } from '../../core/tweets.service'
@@ -20,6 +20,10 @@ export class CreateTweetComponent implements OnInit {
   public createTweetForm: FormGroup
   public currentUser$: Observable<User>
   public isCreating: boolean = false
+  @Input() public placeholder?: string = 'What\'s happening?'
+  @Input() public retweetFrom?: string
+  @Input() public replyTo?: string
+  @Output() onCreate: EventEmitter<void> = new EventEmitter()
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,16 +85,19 @@ export class CreateTweetComponent implements OnInit {
   submit() {
     this.isCreating = true
     const { text, photos } = this.createTweetForm.value
-    this.tweetsService.createTweet(text, photos).subscribe(
-      ({ data: tweet }) => {
-        this.setFormInitialState()
-        this.store.dispatch(addTweet({ tweet }))
-      },
-      (error: Response<Tweet>) => {
-        setServerErrors(this.createTweetForm, error.fieldErrors)
-        this.isCreating = false
-      },
-      () => (this.isCreating = false),
-    )
+    this.tweetsService
+      .createTweet(text, photos, get(this.retweetFrom, '_id'), get(this.replyTo, '_id'))
+      .subscribe(
+        ({ data: tweet }) => {
+          this.setFormInitialState()
+          this.store.dispatch(addTweet({ tweet }))
+          this.onCreate.emit()
+        },
+        (error: Response<Tweet>) => {
+          setServerErrors(this.createTweetForm, error.fieldErrors)
+          this.isCreating = false
+        },
+        () => (this.isCreating = false),
+      )
   }
 }

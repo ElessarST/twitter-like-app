@@ -1,4 +1,4 @@
-<div class="tweet-container">
+<div class="tweet-container" [class.hide-actions]="hideActions">
   <app-avatar [url]="tweet.createdBy.photoUrl"></app-avatar>
   <div class="tweet-content">
     <div class="tweet-meta-info">
@@ -12,9 +12,18 @@
     <div *ngIf="tweet.photos && tweet.photos.length" class="tweet-photos">
       <img [src]="tweet.photos[0]" class="tweet-photo"/>
     </div>
+    <div *ngIf="tweet.retweetFrom">
+      <p class="sub-tweet-header">Retweet from</p>
+      <app-tweet hideActions="true" [tweet]="tweet.retweetFrom"></app-tweet>
+    </div>
+    <div *ngIf="tweet.replyTo">
+      <p class="sub-tweet-header">Reply to</p>
+      <app-tweet hideActions="true" [tweet]="tweet.replyTo"></app-tweet>
+    </div>
     <div class="tweet-actions" *ngIf="!hideActions">
-      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
+      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button" (click)="openReplyDialog()">
         <mat-icon>comment</mat-icon>
+        <span class="tweet-action-desc">{{ repliesCount }}</span>
       </button>
       <button
         mat-icon-button
@@ -25,8 +34,13 @@
         <mat-icon>favorite</mat-icon>
         <span class="tweet-action-desc">{{ likesCount }}</span>
       </button>
-      <button mat-icon-button class="icon-button-highlight tweet-action small-icon-button">
+      <button
+        mat-icon-button
+        class="icon-button-highlight tweet-action small-icon-button"
+        (click)="openRetweetDialog()"
+      >
         <mat-icon>share</mat-icon>
+        <span class="tweet-action-desc">{{ tweet.retweetsCount }}</span>
       </button>
     </div>
   </div>

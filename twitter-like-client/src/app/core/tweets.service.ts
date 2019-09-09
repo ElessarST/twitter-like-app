@@ -7,8 +7,8 @@ import { Observable, of, throwError } from 'rxjs'
 import { CommonFragments, TweetFragments } from './fragments'
 
 const createTweet = gql`
-  mutation createTweet($text: String!, $photos: [String]) {
-    createTweet(text: $text, photos: $photos) {
+  mutation createTweet($text: String!, $photos: [String], $retweetFrom: String, $replyTo: String) {
+    createTweet(text: $text, photos: $photos, retweetFrom: $retweetFrom, replyTo: $replyTo) {
       ...ResponseFragment
       data {
         ...TweetFragment
@@ -22,7 +22,7 @@ const createTweet = gql`
 const getTweets = gql`
   query {
     feed {
-     ...TweetFragment
+      ...TweetFragment
     }
   }
   ${TweetFragments}
@@ -48,20 +48,27 @@ export class TweetsService {
   constructor(private apollo: Apollo) {
   }
 
-  createTweet(text: string, photos: string[]): Observable<Response<Tweet>> {
-    return this.apollo.mutate<{ createTweet: Response<Tweet> }>({
-      mutation: createTweet,
-      variables: { text, photos },
-    }).pipe(
-      map(result => result.data),
-      map(result => result.createTweet),
-      switchMap(data => {
-        if (data.status === ResponseStatus.Error) {
-          return throwError(data)
-        }
-        return of(data)
-      }),
-    )
+  createTweet(
+    text: string,
+    photos: string[],
+    retweetFrom?: string,
+    replyTo?: string,
+  ): Observable<Response<Tweet>> {
+    return this.apollo
+      .mutate<{ createTweet: Response<Tweet> }>({
+        mutation: createTweet,
+        variables: { text, photos, retweetFrom, replyTo },
+      })
+      .pipe(
+        map(result => result.data),
+        map(result => result.createTweet),
+        switchMap(data => {
+          if (data.status === ResponseStatus.Error) {
+            return throwError(data)
+          }
+          return of(data)
+        }),
+      )
   }
 
   getTweets(): Observable<Tweet[]> {
@@ -73,18 +80,20 @@ export class TweetsService {
   }
 
   likeTweet(tweetId: string, isLike: boolean): Observable<Response<Tweet>> {
-    return this.apollo.mutate<{ likeTweet: Response<Tweet> }>({
-      mutation: likeTweet,
-      variables: { tweetId, isLike },
-    }).pipe(
-      map(result => result.data),
-      map(result => result.likeTweet),
-      switchMap(data => {
-        if (data.status === ResponseStatus.Error) {
-          return throwError(data)
-        }
-        return of(data)
-      }),
-    )
+    return this.apollo
+      .mutate<{ likeTweet: Response<Tweet> }>({
+        mutation: likeTweet,
+        variables: { tweetId, isLike },
+      })
+      .pipe(
+        map(result => result.data),
+        map(result => result.likeTweet),
+        switchMap(data => {
+          if (data.status === ResponseStatus.Error) {
+            return throwError(data)
+          }
+          return of(data)
+        }),
+      )
   }
 }

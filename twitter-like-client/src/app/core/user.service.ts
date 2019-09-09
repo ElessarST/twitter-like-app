@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import gql from 'graphql-tag'
 import { Apollo } from 'apollo-angular'
-import { User } from '../models/User'
+import { User } from '../models'
 import { map } from 'rxjs/operators'
 
 const getCurrentUser = gql`

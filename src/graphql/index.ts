@@ -23,12 +23,33 @@ export const resolvers = {
     likedBy({ likedBy = [] }: ITweet) {
       return likedBy.length > 0 ? UserService.findByIds(likedBy) : []
     },
+    async retweetFrom(tweet: ITweet) {
+      if (!tweet.retweetFrom) {
+        return null
+      }
+      return TweetService.findById(tweet.retweetFrom)
+    },
+    async replyTo(tweet: ITweet) {
+      if (!tweet.replyTo) {
+        return null
+      }
+      return TweetService.findById(tweet.replyTo)
+    },
+    async retweetsCount(tweet: ITweet) {
+      return TweetService.findRetweets(tweet._id)
+    },
+    async replies(tweet: ITweet) {
+      return TweetService.findReplies(tweet._id) || []
+    },
   },
   Mutation: {
     createTweet: async (parent, args, context) => {
-      const { text, photos } = args
+      const { text, photos, retweetFrom, replyTo } = args
       try {
-        const newTweet = await TweetService.create({ text, photos }, getUserId(context))
+        const newTweet = await TweetService.create(
+          { text, photos, retweetFrom, replyTo },
+          getUserId(context),
+        )
         return createSuccessResponse<ITweet>(newTweet)
       } catch (errors) {
         return createErrorResponse('There was an error while creating tweet', errors)
@@ -42,7 +63,7 @@ export const resolvers = {
       } catch (errors) {
         return createErrorResponse('', errors)
       }
-    }
+    },
   },
   JSON: GraphQLJSON,
 }
