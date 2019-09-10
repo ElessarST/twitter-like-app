@@ -45,7 +45,7 @@ export class EditProfileDialogComponent implements OnInit {
     }
     this.loading = true
     this.userService.editProfile(this.values).subscribe(
-      (response) => this.dialogRef.close(response.data),
+      response => this.dialogRef.close(response.data),
       (error: Response<User>) => {
         setServerErrors(this.editProfileForm, error.fieldErrors)
         this.loading = false

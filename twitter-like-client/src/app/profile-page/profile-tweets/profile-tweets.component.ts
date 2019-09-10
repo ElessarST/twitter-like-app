@@ -18,8 +18,8 @@ export class ProfileTweetsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select(selectTweets).subscribe(tweets => this.tweets = tweets)
-    this.store.select(selectIsTweetsLoading).subscribe(isLoading => this.isLoading)
+    this.store.select(selectTweets).subscribe(tweets => (this.tweets = tweets))
+    this.store.select(selectIsTweetsLoading).subscribe(isLoading => (this.isLoading = isLoading))
   }
 
   onReply(tweet: Tweet, reply: Tweet) {
