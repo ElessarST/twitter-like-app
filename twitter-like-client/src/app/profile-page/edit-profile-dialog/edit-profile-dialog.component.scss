@@ -1,0 +1,21 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .modal-title {
+    margin-bottom: 0;
+  }
+}
+
+.edit-profile-wrapper {
+  display: flex;
+}
+
+.edit-profile-info-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  margin-left: 16px;
+}

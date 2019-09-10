@@ -21,9 +21,9 @@ export const typeDefs = gql`
 
   type User {
     _id: String
-    username: String
-    name: String
-    email: String
+    username: String!
+    name: String!
+    email: String!
     bio: String
     photoUrl: String
     followers: [User]
@@ -41,13 +41,23 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createTweet(
-      text: String!
-      photos: [String]
-      retweetFrom: String
-      replyTo: String
-    ): TweetMutationResponse
+    createTweet(tweet: TweetInput!): TweetMutationResponse
     likeTweet(tweetId: String!, isLike: Boolean): TweetMutationResponse
+    editProfile(profile: EditProfileInput): UserMutationResponse
+  }
+  
+  input EditProfileInput {
+    name: String!
+    username: String!
+    photoUrl: String
+    bio: String
+  }
+
+  input TweetInput {
+    text: String!
+    photos: [String]
+    retweetFrom: String
+    replyTo: String
   }
 
   interface MutationResponse {
@@ -61,5 +71,12 @@ export const typeDefs = gql`
     error: String
     fieldErrors: JSON
     data: Tweet
+  }
+
+  type UserMutationResponse implements MutationResponse {
+    status: String!
+    error: String
+    fieldErrors: JSON
+    data: User
   }
 `

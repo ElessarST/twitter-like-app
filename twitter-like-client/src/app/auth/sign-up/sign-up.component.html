@@ -44,7 +44,10 @@
             [disabled]="signUpForm.invalid"
             class="signup-action"
           >
-            Sign Up
+            <span *ngIf="!loading">Sign Up</span>
+            <div class="centered-spinner-container" *ngIf="loading">
+              <mat-spinner [diameter]="32"></mat-spinner>
+            </div>
           </button>
           <a routerLink="/login" class="login-action">Already have an account? Login Here!</a>
         </div>

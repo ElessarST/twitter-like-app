@@ -18,5 +18,9 @@
       </div>
     </div>
   </div>
-  <div class="profile-actions"></div>
+  <div class="profile-actions">
+    <div *ngIf="isCurrentUser">
+      <button color="primary" mat-stroked-button (click)="openEditProfileDialog()">Edit Profile</button>
+    </div>
+  </div>
 </div>

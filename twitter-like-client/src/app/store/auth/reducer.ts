@@ -5,7 +5,7 @@ import * as AuthActions from './actions'
 export const authReducer = createReducer(
   initialAuthState,
   on(AuthActions.getCurrentUser, state => ({ ...state, isFetchingCurrentUser: true })),
-  on(AuthActions.getCurrentUserSuccess, (state, user) => ({
+  on(AuthActions.getCurrentUserSuccess, (state, { user }) => ({
     ...state,
     isFetchingCurrentUser: false,
     currentUser: user,

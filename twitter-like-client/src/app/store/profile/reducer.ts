@@ -19,6 +19,7 @@ export const profileReducer = createReducer<IProfileState>(
   })),
   on(ProfileActions.getTweetsError, state => ({ ...state, isTweetsLoading: false })),
   on(ProfileActions.updateTweet, (state, { tweet }) => adapter.upsertOne(tweet, state)),
+  on(ProfileActions.updateUser, (state, { user }) => ({ ...state, user })),
   on(ProfileActions.addReply, (state, { reply, tweet }) => {
     const tweetWithReply: Tweet = {
       ...tweet,

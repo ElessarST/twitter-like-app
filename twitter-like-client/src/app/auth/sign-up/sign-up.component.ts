@@ -5,6 +5,8 @@ import { AuthService } from '../auth.service'
 import { getCurrentUser } from '../../store/auth/actions'
 import { IAppState } from '../../store/app/state'
 import { Store } from '@ngrx/store'
+import { setServerErrors } from '../../utils/response'
+import { Response, User } from '../../models'
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +17,6 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup
   loading = false
   submitted = false
-  error = ''
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,14 +50,8 @@ export class SignUpComponent implements OnInit {
         this.store.dispatch(getCurrentUser({}))
         return this.router.navigate(['/'])
       },
-      error => {
-        Object.entries(error.fieldErrors).forEach(([key, value]) => {
-          const control = this.signUpForm.get(key)
-          control.setErrors({
-            serverError: value,
-          })
-        })
-        this.error = error
+      (error: Response<User>) => {
+        setServerErrors(this.signUpForm, error.fieldErrors)
         this.loading = false
       },
     )

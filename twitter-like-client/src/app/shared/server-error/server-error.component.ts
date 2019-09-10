@@ -21,5 +21,4 @@ export class ServerErrorComponent implements OnInit {
     const control = this.form.get(this.field)
     return get(control, 'errors', null)
   }
-
 }

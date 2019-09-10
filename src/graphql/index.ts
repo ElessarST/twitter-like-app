@@ -1,5 +1,5 @@
 import { TweetService, UserService } from '../services'
-import { ITweet } from '../database'
+import { ITweet, IUser } from '../database'
 import GraphQLJSON from 'graphql-type-json'
 import { createErrorResponse, createSuccessResponse } from '../utils/response'
 import { ApolloError } from 'apollo-server-core'
@@ -56,13 +56,9 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createTweet: async (parent, args, context) => {
-      const { text, photos, retweetFrom, replyTo } = args
+    createTweet: async (parent, { tweet }, context) => {
       try {
-        const newTweet = await TweetService.create(
-          { text, photos, retweetFrom, replyTo },
-          getUserId(context),
-        )
+        const newTweet = await TweetService.create(tweet, getUserId(context))
         return createSuccessResponse<ITweet>(newTweet)
       } catch (errors) {
         return createErrorResponse('There was an error while creating tweet', errors)
@@ -73,6 +69,14 @@ export const resolvers = {
         const { tweetId, isLike } = args
         const tweet = await TweetService.toggleLike(tweetId, isLike, getUserId(context))
         return createSuccessResponse<ITweet>(tweet)
+      } catch (errors) {
+        return createErrorResponse('', errors)
+      }
+    },
+    editProfile: async (parent, { profile }, context) => {
+      try {
+        const user = await UserService.updateProfile(profile, getUserId(context))
+        return createSuccessResponse<IUser>(user)
       } catch (errors) {
         return createErrorResponse('', errors)
       }

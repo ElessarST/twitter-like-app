@@ -35,3 +35,4 @@ export const addRetweet = createAction(
   props<{ tweet: Tweet; retweet: Tweet }>(),
 )
 export const updateTweet = createAction(ProfileActionType.UpdateTweet, props<{ tweet: Tweet }>())
+export const updateUser = createAction(ProfileActionType.UpdateUser, props<{ user: User }>())

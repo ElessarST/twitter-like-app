@@ -1,28 +1,17 @@
 import { ITweet, TweetModel } from '../database'
 import { Types } from 'mongoose'
-import * as yup from 'yup'
 import { Identifier } from '../database/Identifier'
 import { UserService } from './index'
-
-const toObjectId = (id: string): Types.ObjectId => new Types.ObjectId(id)
+import { CreateTweetSchema } from './validationSchemas/tweetValidationsSchemas'
+import { toObjectId } from '../utils/mongooseUtils'
 
 async function findById(id: Identifier) {
-  return TweetModel.findById(new Types.ObjectId(id)).exec()
+  return TweetModel.findById(toObjectId(id)).exec()
 }
 
 async function findAll() {
   return TweetModel.find().exec()
 }
-
-const CreateTweetSchema = yup.object().shape({
-  text: yup
-    .string()
-    .required()
-    .test('max-tweet-len', 'Tweet text length can be larger than 256', val => val.length <= 256),
-  photos: yup.array().of(yup.string()),
-  retweetFrom: yup.string(),
-  replyTo: yup.string(),
-})
 
 async function create(tweet: Partial<ITweet>, createdBy: string) {
   const validatedTweet = await CreateTweetSchema.validate(tweet, {

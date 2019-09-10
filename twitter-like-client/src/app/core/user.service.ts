@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import gql from 'graphql-tag'
 import { Apollo } from 'apollo-angular'
-import { User } from '../models'
-import { map } from 'rxjs/operators'
-import { UserFragments } from './fragments'
+import { Response, ResponseStatus, User } from '../models'
+import { map, switchMap } from 'rxjs/operators'
+import { CommonFragments, UserFragments } from './fragments'
+import { Observable, of, throwError } from 'rxjs'
 
 const getCurrentUser = gql`
   {
@@ -22,6 +23,19 @@ const getUser = gql`
     }
   }
   ${UserFragments}
+`
+
+const editProfile = gql`
+  mutation editProfile($profile: EditProfileInput!) {
+    editProfile(profile: $profile) {
+      ...ResponseFragment
+      data {
+        ...UserFragment
+      }
+    }
+  }
+  ${UserFragments}
+  ${CommonFragments}
 `
 
 @Injectable({
@@ -46,5 +60,23 @@ export class UserService {
         variables: { username },
       })
       .pipe(map(resp => resp.data.user ? resp.data.user : null))
+  }
+
+  editProfile(profile: User): Observable<Response<User>> {
+    return this.apollo
+      .mutate<{ editProfile: Response<User> }>({
+        mutation: editProfile,
+        variables: { profile },
+      })
+      .pipe(
+        map(result => result.data),
+        map(result => result.editProfile),
+        switchMap(data => {
+          if (data.status === ResponseStatus.Error) {
+            return throwError(data)
+          }
+          return of(data)
+        }),
+      )
   }
 }

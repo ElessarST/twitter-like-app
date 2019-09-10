@@ -6,7 +6,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { UserService } from '../services'
 import { sendError, sendSuccess } from '../utils/response'
-import { SignUpSchema } from './validationSchemas'
 
 const params = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -52,7 +51,6 @@ export const login = [
 
 export async function signUp(req: Express.Request, res: Express.Response) {
   try {
-    await SignUpSchema.validate(req.body, { abortEarly: false })
     const user = await UserService.createUser(req.body)
     const token = jwt.sign({ _id: user._id }, 'secret')
     return sendSuccess(res, { token })

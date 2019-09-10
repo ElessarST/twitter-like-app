@@ -7,8 +7,21 @@ import { Observable, of, throwError } from 'rxjs'
 import { CommonFragments, TweetFragments } from './fragments'
 
 const createTweet = gql`
-  mutation createTweet($text: String!, $photos: [String], $retweetFrom: String, $replyTo: String) {
-    createTweet(text: $text, photos: $photos, retweetFrom: $retweetFrom, replyTo: $replyTo) {
+  mutation createTweet($tweet: TweetInput!) {
+    createTweet(tweet: $tweet) {
+      ...ResponseFragment
+      data {
+        ...TweetFragment
+      }
+    }
+  }
+  ${TweetFragments}
+  ${CommonFragments}
+`
+
+const likeTweet = gql`
+  mutation likeTweet($tweetId: String!, $isLike: Boolean) {
+    likeTweet(tweetId: $tweetId, isLike: $isLike) {
       ...ResponseFragment
       data {
         ...TweetFragment
@@ -46,19 +59,6 @@ const getTweetById = gql`
   ${TweetFragments}
 `
 
-const likeTweet = gql`
-  mutation likeTweet($tweetId: String!, $isLike: Boolean) {
-    likeTweet(tweetId: $tweetId, isLike: $isLike) {
-      ...ResponseFragment
-      data {
-        ...TweetFragment
-      }
-    }
-  }
-  ${TweetFragments}
-  ${CommonFragments}
-`
-
 @Injectable({
   providedIn: 'root',
 })
@@ -75,7 +75,7 @@ export class TweetsService {
     return this.apollo
       .mutate<{ createTweet: Response<Tweet> }>({
         mutation: createTweet,
-        variables: { text, photos, retweetFrom, replyTo },
+        variables: { tweet: { text, photos, retweetFrom, replyTo } },
       })
       .pipe(
         map(result => result.data),
