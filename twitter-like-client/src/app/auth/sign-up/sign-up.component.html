@@ -29,6 +29,11 @@
           <app-server-error [form]="signUpForm" field="name"></app-server-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
+          <mat-label>Bio</mat-label>
+          <textarea matInput placeholder="Add Your Bio" formControlName="bio"></textarea>
+          <app-server-error [form]="signUpForm" field="bio"></app-server-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput placeholder="Password" type="password" formControlName="password"/>
         </mat-form-field>

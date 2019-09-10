@@ -1,0 +1,14 @@
+<div *ngIf="isLoading" class="full-width-spinner-container">
+  <mat-spinner [diameter]="32"></mat-spinner>
+</div>
+<div *ngIf="!isLoading">
+  <div class="tweet-wrapper" *ngFor="let tweet of tweets; trackBy: getTweetId">
+    <app-tweet
+      [tweet]="tweet"
+      (onReply)="onReply(tweet, $event)"
+      (onLike)="onLike($event)"
+      (onRetweet)="onRetweet(tweet, $event)"
+    ></app-tweet>
+  </div>
+  <div *ngIf="!tweets.length" class="no-tweets">No Tweets Yet</div>
+</div>

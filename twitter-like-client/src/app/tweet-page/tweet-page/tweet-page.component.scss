@@ -1,10 +1,7 @@
-@import "~src/theme";
-
-.replies-container {
-  padding: 16px;
-}
+@import '~src/theme';
 
 .no-replies {
+  padding: 16px;
   color: $text-secondary-color;
 }
 

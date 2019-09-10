@@ -2,8 +2,13 @@
 <div class="full-width-spinner-container" *ngIf="isLoading">
   <mat-spinner [diameter]="32"></mat-spinner>
 </div>
-<app-tweet [tweet]="tweet" *ngIf="!isLoading" (onLike)="onLike($event)" (onRetweet)="onRetweet($event)"
-           (onReply)="onReply($event)"></app-tweet>
+<app-tweet
+  [tweet]="tweet"
+  *ngIf="!isLoading && tweet"
+  (onLike)="onLike($event)"
+  (onRetweet)="onRetweet($event)"
+  (onReply)="onReply($event)"
+></app-tweet>
 <div class="replies-header">
   <h3>Replies</h3>
 </div>

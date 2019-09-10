@@ -1,1 +1,5 @@
-<app-page-title canGoBack="true" title="Profile"></app-page-title>
+<app-page-title canGoBack="true" [title]="nameWithTweets"></app-page-title>
+<ng-container>
+  <app-profile-info></app-profile-info>
+  <app-profile-tweets></app-profile-tweets>
+</ng-container>

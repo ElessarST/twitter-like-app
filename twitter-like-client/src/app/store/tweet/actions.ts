@@ -9,6 +9,9 @@ export enum TweetActionType {
 }
 
 export const getTweet = createAction(TweetActionType.GetTweet, props<{ tweetId: string }>())
-export const getTweetSuccess = createAction(TweetActionType.GetTweetSuccess, props<Tweet>())
+export const getTweetSuccess = createAction(
+  TweetActionType.GetTweetSuccess,
+  props<{ tweet: Tweet }>(),
+)
 export const getTweetError = createAction(TweetActionType.GetTweetError, props<{}>())
-export const updateTweet = createAction(TweetActionType.UpdateTweet, props<Tweet>())
+export const updateTweet = createAction(TweetActionType.UpdateTweet, props<{ tweet: Tweet }>())

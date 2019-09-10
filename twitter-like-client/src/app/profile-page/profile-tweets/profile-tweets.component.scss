@@ -1,0 +1,10 @@
+@import "~src/theme";
+
+.tweet-wrapper {
+  border-bottom: 1px solid $border-color;
+}
+
+.no-tweets {
+  padding: 16px;
+  color: $text-secondary-color;
+}

@@ -17,7 +17,7 @@ export class AuthEffects {
     switchMap(() =>
       this.authService.fetchCurrentUser().pipe(
         map(user => AuthActions.getCurrentUserSuccess(user)),
-        catchError(() => of(AuthActions.getCurrentUserError)),
+        catchError(() => of(AuthActions.getCurrentUserError({}))),
       ),
     ),
   )

@@ -20,7 +20,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           const data = res.body.data || {}
           const graphqlKey = Object.keys(data)
           const responseData = data[graphqlKey[0]]
-          if (responseData.error) {
+          if (!responseData) {
+            if (get(res, 'body.errors[0].extensions.code') === 'NOT_FOUND') {
+              this.alertsService.push(res.body.errors[0].message)
+            }
+          } else if (responseData.error) {
             this.alertsService.push(responseData.error)
           }
         }
@@ -34,6 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authenticationService.logout()
           location.reload()
         }
+        console.log(err)
 
         return throwError(err.error)
       })

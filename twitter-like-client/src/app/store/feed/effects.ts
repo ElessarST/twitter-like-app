@@ -15,7 +15,7 @@ export class FeedEffects {
   getFeed$ = this._actions$.pipe(
     ofType(FeedActions.getFeed),
     switchMap(() =>
-      this.tweetService.getTweets().pipe(
+      this.tweetService.getFeed().pipe(
         map(tweets => FeedActions.getFeedSuccess({ tweets })),
         catchError(() => of(FeedActions.getFeedError({}))),
       ),

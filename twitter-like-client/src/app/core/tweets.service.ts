@@ -28,6 +28,15 @@ const getTweets = gql`
   ${TweetFragments}
 `
 
+const getTweetsByUsername = gql`
+  query tweets($username: String!) {
+    tweets(username: $username) {
+      ...TweetFragment
+    }
+  }
+  ${TweetFragments}
+`
+
 const getTweetById = gql`
   query tweet($tweetId: String!) {
     tweet(tweetId: $tweetId) {
@@ -80,12 +89,21 @@ export class TweetsService {
       )
   }
 
-  getTweets(): Observable<Tweet[]> {
+  getFeed(): Observable<Tweet[]> {
     return this.apollo
       .query<{ feed: Tweet[] }>({
         query: getTweets,
       })
       .pipe(map(result => result.data.feed))
+  }
+
+  getTweetsByUser(username: string): Observable<Tweet[]> {
+    return this.apollo
+      .query<{ tweets: Tweet[] }>({
+        query: getTweetsByUsername,
+        variables: { username },
+      })
+      .pipe(map(result => result.data.tweets))
   }
 
   getTweetById(tweetId: string): Observable<Tweet> {

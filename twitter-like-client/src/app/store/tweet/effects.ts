@@ -13,7 +13,7 @@ export class TweetEffects {
     ofType(TweetActions.getTweet),
     switchMap(action =>
       this.tweetsService.getTweetById(action.tweetId).pipe(
-        map(tweet => TweetActions.getTweetSuccess(tweet)),
+        map(tweet => TweetActions.getTweetSuccess({ tweet })),
         catchError(() => of(TweetActions.getTweetError({}))),
       )
     )

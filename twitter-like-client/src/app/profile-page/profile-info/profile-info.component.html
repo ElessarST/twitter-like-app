@@ -1,0 +1,22 @@
+<div *ngIf="isLoading" class="full-width-spinner-container">
+  <mat-spinner [diameter]="32"></mat-spinner>
+</div>
+<div *ngIf="user" class="profile-info-container">
+  <div class="profile-info">
+    <app-avatar [url]="user.photoUrl" large="true"></app-avatar>
+    <div class="mat-title profile-name">{{ user.name }}</div>
+    <div class="profile-username">@{{ user.username }}</div>
+    <div class="profile-bio">{{ user.bio }}</div>
+    <div class="profile-follow-info-container">
+      <div class="profile-follow-info">
+        <span class="profile-follow-info-count">217</span>
+        <span>Following</span>
+      </div>
+      <div class="profile-follow-info">
+        <span class="profile-follow-info-count">1.2M</span>
+        <span>Followers</span>
+      </div>
+    </div>
+  </div>
+  <div class="profile-actions"></div>
+</div>

@@ -6,5 +6,6 @@ export const UserFragments = gql`
     name
     username
     photoUrl
+    bio
   }
 `

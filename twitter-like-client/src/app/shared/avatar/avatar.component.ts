@@ -36,7 +36,8 @@ export class AvatarComponent implements OnInit {
       fileItem.withCredentials = false
       return { fileItem, form }
     }
-    this.fileUploader.onCompleteItem = (item: any, response: string) => this.onChange.emit(JSON.parse(response).url)
+    this.fileUploader.onCompleteItem = (item: any, response: string) =>
+      this.onChange.emit(JSON.parse(response).url)
   }
 
   get avatarUrl() {

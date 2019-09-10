@@ -29,16 +29,18 @@ export class TweetPageComponent implements OnInit {
   }
 
   onLike(tweet) {
-    this.store.dispatch(updateTweet(tweet))
+    this.store.dispatch(updateTweet({ tweet }))
   }
 
   onReply(reply) {
     const { replies } = this.tweet
-    this.store.dispatch(updateTweet({ ...this.tweet, replies: [...replies, reply] }))
+    const tweet = { ...this.tweet, replies: [...replies, reply] }
+    this.store.dispatch(updateTweet({ tweet }))
   }
 
   onRetweet() {
     const { retweetsCount } = this.tweet
-    this.store.dispatch(updateTweet({ ...this.tweet, retweetsCount: retweetsCount + 1 }))
+    const tweet = { ...this.tweet, retweetsCount: retweetsCount + 1 }
+    this.store.dispatch(updateTweet({ tweet }))
   }
 }

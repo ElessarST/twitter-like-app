@@ -3,15 +3,25 @@ import gql from 'graphql-tag'
 import { Apollo } from 'apollo-angular'
 import { User } from '../models'
 import { map } from 'rxjs/operators'
+import { UserFragments } from './fragments'
 
 const getCurrentUser = gql`
   {
     currentUser {
-      name
+      ...UserFragment
       email
-      photoUrl
     }
   }
+  ${UserFragments}
+`
+
+const getUser = gql`
+  query user($username: String!) {
+    user(username: $username) {
+      ...UserFragment
+    }
+  }
+  ${UserFragments}
 `
 
 @Injectable({
@@ -23,9 +33,18 @@ export class UserService {
 
   getCurrentUser() {
     return this.apollo
-      .watchQuery<{ currentUser: User }>({
+      .query<{ currentUser: User }>({
         query: getCurrentUser,
       })
-      .valueChanges.pipe(map(resp => resp.data && resp.data.currentUser))
+      .pipe(map(resp => resp.data && resp.data.currentUser))
+  }
+
+  getUser(username: string) {
+    return this.apollo
+      .query<{ user: User }>({
+        query: getUser,
+        variables: { username },
+      })
+      .pipe(map(resp => resp.data.user ? resp.data.user : null))
   }
 }

@@ -1,0 +1,47 @@
+@import "~src/theme";
+
+.profile-info-container {
+  padding: 16px;
+  display: flex;
+  border-bottom: 1px solid $border-color;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name {
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+
+.profile-bio {
+  margin: 8px 0;
+  color: white;
+}
+
+.profile-username {
+  color: $text-secondary-color;
+}
+
+.profile-follow-info {
+  display: flex;
+}
+
+.profile-follow-info-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-follow-info {
+  margin-top: 8px;
+  color: $text-secondary-color;
+  margin-right: 4px;
+}
+
+.profile-follow-info-count {
+  color: white;
+  font-weight: bold;
+  margin-right: 2px;
+}

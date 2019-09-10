@@ -18,9 +18,7 @@ export const TweetFragments = gql`
   fragment TweetFragment on Tweet {
     ...ShortTweetInfoFragment
     likedBy {
-      name
-      username
-      photoUrl
+     ...UserFragment
     }
     createdBy {
       ...UserFragment

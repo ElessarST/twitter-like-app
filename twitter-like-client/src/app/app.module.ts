@@ -19,6 +19,7 @@ import { appReducers } from './store/app/reducer'
 import { AuthEffects } from './store/auth/effects'
 import { FeedEffects } from './store/feed/effects'
 import { TweetEffects } from './store/tweet/effects'
+import { ProfileEffects } from './store/profile/effects'
 import { TweetPageModule } from './tweet-page/tweet-page.module'
 import { ProfilePageModule } from './profile-page/profile-page.module'
 
@@ -38,7 +39,7 @@ import { ProfilePageModule } from './profile-page/profile-page.module'
     CoreModule,
     TweetPageModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects, FeedEffects, TweetEffects]),
+    EffectsModule.forRoot([AuthEffects, FeedEffects, TweetEffects, ProfileEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),

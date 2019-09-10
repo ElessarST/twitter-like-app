@@ -4,4 +4,5 @@ export type User = {
   photoUrl: string
   name: string
   username: string
+  bio: string
 }

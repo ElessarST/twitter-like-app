@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { getTweets, getUser } from '../../store/profile/actions'
+import { Store } from '@ngrx/store'
+import { IAppState } from '../../store/app/state'
+import { selectTweetsCount, selectUserName } from '../../store/profile/selectors'
 
 @Component({
   selector: 'app-profile-page',
@@ -6,11 +11,25 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
+  private name: string
+  private tweetsCount: number
 
-  constructor() {
+  constructor(private route: ActivatedRoute, private store: Store<IAppState>) {
   }
 
   ngOnInit() {
+    this.store.select(selectUserName).subscribe(name => (this.name = name))
+    this.store.select(selectTweetsCount).subscribe(tweetsCount => (this.tweetsCount = tweetsCount))
+    this.route.paramMap.subscribe(params => {
+      const username = params.get('username')
+      this.store.dispatch(getUser({ username }))
+      this.store.dispatch(getTweets({ username }))
+    })
   }
 
+  get nameWithTweets() {
+    const name = this.name || 'Profile'
+    const tweets = this.tweetsCount ? `(${this.tweetsCount} tweets)` : ''
+    return `${name} ${tweets}`
+  }
 }

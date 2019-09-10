@@ -2,16 +2,28 @@ import { TweetService, UserService } from '../services'
 import { ITweet } from '../database'
 import GraphQLJSON from 'graphql-type-json'
 import { createErrorResponse, createSuccessResponse } from '../utils/response'
+import { ApolloError } from 'apollo-server-core'
 
 function getUserId(context) {
   return context.user._id
+}
+
+function checkRequired(data, message) {
+  if (!data) {
+    throw new ApolloError(message, 'NOT_FOUND')
+  }
+  return data
 }
 
 export const resolvers = {
   Query: {
     currentUser: (parent, args, context) => context.user,
     feed: () => TweetService.findAll(),
-    tweet: (parent, args) => TweetService.findById(args.tweetId),
+    user: async (parent, args) =>
+      checkRequired(await UserService.findByUsername(args.username), 'User Not Found'),
+    tweet: async (parent, args) =>
+      checkRequired(await TweetService.findById(args.tweetId), 'Tweet Not Found'),
+    tweets: (parent, args) => TweetService.findByUsername(args.username),
   },
   Tweet: {
     async createdBy(tweet: ITweet) {

@@ -2,6 +2,7 @@ import { ITweet, TweetModel } from '../database'
 import { Types } from 'mongoose'
 import * as yup from 'yup'
 import { Identifier } from '../database/Identifier'
+import { UserService } from './index'
 
 const toObjectId = (id: string): Types.ObjectId => new Types.ObjectId(id)
 
@@ -54,6 +55,14 @@ async function findReplies(_id: Identifier) {
   return TweetModel.find({ replyTo: _id }).exec()
 }
 
+async function findByUsername(username: string) {
+  const user = await UserService.findByUsername(username)
+  if (user) {
+    return TweetModel.find({ createdBy: user._id }).exec()
+  }
+  return []
+}
+
 export default {
   create,
   findById,
@@ -61,4 +70,5 @@ export default {
   toggleLike,
   findRetweets,
   findReplies,
+  findByUsername,
 }
