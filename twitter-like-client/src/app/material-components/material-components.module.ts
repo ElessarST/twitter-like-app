@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
@@ -45,6 +46,7 @@ import {
     MatSlideToggleModule,
     MatSidenavModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatCardModule,
@@ -66,6 +68,7 @@ import {
     MatSlideToggleModule,
     MatSidenavModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
   providers: [MatDatepickerModule],
 })

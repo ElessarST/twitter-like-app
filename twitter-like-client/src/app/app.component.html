@@ -11,5 +11,9 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="trends-container" *ngIf="isLoggedIn"></div>
+  <div class="trends-container" *ngIf="isLoggedIn">
+    <div class="search-container">
+      <app-search-panel></app-search-panel>
+    </div>
+  </div>
 </div>

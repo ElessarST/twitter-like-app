@@ -16,6 +16,6 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select(selectCurrentUser).subscribe(user => this.user = user)
+    this.store.select(selectCurrentUser).subscribe(user => (this.user = user))
   }
 }

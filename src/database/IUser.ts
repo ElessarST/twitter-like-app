@@ -24,4 +24,6 @@ const UserSchema: Schema = new Schema({
   followers: [String],
 })
 
+UserSchema.index({ name: 'text', username: 'text' })
+
 export default mongoose.model<IUser>('User', UserSchema)

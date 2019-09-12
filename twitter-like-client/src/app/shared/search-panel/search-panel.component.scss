@@ -1,0 +1,33 @@
+@import "~src/theme";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 16px;
+}
+
+.user-option-wrapper {
+  padding: 8px;
+  display: flex;
+  height: 70px;
+}
+
+.user-option {
+  display: flex;
+}
+
+.user-option-name {
+  margin-left: 8px;
+}
+
+.user-option-username {
+  margin-left: 8px;
+  color: $text-secondary-color;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-input {
+  min-width: 280px;
+}

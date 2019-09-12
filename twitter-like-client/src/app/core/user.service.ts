@@ -3,9 +3,9 @@ import gql from 'graphql-tag'
 import { Apollo } from 'apollo-angular'
 import { Response, User } from '../models'
 import { map, switchMap } from 'rxjs/operators'
-import { CommonFragments } from './fragments'
+import { CommonFragments, UserFragment } from './fragments'
 import { Observable } from 'rxjs'
-import { FullUserFragments } from './fragments/UserFragments'
+import { FullUserFragment } from './fragments/UserFragment'
 import { checkError } from '../utils/response'
 
 const getCurrentUser = gql`
@@ -15,7 +15,7 @@ const getCurrentUser = gql`
       email
     }
   }
-  ${FullUserFragments}
+  ${FullUserFragment}
 `
 
 const getUser = gql`
@@ -24,7 +24,16 @@ const getUser = gql`
       ...FullUserFragment
     }
   }
-  ${FullUserFragments}
+  ${FullUserFragment}
+`
+
+const searchUser = gql`
+  query search($query: String!) {
+    search(query: $query) {
+      ...UserFragment
+    }
+  }
+  ${UserFragment}
 `
 
 const editProfile = gql`
@@ -36,7 +45,7 @@ const editProfile = gql`
       }
     }
   }
-  ${FullUserFragments}
+  ${FullUserFragment}
   ${CommonFragments}
 `
 
@@ -49,7 +58,7 @@ const follow = gql`
       }
     }
   }
-  ${FullUserFragments}
+  ${FullUserFragment}
   ${CommonFragments}
 `
 
@@ -62,7 +71,7 @@ const unfollow = gql`
       }
     }
   }
-  ${FullUserFragments}
+  ${FullUserFragment}
   ${CommonFragments}
 `
 
@@ -73,7 +82,7 @@ export class UserService {
   constructor(private apollo: Apollo) {
   }
 
-  getCurrentUser() {
+  getCurrentUser(): Observable<User> {
     return this.apollo
       .query<{ currentUser: User }>({
         query: getCurrentUser,
@@ -81,13 +90,22 @@ export class UserService {
       .pipe(map(resp => resp.data && resp.data.currentUser))
   }
 
-  getUser(username: string) {
+  getUser(username: string): Observable<User> {
     return this.apollo
       .query<{ user: User }>({
         query: getUser,
         variables: { username },
       })
-      .pipe(map(resp => resp.data.user ? resp.data.user : null))
+      .pipe(map(resp => (resp.data.user ? resp.data.user : null)))
+  }
+
+  searchUsers(query: string): Observable<User[]> {
+    return this.apollo
+      .query<{ search: User[] }>({
+        query: searchUser,
+        variables: { query },
+      })
+      .pipe(map(resp => resp.data.search))
   }
 
   editProfile(profile: User): Observable<Response<User>> {

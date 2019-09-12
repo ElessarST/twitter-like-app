@@ -15,6 +15,7 @@ import { AlertsComponent } from './alerts/alerts.component'
 import { RetweetModalComponent } from './retweet-modal/retweet-modal.component'
 import { ReplyModalComponent } from './reply-modal/reply-modal.component'
 import { UsersListComponent } from './users-list/users-list.component'
+import { SearchPanelComponent } from './search-panel/search-panel.component'
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { UsersListComponent } from './users-list/users-list.component'
     RetweetModalComponent,
     ReplyModalComponent,
     UsersListComponent,
+    SearchPanelComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +55,7 @@ import { UsersListComponent } from './users-list/users-list.component'
     AlertsComponent,
     RetweetModalComponent,
     UsersListComponent,
+    SearchPanelComponent,
   ],
 })
 export class SharedModule {}

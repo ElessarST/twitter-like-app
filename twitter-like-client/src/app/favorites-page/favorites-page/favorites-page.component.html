@@ -1,0 +1,15 @@
+<app-page-title title="Favorites"></app-page-title>
+<div *ngIf="isLoading" class="full-width-spinner-container">
+  <mat-spinner diameter="32"></mat-spinner>
+</div>
+<div *ngIf="!isLoading">
+  <div *ngFor="let tweet of tweets$ | async; trackBy: getId" class="tweet-wrapper">
+    <app-tweet
+      [tweet]="tweet"
+      (onReply)="onReply(tweet, $event)"
+      (onRetweet)="onRetweet(tweet, $event)"
+      (onLike)="onLike($event)"
+    ></app-tweet>
+  </div>
+</div>
+

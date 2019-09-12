@@ -61,6 +61,10 @@ async function unfollow(userId: Identifier, currentUserId: Identifier) {
   return changeFollowing(userId, currentUserId, false)
 }
 
+async function searchUser(query: string) {
+  return UserModel.find({ $text: { $search: query } }).exec()
+}
+
 export default {
   findByEmail,
   findById,
@@ -70,4 +74,5 @@ export default {
   updateProfile,
   follow,
   unfollow,
+  searchUser,
 }

@@ -1,0 +1,24 @@
+<div class="container">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-label>Username</mat-label>
+    <input
+      type="text"
+      placeholder="Type username"
+      matInput
+      [formControl]="searchUserControl"
+      [matAutocomplete]="searchUsersList"
+    />
+    <mat-autocomplete #searchUsersList="matAutocomplete">
+      <mat-option *ngFor="let user of users$ | async" class="user-option-wrapper">
+        <a [routerLink]="['/profile', user.username]">
+          <div class="user-option">
+            <app-avatar [url]="user.photoUrl"></app-avatar>
+            <span class="user-option-name">{{ user.name }}</span>
+            <span class="user-option-username">{{ user.username }}</span>
+          </div>
+        </a>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

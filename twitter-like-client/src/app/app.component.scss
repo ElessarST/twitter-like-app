@@ -13,6 +13,13 @@
   height: 100vh;
 }
 
+.search-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
 .content-container {
   flex: 2;
   max-width: 600px;

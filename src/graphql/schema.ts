@@ -33,6 +33,7 @@ export const typeDefs = gql`
   type Query {
     currentUser: User
     user(username: String!): User
+    search(query: String!): [User]
     feed: [Tweet]
     tweet(tweetId: String!): Tweet
     tweets(username: String!): [Tweet]
@@ -46,7 +47,7 @@ export const typeDefs = gql`
     follow(userId: String!): UserMutationResponse
     unfollow(userId: String!): UserMutationResponse
   }
-  
+
   input EditProfileInput {
     name: String!
     username: String!

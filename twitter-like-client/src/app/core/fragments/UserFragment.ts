@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const UserFragments = gql`
+export const UserFragment = gql`
   fragment UserFragment on User {
     _id
     name
@@ -10,7 +10,7 @@ export const UserFragments = gql`
   }
 `
 
-export const FullUserFragments = gql`
+export const FullUserFragment = gql`
   fragment FullUserFragment on User {
     ...UserFragment
     followers {
@@ -20,5 +20,5 @@ export const FullUserFragments = gql`
       ...UserFragment
     }
   }
-  ${UserFragments}
+  ${UserFragment}
 `

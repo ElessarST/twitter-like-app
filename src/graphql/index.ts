@@ -21,6 +21,7 @@ export const resolvers = {
     feed: (parent, args, context) => TweetService.getFeed(context.user),
     user: async (parent, { username }) =>
       checkRequired(await UserService.findByUsername(username), 'User Not Found'),
+    search: (parent, { query }) => UserService.searchUser(query),
     tweet: async (parent, { tweetId }) =>
       checkRequired(await TweetService.findById(tweetId), 'Tweet Not Found'),
     tweets: (parent, { username }) => TweetService.findByUsername(username),

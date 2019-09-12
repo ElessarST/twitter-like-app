@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { UserFragments } from './UserFragments'
+import { UserFragment } from './UserFragment'
 
 export const ShortTweetInfoFragment = gql`
   fragment ShortTweetInfoFragment on Tweet {
@@ -11,7 +11,7 @@ export const ShortTweetInfoFragment = gql`
       ...UserFragment
     }
   }
-  ${UserFragments}
+  ${UserFragment}
 `
 
 export const TweetFragments = gql`
@@ -35,5 +35,5 @@ export const TweetFragments = gql`
     }
   }
   ${ShortTweetInfoFragment}
-  ${UserFragments}
+  ${UserFragment}
 `
