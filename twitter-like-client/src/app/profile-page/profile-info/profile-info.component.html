@@ -8,12 +8,12 @@
     <div class="profile-username">@{{ user.username }}</div>
     <div class="profile-bio">{{ user.bio }}</div>
     <div class="profile-follow-info-container">
-      <div class="profile-follow-info">
-        <span class="profile-follow-info-count">217</span>
+      <div class="profile-follow-info" (click)="showFollowing()">
+        <span class="profile-follow-info-count">{{ user.following.length }}</span>
         <span>Following</span>
       </div>
-      <div class="profile-follow-info">
-        <span class="profile-follow-info-count">1.2M</span>
+      <div class="profile-follow-info" (click)="showFollowers()">
+        <span class="profile-follow-info-count">{{ user.followers.length }}</span>
         <span>Followers</span>
       </div>
     </div>
@@ -22,5 +22,13 @@
     <div *ngIf="isCurrentUser">
       <button color="primary" mat-stroked-button (click)="openEditProfileDialog()">Edit Profile</button>
     </div>
+    <ng-container *ngIf="!isCurrentUser">
+      <div *ngIf="!isFollowing">
+        <button color="primary" mat-stroked-button (click)="follow()">Follow</button>
+      </div>
+      <div *ngIf="isFollowing">
+        <button color="primary" mat-raised-button (click)="unfollow()">Following</button>
+      </div>
+    </ng-container>
   </div>
 </div>

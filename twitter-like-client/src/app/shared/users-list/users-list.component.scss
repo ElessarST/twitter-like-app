@@ -1,0 +1,20 @@
+@import "~src/theme";
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .modal-title {
+    margin-bottom: 0;
+  }
+}
+
+.users-list {
+  min-width: 200px;
+}
+
+.users-list-username {
+  color: $text-secondary-color;
+}

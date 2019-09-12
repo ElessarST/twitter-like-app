@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { getTweets, getUser } from '../../store/profile/actions'
+import { getProfile, getTweets } from '../../store/profile/actions'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
 import { selectTweetsCount, selectUserName } from '../../store/profile/selectors'
@@ -22,7 +22,7 @@ export class ProfilePageComponent implements OnInit {
     this.store.select(selectTweetsCount).subscribe(tweetsCount => (this.tweetsCount = tweetsCount))
     this.route.paramMap.subscribe(params => {
       const username = params.get('username')
-      this.store.dispatch(getUser({ username }))
+      this.store.dispatch(getProfile({ username }))
       this.store.dispatch(getTweets({ username }))
     })
   }

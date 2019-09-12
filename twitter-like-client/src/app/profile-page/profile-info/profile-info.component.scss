@@ -28,6 +28,11 @@
 
 .profile-follow-info {
   display: flex;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 .profile-follow-info-container {
@@ -38,11 +43,11 @@
 .profile-follow-info {
   margin-top: 8px;
   color: $text-secondary-color;
-  margin-right: 4px;
+  margin-right: 16px;
 }
 
 .profile-follow-info-count {
   color: white;
   font-weight: bold;
-  margin-right: 2px;
+  margin-right: 4px;
 }

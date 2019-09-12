@@ -7,7 +7,9 @@ import { selectCurrentUser } from '../../store/auth/selectors'
 import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-dialog.component'
 import { MatDialog } from '@angular/material'
 import { getCurrentUserSuccess } from '../../store/auth/actions'
-import { updateUser } from '../../store/profile/actions'
+import { updateProfile } from '../../store/profile/actions'
+import { UserService } from '../../core/user.service'
+import { UsersListComponent } from '../../shared/users-list/users-list.component'
 
 @Component({
   selector: 'app-profile-info',
@@ -19,7 +21,11 @@ export class ProfileInfoComponent implements OnInit {
   private currentUser: User
   private isLoading: boolean = true
 
-  constructor(private store: Store<IAppState>, private dialog: MatDialog) {
+  constructor(
+    private store: Store<IAppState>,
+    private userService: UserService,
+    private dialog: MatDialog,
+  ) {
   }
 
   ngOnInit() {
@@ -40,8 +46,53 @@ export class ProfileInfoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(user => {
       if (user) {
         this.store.dispatch(getCurrentUserSuccess({ user }))
-        this.store.dispatch(updateUser({ user }))
+        this.store.dispatch(updateProfile({ user }))
       }
+    })
+  }
+
+  follow() {
+    this.userService.follow(this.user).subscribe(({ data: user }) => {
+      this.store.dispatch(getCurrentUserSuccess({ user }))
+      this.store.dispatch(updateProfile({ user: this.withFollower(this.user) }))
+    })
+  }
+
+  unfollow() {
+    this.userService.unfollow(this.user).subscribe(({ data: user }) => {
+      this.store.dispatch(getCurrentUserSuccess({ user }))
+      this.store.dispatch(updateProfile({ user: this.withoutFollower(this.user) }))
+    })
+  }
+
+  get isFollowing() {
+    const { followers = [] } = this.user
+    return !!followers.find(f => f._id === this.currentUser._id)
+  }
+
+  private withFollower({ followers = [], ...user }: User) {
+    return {
+      ...user,
+      followers: [...followers, this.currentUser],
+    }
+  }
+
+  private withoutFollower({ followers = [], ...user }: User) {
+    return {
+      ...user,
+      followers: followers.filter(f => f._id !== this.currentUser._id),
+    }
+  }
+
+  private showFollowers() {
+    this.dialog.open(UsersListComponent, {
+      data: { users: this.user.followers, title: 'Followers' },
+    })
+  }
+
+  private showFollowing() {
+    this.dialog.open(UsersListComponent, {
+      data: { users: this.user.following, title: 'Following' },
     })
   }
 }

@@ -11,7 +11,6 @@ export const typeDefs = gql`
     createdBy: User
     createdAt: Date
     favoritesCount: Int
-    repostCount: Int
     likedBy: [User]
     replies: [Tweet]
     replyTo: Tweet
@@ -28,7 +27,6 @@ export const typeDefs = gql`
     photoUrl: String
     followers: [User]
     following: [User]
-    favorites: [Tweet]
     tweets: [Tweet]
   }
 
@@ -38,12 +36,15 @@ export const typeDefs = gql`
     feed: [Tweet]
     tweet(tweetId: String!): Tweet
     tweets(username: String!): [Tweet]
+    favorites: [Tweet]
   }
 
   type Mutation {
     createTweet(tweet: TweetInput!): TweetMutationResponse
     likeTweet(tweetId: String!, isLike: Boolean): TweetMutationResponse
     editProfile(profile: EditProfileInput): UserMutationResponse
+    follow(userId: String!): UserMutationResponse
+    unfollow(userId: String!): UserMutationResponse
   }
   
   input EditProfileInput {

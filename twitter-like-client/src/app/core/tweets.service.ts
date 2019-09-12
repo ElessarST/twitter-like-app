@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Apollo } from 'apollo-angular'
 import gql from 'graphql-tag'
-import { Response, ResponseStatus, Tweet } from '../models'
+import { Response, Tweet } from '../models'
 import { map, switchMap } from 'rxjs/operators'
-import { Observable, of, throwError } from 'rxjs'
+import { Observable } from 'rxjs'
 import { CommonFragments, TweetFragments } from './fragments'
+import { checkError } from '../utils/response'
 
 const createTweet = gql`
   mutation createTweet($tweet: TweetInput!) {
@@ -80,12 +81,7 @@ export class TweetsService {
       .pipe(
         map(result => result.data),
         map(result => result.createTweet),
-        switchMap(data => {
-          if (data.status === ResponseStatus.Error) {
-            return throwError(data)
-          }
-          return of(data)
-        })
+        switchMap(checkError),
       )
   }
 
@@ -124,12 +120,7 @@ export class TweetsService {
       .pipe(
         map(result => result.data),
         map(result => result.likeTweet),
-        switchMap(data => {
-          if (data.status === ResponseStatus.Error) {
-            return throwError(data)
-          }
-          return of(data)
-        })
+        switchMap(checkError),
       )
   }
 }

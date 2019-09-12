@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h2 mat-dialog-title class="modal-title">{{ title }}</h2>
+  <button mat-icon-button class="icon-button-highlight" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <mat-list class="users-list" *ngFor="let user of users">
+    <a [routerLink]="['profile', user.username]" mat-dialog-close>
+      <mat-list-item>
+        <app-avatar mat-list-avatar [url]="user.photoUrl"></app-avatar>
+        <h4 mat-line>{{ user.name }}</h4>
+        <p mat-line class="users-list-username">{{ user.username }}</p>
+      </mat-list-item>
+    </a>
+  </mat-list>
+  <p *ngIf="!users.length">No Users</p>
+</mat-dialog-content>

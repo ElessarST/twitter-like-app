@@ -5,4 +5,6 @@ export type User = {
   name: string
   username: string
   bio: string
+  followers: User[]
+  following: User[]
 }

@@ -8,7 +8,7 @@ export interface IUser extends Document {
   photoURL: string
   password: string
   salt: string
-  follows: string[]
+  following: string[]
   followers: string[]
 }
 
@@ -20,7 +20,7 @@ const UserSchema: Schema = new Schema({
   salt: { type: String, required: true },
   bio: String,
   photoUrl: String,
-  follows: [String],
+  following: [String],
   followers: [String],
 })
 

@@ -9,3 +9,16 @@ export const UserFragments = gql`
     bio
   }
 `
+
+export const FullUserFragments = gql`
+  fragment FullUserFragment on User {
+    ...UserFragment
+    followers {
+      ...UserFragment
+    }
+    following {
+      ...UserFragment
+    }
+  }
+  ${UserFragments}
+`

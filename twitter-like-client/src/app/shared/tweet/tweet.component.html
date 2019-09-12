@@ -1,13 +1,13 @@
 <div class="tweet-container" [class.hide-actions]="hideActions" (click)="goToTweet()">
-  <a [routerLink]="['profile', tweet.createdBy.username]">
+  <a [routerLink]="['/profile', tweet.createdBy.username]">
     <app-avatar [url]="tweet.createdBy.photoUrl"></app-avatar>
   </a>
   <div class="tweet-content">
     <div class="tweet-meta-info">
-      <a [routerLink]="['profile', tweet.createdBy.username]">
+      <a [routerLink]="['/profile', tweet.createdBy.username]">
         <span class="tweet-meta-item tweet-meta-info-name">{{ tweet.createdBy.name }}</span>
       </a>
-      <a [routerLink]="['profile', tweet.createdBy.username]">
+      <a [routerLink]="['/profile', tweet.createdBy.username]">
         <span class="tweet-meta-item tweet-meta-info-secondary">@{{ tweet.createdBy.username }}</span>
       </a>
       <span class="tweet-meta-item tweet-meta-info-secondary">{{ tweet.createdAt | tweetDate }}</span>

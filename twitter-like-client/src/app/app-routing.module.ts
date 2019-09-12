@@ -11,7 +11,7 @@ import { ProfilePageComponent } from './profile-page/profile-page/profile-page.c
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'feed',
     component: HomePageComponent,
     canActivate: [AuthGuard],
   },
@@ -36,7 +36,7 @@ const routes: Routes = [
     path: 'profile/:username',
     component: ProfilePageComponent,
   },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: 'feed' },
 ]
 
 @NgModule({

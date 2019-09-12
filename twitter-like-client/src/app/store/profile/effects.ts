@@ -22,11 +22,11 @@ export class ProfileEffects {
   )
   @Effect()
   getUser$ = this._actions$.pipe(
-    ofType(ProfileActions.getUser),
+    ofType(ProfileActions.getProfile),
     switchMap(action =>
       this.userService.getUser(action.username).pipe(
-        map(user => ProfileActions.getUserSuccess({ user })),
-        catchError(() => of(ProfileActions.getUserError({}))),
+        map(user => ProfileActions.getProfileSuccess({ user })),
+        catchError(() => of(ProfileActions.getProfileError({}))),
       ),
     ),
   )

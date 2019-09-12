@@ -5,13 +5,13 @@ import { Tweet } from '../../models'
 
 export const profileReducer = createReducer<IProfileState>(
   initialProfileState,
-  on(ProfileActions.getUser, state => ({ ...state, user: null, isUserLoading: true })),
-  on(ProfileActions.getUserSuccess, (state, { user }) => ({
+  on(ProfileActions.getProfile, state => ({ ...state, user: null, isUserLoading: true })),
+  on(ProfileActions.getProfileSuccess, (state, { user }) => ({
     ...state,
     user,
     isUserLoading: false,
   })),
-  on(ProfileActions.getUserError, state => ({ ...state, isUserLoading: false })),
+  on(ProfileActions.getProfileError, state => ({ ...state, isUserLoading: false })),
   on(ProfileActions.getTweets, state => ({ ...adapter.removeAll(state), isTweetsLoading: true })),
   on(ProfileActions.getTweetsSuccess, (state, { tweets }) => ({
     ...adapter.addAll(tweets, state),
@@ -19,7 +19,7 @@ export const profileReducer = createReducer<IProfileState>(
   })),
   on(ProfileActions.getTweetsError, state => ({ ...state, isTweetsLoading: false })),
   on(ProfileActions.updateTweet, (state, { tweet }) => adapter.upsertOne(tweet, state)),
-  on(ProfileActions.updateUser, (state, { user }) => ({ ...state, user })),
+  on(ProfileActions.updateProfile, (state, { user }) => ({ ...state, user })),
   on(ProfileActions.addReply, (state, { reply, tweet }) => {
     const tweetWithReply: Tweet = {
       ...tweet,

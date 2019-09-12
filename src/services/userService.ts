@@ -38,6 +38,29 @@ async function updateProfile(profileField: Partial<IUser>, userId: Identifier) {
   return findById(userId)
 }
 
+async function changeFollowing(userId: Identifier, currentUserId: Identifier, isFollow: boolean) {
+  const operation = isFollow ? '$addToSet' : '$pull'
+  await Promise.all([
+    UserModel.updateOne(
+      { _id: toObjectId(userId) },
+      { [operation]: { followers: currentUserId } },
+    ).exec(),
+    UserModel.updateOne(
+      { _id: toObjectId(currentUserId) },
+      { [operation]: { following: userId } },
+    ).exec(),
+  ])
+  return findById(currentUserId)
+}
+
+async function follow(userId: Identifier, currentUserId: Identifier) {
+  return changeFollowing(userId, currentUserId, true)
+}
+
+async function unfollow(userId: Identifier, currentUserId: Identifier) {
+  return changeFollowing(userId, currentUserId, false)
+}
+
 export default {
   findByEmail,
   findById,
@@ -45,4 +68,6 @@ export default {
   findByUsername,
   createUser,
   updateProfile,
+  follow,
+  unfollow,
 }

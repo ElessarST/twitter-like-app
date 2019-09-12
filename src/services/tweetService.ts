@@ -1,4 +1,4 @@
-import { ITweet, TweetModel } from '../database'
+import { ITweet, IUser, TweetModel } from '../database'
 import { Types } from 'mongoose'
 import { Identifier } from '../database/Identifier'
 import { UserService } from './index'
@@ -11,6 +11,19 @@ async function findById(id: Identifier) {
 
 async function findAll() {
   return TweetModel.find().exec()
+}
+
+async function getFeed(user: IUser) {
+  const { _id, following } = user
+  return TweetModel.find({
+    createdBy: { $in: [_id, ...following].map(toObjectId) },
+  }).exec()
+}
+
+async function getFavorites(userId: Identifier) {
+  return TweetModel.find({
+    likedBy: toObjectId(userId),
+  }).exec()
 }
 
 async function create(tweet: Partial<ITweet>, createdBy: string) {
@@ -60,4 +73,6 @@ export default {
   findRetweets,
   findReplies,
   findByUsername,
+  getFeed,
+  getFavorites,
 }

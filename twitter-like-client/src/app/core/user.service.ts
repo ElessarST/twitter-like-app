@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core'
 import gql from 'graphql-tag'
 import { Apollo } from 'apollo-angular'
-import { Response, ResponseStatus, User } from '../models'
+import { Response, User } from '../models'
 import { map, switchMap } from 'rxjs/operators'
-import { CommonFragments, UserFragments } from './fragments'
-import { Observable, of, throwError } from 'rxjs'
+import { CommonFragments } from './fragments'
+import { Observable } from 'rxjs'
+import { FullUserFragments } from './fragments/UserFragments'
+import { checkError } from '../utils/response'
 
 const getCurrentUser = gql`
   {
     currentUser {
-      ...UserFragment
+      ...FullUserFragment
       email
     }
   }
-  ${UserFragments}
+  ${FullUserFragments}
 `
 
 const getUser = gql`
   query user($username: String!) {
     user(username: $username) {
-      ...UserFragment
+      ...FullUserFragment
     }
   }
-  ${UserFragments}
+  ${FullUserFragments}
 `
 
 const editProfile = gql`
@@ -30,11 +32,37 @@ const editProfile = gql`
     editProfile(profile: $profile) {
       ...ResponseFragment
       data {
-        ...UserFragment
+        ...FullUserFragment
       }
     }
   }
-  ${UserFragments}
+  ${FullUserFragments}
+  ${CommonFragments}
+`
+
+const follow = gql`
+  mutation follow($userId: String!) {
+    follow(userId: $userId) {
+      ...ResponseFragment
+      data {
+        ...FullUserFragment
+      }
+    }
+  }
+  ${FullUserFragments}
+  ${CommonFragments}
+`
+
+const unfollow = gql`
+  mutation unfollow($userId: String!) {
+    unfollow(userId: $userId) {
+      ...ResponseFragment
+      data {
+        ...FullUserFragment
+      }
+    }
+  }
+  ${FullUserFragments}
   ${CommonFragments}
 `
 
@@ -71,12 +99,31 @@ export class UserService {
       .pipe(
         map(result => result.data),
         map(result => result.editProfile),
-        switchMap(data => {
-          if (data.status === ResponseStatus.Error) {
-            return throwError(data)
-          }
-          return of(data)
-        }),
+        switchMap(checkError),
+      )
+  }
+
+  follow(user: User): Observable<Response<User>> {
+    return this.apollo
+      .mutate<{ follow: Response<User> }>({
+        mutation: follow,
+        variables: { userId: user._id },
+      })
+      .pipe(
+        map(result => result.data.follow),
+        switchMap(checkError),
+      )
+  }
+
+  unfollow(user: User): Observable<Response<User>> {
+    return this.apollo
+      .mutate<{ unfollow: Response<User> }>({
+        mutation: unfollow,
+        variables: { userId: user._id },
+      })
+      .pipe(
+        map(result => result.data.unfollow),
+        switchMap(checkError),
       )
   }
 }
