@@ -34,10 +34,10 @@ export const typeDefs = gql`
     currentUser: User
     user(username: String!): User
     search(query: String!): [User]
-    feed: [Tweet]
+    feed(cursor: Date): [Tweet]
     tweet(tweetId: String!): Tweet
-    tweets(username: String!): [Tweet]
-    favorites: [Tweet]
+    tweets(username: String!, cursor: Date): [Tweet]
+    favorites(cursor: Date): [Tweet]
   }
 
   type Mutation {

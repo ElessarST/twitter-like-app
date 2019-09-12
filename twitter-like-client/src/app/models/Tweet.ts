@@ -4,7 +4,7 @@ export type Tweet = {
   _id: string
   text: string
   photos: string[]
-  createdAt: Date
+  createdAt: number
   createdBy: User
   retweetFrom: Tweet
   retweetsCount: number

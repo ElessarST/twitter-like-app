@@ -1,9 +1,8 @@
 import { createSelector } from '@ngrx/store'
 import { orderBy } from 'lodash'
 import { IAppState } from '../app/state'
-import { IProfileState } from './state'
-import { adapter } from '../feed/state'
-import { Tweet, User } from '../../models'
+import { adapter, IProfileState } from './state'
+import { User } from '../../models'
 
 const selectProfileState = (state: IAppState) => state.profile
 
@@ -39,7 +38,18 @@ export const selectUserName = createSelector(
   (user: User) => (user ? user.name : ''),
 )
 
-export const selectTweetsCount = createSelector(
-  selectTweets,
-  (tweets: Tweet[]) => tweets.length,
+
+export const selectIsLoadingMore = createSelector(
+  selectProfileState,
+  (state: IProfileState) => state.isLoadingMore,
+)
+
+export const selectIsHasMore = createSelector(
+  selectProfileState,
+  (state: IProfileState) => state.isHasMore,
+)
+
+export const selectLastTweet = createSelector(
+  selectTweetsSorted,
+  (tweets) => tweets ? tweets[tweets.length - 1] : null,
 )

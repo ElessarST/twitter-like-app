@@ -2,7 +2,9 @@ import { Tweet } from '../../models'
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity'
 
 export interface IFeedState extends EntityState<Tweet> {
-  isLoading: boolean
+  isLoading: boolean,
+  isLoadingMore: boolean,
+  isHasMore: boolean
 }
 
 export const adapter: EntityAdapter<Tweet> = createEntityAdapter<Tweet>({
@@ -11,4 +13,6 @@ export const adapter: EntityAdapter<Tweet> = createEntityAdapter<Tweet>({
 
 export const initialFeedState: IFeedState = adapter.getInitialState({
   isLoading: false,
+  isLoadingMore: false,
+  isHasMore: false,
 })

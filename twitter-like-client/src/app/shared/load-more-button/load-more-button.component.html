@@ -1,0 +1,13 @@
+<div *ngIf="isLoading" class="full-width-spinner-container">
+  <mat-spinner diameter="32"></mat-spinner>
+</div>
+<div *ngIf="!isLoading && isHasMore" class="load-more-button-wrapper">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="loadMore()"
+    class="load-more-button"
+  >
+    Load More
+  </button>
+</div>

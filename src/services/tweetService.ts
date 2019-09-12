@@ -4,6 +4,7 @@ import { Identifier } from '../database/Identifier'
 import { UserService } from './index'
 import { CreateTweetSchema } from './validationSchemas/tweetValidationsSchemas'
 import { toObjectId } from '../utils/mongooseUtils'
+import { LIMIT } from '../const'
 
 async function findById(id: Identifier) {
   return TweetModel.findById(toObjectId(id)).exec()
@@ -13,17 +14,24 @@ async function findAll() {
   return TweetModel.find().exec()
 }
 
-async function getFeed(user: IUser) {
-  const { _id, following } = user
+async function getTweetsByCondition(condition, cursor) {
+  const lastTime = cursor || new Date().getTime()
   return TweetModel.find({
-    createdBy: { $in: [_id, ...following].map(toObjectId) },
-  }).exec()
+    ...condition,
+    createdAt: { $lt: lastTime },
+  })
+    .sort('-createdAt')
+    .limit(LIMIT)
+    .exec()
 }
 
-async function getFavorites(userId: Identifier) {
-  return TweetModel.find({
-    likedBy: toObjectId(userId),
-  }).exec()
+async function getFeed(user: IUser, cursor: number) {
+  const { _id, following } = user
+  return getTweetsByCondition({ createdBy: { $in: [_id, ...following].map(toObjectId) } }, cursor)
+}
+
+async function getFavorites(userId: Identifier, cursor) {
+  return getTweetsByCondition({ likedBy: toObjectId(userId) }, cursor)
 }
 
 async function create(tweet: Partial<ITweet>, createdBy: string) {
@@ -50,17 +58,17 @@ async function toggleLike(tweetId: string, isLike: boolean, userId: string) {
 }
 
 async function findRetweets(_id: Identifier) {
-  return TweetModel.count({ retweetFrom: _id }).exec()
+  return TweetModel.countDocuments({ retweetFrom: _id }).exec()
 }
 
 async function findReplies(_id: Identifier) {
   return TweetModel.find({ replyTo: _id }).exec()
 }
 
-async function findByUsername(username: string) {
+async function findByUsername(username: string, cursor: number) {
   const user = await UserService.findByUsername(username)
   if (user) {
-    return TweetModel.find({ createdBy: user._id }).exec()
+    return getTweetsByCondition({ createdBy: user._id }, cursor)
   }
   return []
 }

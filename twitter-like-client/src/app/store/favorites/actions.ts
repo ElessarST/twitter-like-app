@@ -16,3 +16,9 @@ export const addRetweet = createAction(
   props<{ tweet: Tweet; retweet: Tweet }>(),
 )
 export const updateTweet = createAction('[Favorites] Update Tweet', props<{ tweet: Tweet }>())
+export const loadMore = createAction('[Favorites] Load More', props<{}>())
+export const loadMoreError = createAction('[Favorites] Load More Error', props<{}>())
+export const loadMoreSuccess = createAction(
+  '[Favorites] Load More Success',
+  props<{ tweets: Tweet[] }>(),
+)

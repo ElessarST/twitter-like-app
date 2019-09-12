@@ -10,6 +10,7 @@ export const feedReducer = createReducer(
   on(FeedActions.getFeedSuccess, (state, { tweets }) => ({
     ...adapter.addAll(tweets, state),
     isLoading: false,
+    isHasMore: tweets.length > 0,
   })),
   on(FeedActions.addTweet, (state, { tweet }) => adapter.addOne(tweet, state)),
   on(FeedActions.updateTweet, (state, { tweet }) => adapter.upsertOne(tweet, state)),
@@ -27,4 +28,11 @@ export const feedReducer = createReducer(
     }
     return adapter.upsertMany([retweet, tweetWithRetweet], state)
   }),
+  on(FeedActions.loadMore, state => ({ ...state, isLoadingMore: true })),
+  on(FeedActions.loadMoreError, state => ({ ...state, hasMore: false, isLoadingMore: false })),
+  on(FeedActions.loadMoreSuccess, (state, { tweets }) => ({
+    ...adapter.addMany(tweets, state),
+    isHasMore: tweets.length > 0,
+    isLoadingMore: false,
+  })),
 )

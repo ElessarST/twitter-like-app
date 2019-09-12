@@ -5,6 +5,8 @@ export interface IProfileState extends EntityState<Tweet> {
   user: User
   isUserLoading: boolean
   isTweetsLoading: boolean
+  isLoadingMore: boolean,
+  isHasMore: boolean
 }
 
 export const adapter: EntityAdapter<Tweet> = createEntityAdapter<Tweet>({
@@ -15,4 +17,6 @@ export const initialProfileState: IProfileState = adapter.getInitialState({
   user: null,
   isUserLoading: false,
   isTweetsLoading: false,
+  isLoadingMore: false,
+  isHasMore: false,
 })

@@ -16,6 +16,7 @@ import { RetweetModalComponent } from './retweet-modal/retweet-modal.component'
 import { ReplyModalComponent } from './reply-modal/reply-modal.component'
 import { UsersListComponent } from './users-list/users-list.component'
 import { SearchPanelComponent } from './search-panel/search-panel.component'
+import { LoadMoreButtonComponent } from './load-more-button/load-more-button.component'
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SearchPanelComponent } from './search-panel/search-panel.component'
     ReplyModalComponent,
     UsersListComponent,
     SearchPanelComponent,
+    LoadMoreButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { SearchPanelComponent } from './search-panel/search-panel.component'
     RetweetModalComponent,
     UsersListComponent,
     SearchPanelComponent,
+    LoadMoreButtonComponent,
   ],
 })
 export class SharedModule {}

@@ -9,6 +9,7 @@ export const favoritesReducer = createReducer(
   on(FavoritesActions.getFavoritesError, state => ({ ...state, isLoading: false })),
   on(FavoritesActions.getFavoritesSuccess, (state, { tweets }) => ({
     ...adapter.addAll(tweets, state),
+    isHasMore: tweets.length > 0,
     isLoading: false,
   })),
   on(FavoritesActions.updateTweet, (state, { tweet }) => adapter.upsertOne(tweet, state)),
@@ -26,4 +27,11 @@ export const favoritesReducer = createReducer(
     }
     return adapter.upsertMany([retweet, tweetWithRetweet], state)
   }),
+  on(FavoritesActions.loadMore, state => ({ ...state, isLoadingMore: true })),
+  on(FavoritesActions.loadMoreError, state => ({ ...state, hasMore: false, isLoadingMore: false })),
+  on(FavoritesActions.loadMoreSuccess, (state, { tweets }) => ({
+    ...adapter.addMany(tweets, state),
+    isHasMore: tweets.length > 0,
+    isLoadingMore: false,
+  })),
 )

@@ -18,14 +18,15 @@ function checkRequired(data, message) {
 export const resolvers = {
   Query: {
     currentUser: (parent, args, context) => context.user,
-    feed: (parent, args, context) => TweetService.getFeed(context.user),
+    feed: (parent, { cursor }, context) => TweetService.getFeed(context.user, cursor),
     user: async (parent, { username }) =>
       checkRequired(await UserService.findByUsername(username), 'User Not Found'),
     search: (parent, { query }) => UserService.searchUser(query),
     tweet: async (parent, { tweetId }) =>
       checkRequired(await TweetService.findById(tweetId), 'Tweet Not Found'),
-    tweets: (parent, { username }) => TweetService.findByUsername(username),
-    favorites: (parent, args, context) => TweetService.getFavorites(getCurrentUserId(context)),
+    tweets: (parent, { username, cursor }) => TweetService.findByUsername(username, cursor),
+    favorites: (parent, { cursor }, context) =>
+      TweetService.getFavorites(getCurrentUserId(context), cursor),
   },
   Tweet: {
     async createdBy(tweet: ITweet) {

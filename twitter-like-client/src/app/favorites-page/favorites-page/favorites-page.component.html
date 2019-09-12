@@ -11,5 +11,9 @@
       (onLike)="onLike($event)"
     ></app-tweet>
   </div>
+  <app-load-more-button
+    [isLoading]="isLoadingMore"
+    [isHasMore]="isHasMore"
+    (onLoadMore)="loadMore()"
+  ></app-load-more-button>
 </div>
-

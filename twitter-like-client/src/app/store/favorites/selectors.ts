@@ -3,6 +3,7 @@ import { orderBy } from 'lodash'
 
 import { IAppState } from '../app/state'
 import { adapter, IFavoritesState } from './state'
+import { IFeedState } from '../feed/state'
 
 const selectFavoritesState = (state: IAppState) => state.favorites
 
@@ -21,4 +22,19 @@ export const selectFavoritesTweets = createSelector(
 export const selectSortedFavorites = createSelector(
   selectFavoritesTweets,
   (tweets) => orderBy(tweets, t => -t.createdAt),
+)
+
+export const selectIsLoadingMore = createSelector(
+  selectFavoritesState,
+  (state: IFeedState) => state.isLoadingMore,
+)
+
+export const selectIsHasMore = createSelector(
+  selectFavoritesState,
+  (state: IFeedState) => state.isHasMore,
+)
+
+export const selectLastTweet = createSelector(
+  selectSortedFavorites,
+  (tweets) => tweets ? tweets[tweets.length - 1] : null,
 )

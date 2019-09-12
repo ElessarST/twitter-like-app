@@ -11,4 +11,10 @@
     ></app-tweet>
   </div>
   <div *ngIf="!tweets.length" class="no-tweets">No Tweets Yet</div>
+  <app-load-more-button
+    [isHasMore]="isHasMore"
+    [isLoading]="isLoadingMore"
+    (onLoadMore)="loadMore()"
+  >
+  </app-load-more-button>
 </div>

@@ -12,6 +12,9 @@ export enum ProfileActionType {
   AddReply = '[Profile] Add Reply',
   AddRetweet = '[Profile] Add Retweet',
   UpdateTweet = '[Profile] Update Tweet',
+  LoadMore = '[Profile] Load More',
+  LoadMoreSuccess = '[Profile] Load More Success',
+  LoadMoreError = '[Profile] Load More Error',
 }
 
 export const getProfile = createAction(ProfileActionType.GetProfile, props<{ username: string }>())
@@ -36,3 +39,6 @@ export const addRetweet = createAction(
 )
 export const updateTweet = createAction(ProfileActionType.UpdateTweet, props<{ tweet: Tweet }>())
 export const updateProfile = createAction(ProfileActionType.UpdateProfile, props<{ user: User }>())
+export const loadMore = createAction(ProfileActionType.LoadMore, props<{ username: string }>())
+export const loadMoreError = createAction(ProfileActionType.LoadMoreSuccess, props<{}>())
+export const loadMoreSuccess = createAction(ProfileActionType.LoadMoreError, props<{ tweets: Tweet[] }>())

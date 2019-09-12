@@ -22,3 +22,18 @@ export const selectSortedFeed = createSelector(
   selectFeedTweets,
   (tweets) => orderBy(tweets, t => -t.createdAt),
 )
+
+export const selectIsLoadingMore = createSelector(
+  selectFeed,
+  (state: IFeedState) => state.isLoadingMore,
+)
+
+export const selectIsHasMore = createSelector(
+  selectFeed,
+  (state: IFeedState) => state.isHasMore,
+)
+
+export const selectLastTweet = createSelector(
+  selectSortedFeed,
+  (tweets) => tweets ? tweets[tweets.length - 1] : null,
+)

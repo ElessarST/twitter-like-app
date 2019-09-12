@@ -15,6 +15,7 @@ export const profileReducer = createReducer<IProfileState>(
   on(ProfileActions.getTweets, state => ({ ...adapter.removeAll(state), isTweetsLoading: true })),
   on(ProfileActions.getTweetsSuccess, (state, { tweets }) => ({
     ...adapter.addAll(tweets, state),
+    isHasMore: tweets.length > 0,
     isTweetsLoading: false,
   })),
   on(ProfileActions.getTweetsError, state => ({ ...state, isTweetsLoading: false })),
@@ -34,4 +35,11 @@ export const profileReducer = createReducer<IProfileState>(
     }
     return adapter.upsertMany([retweet, tweetWithRetweet], state)
   }),
+  on(ProfileActions.loadMore, state => ({ ...state, isLoadingMore: true })),
+  on(ProfileActions.loadMoreError, state => ({ ...state, hasMore: false, isLoadingMore: false })),
+  on(ProfileActions.loadMoreSuccess, (state, { tweets }) => ({
+    ...adapter.addMany(tweets, state),
+    isHasMore: tweets.length > 0,
+    isLoadingMore: false,
+  })),
 )

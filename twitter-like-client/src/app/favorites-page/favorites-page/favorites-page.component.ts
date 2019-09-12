@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
-import { addReply, addRetweet, getFavorites, updateTweet } from '../../store/favorites/actions'
-import { selectIsLoading, selectSortedFavorites } from '../../store/favorites/selectors'
+import { addReply, addRetweet, getFavorites, loadMore, updateTweet } from '../../store/favorites/actions'
+import {
+  selectIsHasMore,
+  selectIsLoading,
+  selectIsLoadingMore,
+  selectSortedFavorites,
+} from '../../store/favorites/selectors'
 import { Tweet } from '../../models'
 import { Observable } from 'rxjs'
 
@@ -13,6 +18,8 @@ import { Observable } from 'rxjs'
 })
 export class FavoritesPageComponent implements OnInit {
   private isLoading: boolean = true
+  private isLoadingMore: boolean = false
+  private isHasMore: boolean = false
   private tweets$: Observable<Tweet[]>
 
   constructor(private store: Store<IAppState>) {
@@ -21,6 +28,8 @@ export class FavoritesPageComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(getFavorites({}))
     this.store.select(selectIsLoading).subscribe(isLoading => (this.isLoading = isLoading))
+    this.store.select(selectIsLoadingMore).subscribe(isLoading => (this.isLoadingMore = isLoading))
+    this.store.select(selectIsHasMore).subscribe(isHasMore => (this.isHasMore = isHasMore))
     this.tweets$ = this.store.select(selectSortedFavorites)
   }
 
@@ -38,5 +47,9 @@ export class FavoritesPageComponent implements OnInit {
 
   onLike(tweet: Tweet) {
     this.store.dispatch(updateTweet({ tweet }))
+  }
+
+  loadMore() {
+    this.store.dispatch(loadMore({}))
   }
 }

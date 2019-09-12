@@ -34,8 +34,8 @@ const likeTweet = gql`
 `
 
 const getFeed = gql`
-  query {
-    feed {
+  query feed($cursor: Date) {
+    feed(cursor: $cursor) {
       ...TweetFragment
     }
   }
@@ -43,8 +43,8 @@ const getFeed = gql`
 `
 
 const getFavorites = gql`
-  query {
-    favorites {
+   query favorites($cursor: Date) {
+    favorites(cursor: $cursor) {
       ...TweetFragment
     }
   }
@@ -52,8 +52,8 @@ const getFavorites = gql`
 `
 
 const getTweetsByUsername = gql`
-  query tweets($username: String!) {
-    tweets(username: $username) {
+  query tweets($username: String!, $cursor: Date) {
+    tweets(username: $username, cursor: $cursor) {
       ...TweetFragment
     }
   }
@@ -94,27 +94,29 @@ export class TweetsService {
       )
   }
 
-  getFeed(): Observable<Tweet[]> {
+  getFeed(cursor: number = undefined): Observable<Tweet[]> {
     return this.apollo
       .query<{ feed: Tweet[] }>({
         query: getFeed,
+        variables: { cursor },
       })
       .pipe(map(result => result.data.feed))
   }
 
-  getFavorites(): Observable<Tweet[]> {
+  getFavorites(cursor: number = undefined): Observable<Tweet[]> {
     return this.apollo
       .query<{ favorites: Tweet[] }>({
         query: getFavorites,
+        variables: { cursor },
       })
       .pipe(map(result => result.data.favorites))
   }
 
-  getTweetsByUser(username: string): Observable<Tweet[]> {
+  getTweetsByUser(username: string, cursor: number = undefined): Observable<Tweet[]> {
     return this.apollo
       .query<{ tweets: Tweet[] }>({
         query: getTweetsByUsername,
-        variables: { username },
+        variables: { username, cursor },
       })
       .pipe(map(result => result.data.tweets))
   }

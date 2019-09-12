@@ -2,8 +2,15 @@ import { Component, OnInit } from '@angular/core'
 import { Tweet } from '../../models'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
-import { selectIsTweetsLoading, selectTweets } from '../../store/profile/selectors'
-import { addReply, addRetweet, updateTweet } from '../../store/profile/actions'
+import {
+  selectIsHasMore,
+  selectIsLoadingMore,
+  selectIsTweetsLoading,
+  selectTweetsSorted,
+  selectUser,
+} from '../../store/profile/selectors'
+import { addReply, addRetweet, loadMore, updateTweet } from '../../store/profile/actions'
+import { filter, map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-profile-tweets',
@@ -11,14 +18,26 @@ import { addReply, addRetweet, updateTweet } from '../../store/profile/actions'
   styleUrls: ['./profile-tweets.component.scss'],
 })
 export class ProfileTweetsComponent implements OnInit {
+  private username: string
   private tweets: Tweet[]
+  private isLoadingMore: boolean = false
+  private isHasMore: boolean = false
   private isLoading: boolean
 
   constructor(private store: Store<IAppState>) {
   }
 
   ngOnInit() {
-    this.store.select(selectTweets).subscribe(tweets => (this.tweets = tweets))
+    this.store
+      .select(selectUser)
+      .pipe(
+        filter(u => !!u),
+        map(u => u.username),
+      )
+      .subscribe(username => (this.username = username))
+    this.store.select(selectTweetsSorted).subscribe(tweets => (this.tweets = tweets))
+    this.store.select(selectIsLoadingMore).subscribe(isLoading => (this.isLoadingMore = isLoading))
+    this.store.select(selectIsHasMore).subscribe(isHasMore => (this.isHasMore = isHasMore))
     this.store.select(selectIsTweetsLoading).subscribe(isLoading => (this.isLoading = isLoading))
   }
 
@@ -36,5 +55,10 @@ export class ProfileTweetsComponent implements OnInit {
 
   getTweetId(tweet: Tweet) {
     return tweet._id
+  }
+
+  loadMore() {
+    console.log(this.username)
+    this.store.dispatch(loadMore({ username: this.username }))
   }
 }
