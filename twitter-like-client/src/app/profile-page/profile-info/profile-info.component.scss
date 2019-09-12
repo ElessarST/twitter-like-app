@@ -5,6 +5,9 @@
   display: flex;
   border-bottom: 1px solid $border-color;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .profile-info {
@@ -32,6 +35,10 @@
   &:hover {
     cursor: pointer;
     text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
   }
 }
 

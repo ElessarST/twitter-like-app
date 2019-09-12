@@ -11,11 +11,17 @@
 
 .edit-profile-wrapper {
   display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .edit-profile-info-content {
   display: flex;
   flex-direction: column;
   min-width: 320px;
+  @media (max-width: 768px) {
+    min-width: 200px;
+  }
   margin-left: 16px;
 }

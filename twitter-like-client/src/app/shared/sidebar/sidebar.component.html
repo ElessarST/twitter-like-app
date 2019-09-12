@@ -2,19 +2,19 @@
   <nav class="sidebar">
     <a class="sidebar-button" routerLink="/feed" routerLinkActive="active-link">
       <mat-icon>home</mat-icon>
-      <span>Feed</span>
+      <span class="sidebar-button-description">Feed</span>
     </a>
     <a class="sidebar-button" routerLink="/favorites" routerLinkActive="active-link">
       <mat-icon>favorite</mat-icon>
-      <span>Favorites</span>
+      <span class="sidebar-button-description">Favorites</span>
     </a>
     <a class="sidebar-button" [routerLink]="['profile', user.username]" routerLinkActive="active-link">
       <mat-icon>account_circle</mat-icon>
-      <span>Profile</span>
+      <span class="sidebar-button-description">Profile</span>
     </a>
     <a class="sidebar-button" routerLink="/logout" routerLinkActive="active-link">
       <mat-icon>exit_to_app</mat-icon>
-      <span>Logout</span>
+      <span class="sidebar-button-description">Logout</span>
     </a>
   </nav>
 </div>
