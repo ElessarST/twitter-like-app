@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material'
 import { RetweetModalComponent } from '../retweet-modal/retweet-modal.component'
 import { ReplyModalComponent } from '../reply-modal/reply-modal.component'
 import { Router } from '@angular/router'
+import { PhotoPreviewComponent } from '../photo-preview/photo-preview.component'
 
 @Component({
   selector: 'app-tweet',
@@ -85,5 +86,12 @@ export class TweetComponent implements OnInit {
 
   goToTweet() {
     this.router.navigate(['tweet', this.tweet._id])
+  }
+
+  openPreview(event, photo) {
+    event.stopPropagation()
+    this.dialog.open(PhotoPreviewComponent, {
+      data: photo,
+    })
   }
 }

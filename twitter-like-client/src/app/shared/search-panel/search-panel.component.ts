@@ -20,7 +20,7 @@ export class SearchPanelComponent implements OnInit {
   ngOnInit() {
     this.users$ = this.searchUserControl.valueChanges.pipe(
       debounceTime(300),
-      filter(value => value.length > 2),
+      filter(value => value && value.length > 2),
       switchMap(value => this.userService.searchUsers(value)),
     )
   }

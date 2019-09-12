@@ -16,7 +16,7 @@
       <span>{{ tweet.text }}</span>
     </div>
     <div *ngIf="tweet.photos && tweet.photos.length" class="tweet-photos">
-      <img [src]="tweet.photos[0]" class="tweet-photo"/>
+      <img *ngFor="let photo of tweet.photos" [src]="photo" class="tweet-photo" (click)="openPreview($event, photo)"/>
     </div>
     <div *ngIf="tweet.retweetFrom && !hideSubTweets">
       <p class="sub-tweet-header">Retweet from</p>

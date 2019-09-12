@@ -24,6 +24,7 @@ const routes: Routes = [
   {
     path: 'signUp',
     component: SignUpComponent,
+    canActivate: [NoAuthGuard],
   },
   {
     path: 'logout',
@@ -32,14 +33,17 @@ const routes: Routes = [
   {
     path: 'tweet/:tweetId',
     component: TweetPageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile/:username',
     component: ProfilePageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'favorites',
     component: FavoritesPageComponent,
+    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'feed' },
 ]

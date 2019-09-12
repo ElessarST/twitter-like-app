@@ -17,6 +17,7 @@ import { ReplyModalComponent } from './reply-modal/reply-modal.component'
 import { UsersListComponent } from './users-list/users-list.component'
 import { SearchPanelComponent } from './search-panel/search-panel.component'
 import { LoadMoreButtonComponent } from './load-more-button/load-more-button.component'
+import { PhotoPreviewComponent } from './photo-preview/photo-preview.component'
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LoadMoreButtonComponent } from './load-more-button/load-more-button.com
     UsersListComponent,
     SearchPanelComponent,
     LoadMoreButtonComponent,
+    PhotoPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,12 @@ import { LoadMoreButtonComponent } from './load-more-button/load-more-button.com
     FileUploadModule,
     RouterModule,
   ],
-  entryComponents: [RetweetModalComponent, ReplyModalComponent, UsersListComponent],
+  entryComponents: [
+    RetweetModalComponent,
+    ReplyModalComponent,
+    UsersListComponent,
+    PhotoPreviewComponent,
+  ],
   exports: [
     MaterialComponentsModule,
     ReactiveFormsModule,
@@ -59,6 +66,7 @@ import { LoadMoreButtonComponent } from './load-more-button/load-more-button.com
     UsersListComponent,
     SearchPanelComponent,
     LoadMoreButtonComponent,
+    PhotoPreviewComponent,
   ],
 })
 export class SharedModule {}

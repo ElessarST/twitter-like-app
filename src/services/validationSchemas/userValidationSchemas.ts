@@ -30,7 +30,6 @@ const ProfileSchemaField = {
 
 const SignUpSchemaFields = {
   ...ProfileSchemaField,
-  password: yup.string().required(),
   email: yup
     .string()
     .email()
