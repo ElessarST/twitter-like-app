@@ -6,6 +6,7 @@ import { authReducer } from '../auth/reducer'
 import { feedReducer } from '../feed/reducer'
 import { tweetReducer } from '../tweet/reducer'
 import { profileReducer } from '../profile/reducer'
+import { favoritesReducer } from '../favorites/reducer'
 
 export const appReducers: ActionReducerMap<IAppState, any> = {
   router: routerReducer,
@@ -13,4 +14,5 @@ export const appReducers: ActionReducerMap<IAppState, any> = {
   feed: feedReducer,
   tweet: tweetReducer,
   profile: profileReducer,
+  favorites: favoritesReducer,
 }

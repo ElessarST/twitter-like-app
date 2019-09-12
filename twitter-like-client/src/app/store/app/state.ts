@@ -1,9 +1,10 @@
 import { RouterReducerState } from '@ngrx/router-store'
 
 import { IAuthState, initialAuthState } from '../auth/state'
-import { IFeedState, initialState as initialFeedState } from '../feed/state'
+import { IFeedState, initialFeedState } from '../feed/state'
 import { initialTweetState, ITweetState } from '../tweet/state'
 import { initialProfileState, IProfileState } from '../profile/state'
+import { IFavoritesState, initialFavoritesState } from '../favorites/state'
 
 export interface IAppState {
   router?: RouterReducerState
@@ -11,6 +12,7 @@ export interface IAppState {
   feed: IFeedState
   tweet: ITweetState
   profile: IProfileState
+  favorites: IFavoritesState
 }
 
 export const initialAppState: IAppState = {
@@ -18,6 +20,7 @@ export const initialAppState: IAppState = {
   feed: initialFeedState,
   tweet: initialTweetState,
   profile: initialProfileState,
+  favorites: initialFavoritesState,
 }
 
 export function getInitialState(): IAppState {

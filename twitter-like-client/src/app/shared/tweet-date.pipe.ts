@@ -10,8 +10,9 @@ export class TweetDatePipe implements PipeTransform {
   transform(value: number): string {
     const now = moment()
     const date = moment(value)
+    console.log(date)
     if (now.diff(date, 'd') > MAX_DAYS) {
-      return date.format()
+      return date.format('lll')
     }
     return date.fromNow()
   }

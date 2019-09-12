@@ -22,11 +22,11 @@ import { TweetEffects } from './store/tweet/effects'
 import { ProfileEffects } from './store/profile/effects'
 import { TweetPageModule } from './tweet-page/tweet-page.module'
 import { ProfilePageModule } from './profile-page/profile-page.module'
+import { FavoritesEffects } from './store/favorites/effects'
+import { FavoritesPageModule } from './favorites-page/favorites-page.module'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,8 +38,15 @@ import { ProfilePageModule } from './profile-page/profile-page.module'
     ProfilePageModule,
     CoreModule,
     TweetPageModule,
+    FavoritesPageModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects, FeedEffects, TweetEffects, ProfileEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      FeedEffects,
+      TweetEffects,
+      ProfileEffects,
+      FavoritesEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
@@ -48,6 +55,7 @@ import { ProfilePageModule } from './profile-page/profile-page.module'
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

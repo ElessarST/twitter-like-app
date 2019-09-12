@@ -33,9 +33,18 @@ const likeTweet = gql`
   ${CommonFragments}
 `
 
-const getTweets = gql`
+const getFeed = gql`
   query {
     feed {
+      ...TweetFragment
+    }
+  }
+  ${TweetFragments}
+`
+
+const getFavorites = gql`
+  query {
+    favorites {
       ...TweetFragment
     }
   }
@@ -88,9 +97,17 @@ export class TweetsService {
   getFeed(): Observable<Tweet[]> {
     return this.apollo
       .query<{ feed: Tweet[] }>({
-        query: getTweets,
+        query: getFeed,
       })
       .pipe(map(result => result.data.feed))
+  }
+
+  getFavorites(): Observable<Tweet[]> {
+    return this.apollo
+      .query<{ favorites: Tweet[] }>({
+        query: getFavorites,
+      })
+      .pipe(map(result => result.data.favorites))
   }
 
   getTweetsByUser(username: string): Observable<Tweet[]> {

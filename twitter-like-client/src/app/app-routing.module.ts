@@ -8,6 +8,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component'
 import { NoAuthGuard } from './auth/no-auth.guard'
 import { TweetPageComponent } from './tweet-page/tweet-page/tweet-page.component'
 import { ProfilePageComponent } from './profile-page/profile-page/profile-page.component'
+import { FavoritesPageComponent } from './favorites-page/favorites-page/favorites-page.component'
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'profile/:username',
     component: ProfilePageComponent,
+  },
+  {
+    path: 'favorites',
+    component: FavoritesPageComponent,
   },
   { path: '**', redirectTo: 'feed' },
 ]
