@@ -13,8 +13,8 @@ type UsersData = {
   styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnInit {
-  private users: User[]
-  private title: string
+  public users: User[]
+  public title: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: UsersData) {
     this.users = data.users

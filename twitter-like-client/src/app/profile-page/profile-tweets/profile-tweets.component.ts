@@ -18,11 +18,11 @@ import { filter, map } from 'rxjs/operators'
   styleUrls: ['./profile-tweets.component.scss'],
 })
 export class ProfileTweetsComponent implements OnInit {
-  private username: string
-  private tweets: Tweet[]
-  private isLoadingMore: boolean = false
-  private isHasMore: boolean = false
-  private isLoading: boolean
+  public username: string
+  public tweets: Tweet[]
+  public isLoadingMore: boolean = false
+  public isHasMore: boolean = false
+  public isLoading: boolean
 
   constructor(private store: Store<IAppState>) {
   }

@@ -11,8 +11,8 @@ import { Observable } from 'rxjs'
   styleUrls: ['./search-panel.component.scss'],
 })
 export class SearchPanelComponent implements OnInit {
-  private searchUserControl = new FormControl()
-  private users$: Observable<User[]>
+  public searchUserControl = new FormControl()
+  public users$: Observable<User[]>
 
   constructor(private userService: UserService) {
   }

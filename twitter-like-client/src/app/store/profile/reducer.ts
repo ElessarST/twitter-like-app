@@ -3,7 +3,7 @@ import { adapter, initialProfileState, IProfileState } from './state'
 import * as ProfileActions from './actions'
 import { Tweet } from '../../models'
 
-export const profileReducer = createReducer<IProfileState>(
+const profileReducer = createReducer<IProfileState>(
   initialProfileState,
   on(ProfileActions.getProfile, state => ({ ...state, user: null, isUserLoading: true })),
   on(ProfileActions.getProfileSuccess, (state, { user }) => ({
@@ -43,3 +43,7 @@ export const profileReducer = createReducer<IProfileState>(
     isLoadingMore: false,
   })),
 )
+
+export function reducer(state: IProfileState, action) {
+  return profileReducer(state, action)
+}

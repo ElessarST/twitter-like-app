@@ -6,7 +6,7 @@
   [tweet]="tweet"
   *ngIf="!isLoading && tweet"
   (onLike)="onLike($event)"
-  (onRetweet)="onRetweet($event)"
+  (onRetweet)="onRetweet()"
   (onReply)="onReply($event)"
 ></app-tweet>
 <div class="replies-header">

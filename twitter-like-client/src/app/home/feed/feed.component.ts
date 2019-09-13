@@ -12,10 +12,10 @@ import { addReply, addRetweet, getFeed, loadMore, updateTweet } from '../../stor
   styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit {
-  private isLoading: boolean = true
-  private isLoadingMore: boolean = false
-  private isHasMore: boolean = false
-  private tweets$: Observable<Tweet[]>
+  public isLoading: boolean = true
+  public isLoadingMore: boolean = false
+  public isHasMore: boolean = false
+  public tweets$: Observable<Tweet[]>
 
   constructor(private store: Store<IAppState>) {
   }

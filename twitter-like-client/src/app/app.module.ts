@@ -24,6 +24,8 @@ import { TweetPageModule } from './tweet-page/tweet-page.module'
 import { ProfilePageModule } from './profile-page/profile-page.module'
 import { FavoritesEffects } from './store/favorites/effects'
 import { FavoritesPageModule } from './favorites-page/favorites-page.module'
+import { ServiceWorkerModule } from '@angular/service-worker'
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,6 +52,7 @@ import { FavoritesPageModule } from './favorites-page/favorites-page.module'
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

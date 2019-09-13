@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store'
-import { initialTweetState } from './state'
+import { initialTweetState, ITweetState } from './state'
 import * as TweetActions from './actions'
 
 export const tweetReducer = createReducer(
@@ -9,3 +9,7 @@ export const tweetReducer = createReducer(
   on(TweetActions.getTweetError, state => ({ ...state, isLoading: false })),
   on(TweetActions.updateTweet, (state, { tweet }) => ({ ...state, tweet })),
 )
+
+export function reducer(state: ITweetState, action) {
+  return tweetReducer(state, action)
+}

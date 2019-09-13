@@ -10,8 +10,8 @@ import { selectIsFetchingCurrentUser, selectIsLoggedIn } from './store/auth/sele
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  private isLoading: boolean = true
-  private isLoggedIn: boolean = false
+  public isLoading: boolean = true
+  public isLoggedIn: boolean = false
 
   constructor(private _store: Store<IAppState>) {
   }

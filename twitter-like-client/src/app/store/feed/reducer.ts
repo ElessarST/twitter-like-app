@@ -1,9 +1,9 @@
-import { adapter, initialFeedState } from './state'
+import { adapter, IFeedState, initialFeedState } from './state'
 import { createReducer, on } from '@ngrx/store'
 import * as FeedActions from './actions'
 import { Tweet } from '../../models'
 
-export const feedReducer = createReducer(
+const feedReducer = createReducer(
   initialFeedState,
   on(FeedActions.getFeed, state => ({ ...state, isLoading: true })),
   on(FeedActions.getFeedError, state => ({ ...state, isLoading: false })),
@@ -36,3 +36,7 @@ export const feedReducer = createReducer(
     isLoadingMore: false,
   })),
 )
+
+export function reducer(state: IFeedState, action) {
+  return feedReducer(state, action)
+}

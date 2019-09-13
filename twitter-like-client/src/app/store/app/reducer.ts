@@ -2,11 +2,11 @@ import { ActionReducerMap } from '@ngrx/store'
 
 import { routerReducer } from '@ngrx/router-store'
 import { IAppState } from './state'
-import { authReducer } from '../auth/reducer'
-import { feedReducer } from '../feed/reducer'
-import { tweetReducer } from '../tweet/reducer'
-import { profileReducer } from '../profile/reducer'
-import { favoritesReducer } from '../favorites/reducer'
+import { reducer as authReducer } from '../auth/reducer'
+import { reducer as feedReducer } from '../feed/reducer'
+import { reducer as tweetReducer } from '../tweet/reducer'
+import { reducer as profileReducer } from '../profile/reducer'
+import { reducer as favoritesReducer } from '../favorites/reducer'
 
 export const appReducers: ActionReducerMap<IAppState, any> = {
   router: routerReducer,

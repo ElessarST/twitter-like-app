@@ -1,9 +1,9 @@
-import { adapter, initialFavoritesState } from './state'
+import { adapter, IFavoritesState, initialFavoritesState } from './state'
 import { createReducer, on } from '@ngrx/store'
 import * as FavoritesActions from './actions'
 import { Tweet } from '../../models'
 
-export const favoritesReducer = createReducer(
+const favoritesReducer = createReducer(
   initialFavoritesState,
   on(FavoritesActions.getFavorites, state => ({ ...state, isLoading: true })),
   on(FavoritesActions.getFavoritesError, state => ({ ...state, isLoading: false })),
@@ -35,3 +35,7 @@ export const favoritesReducer = createReducer(
     isLoadingMore: false,
   })),
 )
+
+export function reducer(state: IFavoritesState, action) {
+  return favoritesReducer(state, action)
+}

@@ -12,9 +12,9 @@ import { getTweet, updateTweet } from '../../store/tweet/actions'
   styleUrls: ['./tweet-page.component.scss'],
 })
 export class TweetPageComponent implements OnInit {
-  private tweet: Tweet
-  private replies: Tweet[] = []
-  private isLoading: boolean = true
+  public tweet: Tweet
+  public replies: Tweet[] = []
+  public isLoading: boolean = true
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute) {
   }

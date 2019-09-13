@@ -17,9 +17,9 @@ import { UsersListComponent } from '../../shared/users-list/users-list.component
   styleUrls: ['./profile-info.component.scss'],
 })
 export class ProfileInfoComponent implements OnInit {
-  private user: User
-  private currentUser: User
-  private isLoading: boolean = true
+  public user: User
+  public currentUser: User
+  public isLoading: boolean = true
 
   constructor(
     private store: Store<IAppState>,
@@ -84,13 +84,13 @@ export class ProfileInfoComponent implements OnInit {
     }
   }
 
-  private showFollowers() {
+  public showFollowers() {
     this.dialog.open(UsersListComponent, {
       data: { users: this.user.followers, title: 'Followers' },
     })
   }
 
-  private showFollowing() {
+  public showFollowing() {
     this.dialog.open(UsersListComponent, {
       data: { users: this.user.following, title: 'Following' },
     })

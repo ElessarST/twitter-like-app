@@ -7,8 +7,8 @@ import { Location } from '@angular/common'
   styleUrls: ['./page-title.component.scss'],
 })
 export class PageTitleComponent implements OnInit {
-  @Input() private title: string
-  @Input() private canGoBack?: boolean = false
+  @Input() public title: string
+  @Input() public canGoBack?: boolean = false
 
   constructor(private location: Location) {
   }
