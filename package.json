@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build-ts": "tsc",
-    "start": "npm serve",
-    "start:prod": "npm run build-ts && npm run serve",
+    "start": "yarn serve",
+    "start:prod": "yarn build-ts && yarn serve",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w"
