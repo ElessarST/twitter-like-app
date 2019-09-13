@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(private _store: Store<IAppState>) {}
 
   ngOnInit() {
-    this._store.dispatch(getCurrentUser({}))
+    this._store.dispatch(getCurrentUser())
     this._store
       .select(selectIsFetchingCurrentUser)
       .subscribe(isLoading => (this.isLoading = isLoading))

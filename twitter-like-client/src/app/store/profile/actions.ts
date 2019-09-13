@@ -22,13 +22,13 @@ export const getProfileSuccess = createAction(
   ProfileActionType.GetProfileSuccess,
   props<{ user: User }>()
 )
-export const getProfileError = createAction(ProfileActionType.GetProfileError, props<{}>())
+export const getProfileError = createAction(ProfileActionType.GetProfileError)
 export const getTweets = createAction(ProfileActionType.GetTweets, props<{ username: string }>())
 export const getTweetsSuccess = createAction(
   ProfileActionType.GetTweetsSuccess,
   props<{ tweets: Tweet[] }>()
 )
-export const getTweetsError = createAction(ProfileActionType.GetTweetsError, props<{}>())
+export const getTweetsError = createAction(ProfileActionType.GetTweetsError)
 export const addReply = createAction(
   ProfileActionType.AddReply,
   props<{ tweet: Tweet; reply: Tweet }>()
@@ -40,7 +40,7 @@ export const addRetweet = createAction(
 export const updateTweet = createAction(ProfileActionType.UpdateTweet, props<{ tweet: Tweet }>())
 export const updateProfile = createAction(ProfileActionType.UpdateProfile, props<{ user: User }>())
 export const loadMore = createAction(ProfileActionType.LoadMore, props<{ username: string }>())
-export const loadMoreError = createAction(ProfileActionType.LoadMoreSuccess, props<{}>())
+export const loadMoreError = createAction(ProfileActionType.LoadMoreSuccess)
 export const loadMoreSuccess = createAction(
   ProfileActionType.LoadMoreError,
   props<{ tweets: Tweet[] }>()

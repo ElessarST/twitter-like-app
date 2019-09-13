@@ -13,5 +13,5 @@ export const getTweetSuccess = createAction(
   TweetActionType.GetTweetSuccess,
   props<{ tweet: Tweet }>()
 )
-export const getTweetError = createAction(TweetActionType.GetTweetError, props<{}>())
+export const getTweetError = createAction(TweetActionType.GetTweetError)
 export const updateTweet = createAction(TweetActionType.UpdateTweet, props<{ tweet: Tweet }>())

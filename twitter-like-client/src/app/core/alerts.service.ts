@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Subject } from 'rxjs'
+import { filter } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,6 @@ export class AlertsService {
   }
 
   getAlerts() {
-    return this.alerts
+    return this.alerts.pipe(filter(message => !!message))
   }
 }

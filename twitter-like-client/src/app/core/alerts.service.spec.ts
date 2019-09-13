@@ -1,12 +1,17 @@
-import { TestBed } from '@angular/core/testing'
-
 import { AlertsService } from './alerts.service'
 
 describe('AlertsService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}))
+  let service: AlertsService
+  beforeEach(() => {
+    service = new AlertsService()
+  })
 
-  it('should be created', () => {
-    const service: AlertsService = TestBed.get(AlertsService)
-    expect(service).toBeTruthy()
+  it('should push data', done => {
+    const message = 'message'
+    service.getAlerts().subscribe(alert => {
+      expect(alert).toBe(message)
+      done()
+    })
+    service.push(message)
   })
 })

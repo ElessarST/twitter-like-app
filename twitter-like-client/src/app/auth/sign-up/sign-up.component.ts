@@ -46,7 +46,7 @@ export class SignUpComponent implements OnInit {
     this.loading = true
     this.authService.signUp(this.signUpForm.value).subscribe(
       () => {
-        this.store.dispatch(getCurrentUser({}))
+        this.store.dispatch(getCurrentUser())
         return this.router.navigate(['/'])
       },
       (error: Response<User>) => {

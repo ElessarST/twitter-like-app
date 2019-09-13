@@ -20,7 +20,7 @@ export class FeedComponent implements OnInit {
   constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(getFeed({}))
+    this.store.dispatch(getFeed())
     this.store.select(selectIsLoading).subscribe(isLoading => (this.isLoading = isLoading))
     this.store.select(selectIsLoadingMore).subscribe(isLoading => (this.isLoadingMore = isLoading))
     this.store.select(selectIsHasMore).subscribe(isHasMore => (this.isHasMore = isHasMore))
@@ -44,6 +44,6 @@ export class FeedComponent implements OnInit {
   }
 
   loadMore() {
-    this.store.dispatch(loadMore({}))
+    this.store.dispatch(loadMore())
   }
 }

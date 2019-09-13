@@ -18,7 +18,7 @@ export class FavoritesEffects {
     switchMap(() =>
       this.tweetService.getFavorites().pipe(
         map(tweets => FavoritesActions.getFavoritesSuccess({ tweets })),
-        catchError(() => of(FavoritesActions.getFavoritesError({})))
+        catchError(() => of(FavoritesActions.getFavoritesError()))
       )
     )
   )
@@ -30,7 +30,7 @@ export class FavoritesEffects {
     switchMap(lastTweet => {
       return this.tweetService.getFavorites(get(lastTweet, 'createdAt', new Date().getTime())).pipe(
         map(tweets => FavoritesActions.loadMoreSuccess({ tweets })),
-        catchError(() => of(FavoritesActions.loadMoreError({})))
+        catchError(() => of(FavoritesActions.loadMoreError()))
       )
     })
   )

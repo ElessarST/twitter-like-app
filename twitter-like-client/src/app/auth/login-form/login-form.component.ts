@@ -44,7 +44,7 @@ export class LoginFormComponent implements OnInit {
     this.error = ''
     this.authService.login(email, password).subscribe(
       () => {
-        this.store.dispatch(getCurrentUser({}))
+        this.store.dispatch(getCurrentUser())
         this.router.navigate([this.returnUrl])
       },
       () => {

@@ -25,7 +25,7 @@ export class FavoritesPageComponent implements OnInit {
   constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(getFavorites({}))
+    this.store.dispatch(getFavorites())
     this.store.select(selectIsLoading).subscribe(isLoading => (this.isLoading = isLoading))
     this.store.select(selectIsLoadingMore).subscribe(isLoading => (this.isLoadingMore = isLoading))
     this.store.select(selectIsHasMore).subscribe(isHasMore => (this.isHasMore = isHasMore))
@@ -49,6 +49,6 @@ export class FavoritesPageComponent implements OnInit {
   }
 
   loadMore() {
-    this.store.dispatch(loadMore({}))
+    this.store.dispatch(loadMore())
   }
 }

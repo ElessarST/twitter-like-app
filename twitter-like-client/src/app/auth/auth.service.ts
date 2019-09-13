@@ -16,12 +16,12 @@ type TokenResponse = {
 export class AuthService {
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  public static get token(): string {
+  public get token(): string {
     return localStorage.getItem(TOKEN_KEY)
   }
 
   fetchCurrentUser(): Observable<User> {
-    if (!AuthService.token) {
+    if (!this.token) {
       return throwError('No token')
     }
     return this.userService.getCurrentUser()

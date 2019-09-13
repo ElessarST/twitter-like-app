@@ -19,7 +19,7 @@ export class FeedEffects {
     switchMap(() =>
       this.tweetService.getFeed().pipe(
         map(tweets => FeedActions.getFeedSuccess({ tweets })),
-        catchError(() => of(FeedActions.getFeedError({})))
+        catchError(() => of(FeedActions.getFeedError()))
       )
     )
   )
@@ -31,7 +31,7 @@ export class FeedEffects {
     switchMap(lastTweet => {
       return this.tweetService.getFeed(get(lastTweet, 'createdAt', new Date().getTime())).pipe(
         map(tweets => FeedActions.loadMoreSuccess({ tweets })),
-        catchError(() => of(FeedActions.loadMoreError({})))
+        catchError(() => of(FeedActions.loadMoreError()))
       )
     })
   )
