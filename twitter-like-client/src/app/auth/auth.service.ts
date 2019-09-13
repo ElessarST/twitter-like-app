@@ -5,6 +5,7 @@ import { Response, User } from '../models'
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { UserService } from '../core/user.service'
+import { environment } from '../../environments/environment'
 
 const TOKEN_KEY = 'token'
 
@@ -29,7 +30,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<Response<TokenResponse>>(`http://localhost:3000/login`, { email, password })
+      .post<Response<TokenResponse>>(`${environment.base_url}/login`, { email, password })
       .pipe(
         map(resp => {
           const { token } = resp.data
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   signUp(user) {
-    return this.http.post<Response<TokenResponse>>(`http://localhost:3000/signUp`, user).pipe(
+    return this.http.post<Response<TokenResponse>>(`${environment.base_url}/signUp`, user).pipe(
       map(resp => {
         localStorage.setItem(TOKEN_KEY, resp.data.token)
         return resp.data.token
