@@ -15,5 +15,5 @@ export const usersList = [
     email: 'aydar2.farrakhov@akvelon.com',
     name: 'Aydar2 Farrakhov2',
     friends: ['1'],
-  }
+  },
 ]

@@ -28,12 +28,12 @@ export class FeedEffects {
   loadMore$ = this._actions$.pipe(
     ofType(FeedActions.loadMore),
     switchMap(() => this._store.select(selectLastTweet).pipe(first())),
-    switchMap((lastTweet) => {
+    switchMap(lastTweet => {
       return this.tweetService.getFeed(get(lastTweet, 'createdAt', new Date().getTime())).pipe(
         map(tweets => FeedActions.loadMoreSuccess({ tweets })),
         catchError(() => of(FeedActions.loadMoreError({}))),
       )
-    }),
+    })
   )
 
   constructor(

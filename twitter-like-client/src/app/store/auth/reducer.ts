@@ -10,8 +10,8 @@ const authReducer = createReducer(
     isFetchingCurrentUser: false,
     currentUser: user,
   })),
-  on(AuthActions.getCurrentUserError, (state) => ({ ...state, isFetchingCurrentUser: false })),
-  on(AuthActions.logout, (state) => ({ ...state, currentUser: null })),
+  on(AuthActions.getCurrentUserError, state => ({ ...state, isFetchingCurrentUser: false })),
+  on(AuthActions.logout, state => ({ ...state, currentUser: null })),
 )
 
 export function reducer(state: IAuthState, action) {

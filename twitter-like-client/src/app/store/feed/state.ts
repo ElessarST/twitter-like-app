@@ -2,8 +2,8 @@ import { Tweet } from '../../models'
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity'
 
 export interface IFeedState extends EntityState<Tweet> {
-  isLoading: boolean,
-  isLoadingMore: boolean,
+  isLoading: boolean
+  isLoadingMore: boolean
   isHasMore: boolean
 }
 

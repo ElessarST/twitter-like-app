@@ -9,8 +9,7 @@ describe('EditProfileDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EditProfileDialogComponent],
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

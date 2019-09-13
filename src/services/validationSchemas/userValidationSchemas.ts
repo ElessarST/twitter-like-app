@@ -16,13 +16,9 @@ const ProfileSchemaField = {
   username: yup
     .string()
     .required()
-    .test(
-      'unique-username',
-      'User with this username already exists',
-      async function(value) {
-        return checkUser.call(this, () => UserService.findByUsername(value))
-      },
-    ),
+    .test('unique-username', 'User with this username already exists', async function(value) {
+      return checkUser.call(this, () => UserService.findByUsername(value))
+    }),
   bio: yup.string(),
   name: yup.string().required(),
   photoUrl: yup.string(),
@@ -34,13 +30,9 @@ const SignUpSchemaFields = {
     .string()
     .email()
     .required()
-    .test(
-      'unique-email',
-      'User with this email already exists',
-      async function(value) {
-        return checkUser.call(this, () => UserService.findByEmail(value))
-      },
-    ),
+    .test('unique-email', 'User with this email already exists', async function(value) {
+      return checkUser.call(this, () => UserService.findByEmail(value))
+    }),
 }
 
 export const SignUpSchema = yup.object().shape(SignUpSchemaFields)

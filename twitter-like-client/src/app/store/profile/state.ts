@@ -5,7 +5,7 @@ export interface IProfileState extends EntityState<Tweet> {
   user: User
   isUserLoading: boolean
   isTweetsLoading: boolean
-  isLoadingMore: boolean,
+  isLoadingMore: boolean
   isHasMore: boolean
 }
 

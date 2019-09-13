@@ -9,8 +9,7 @@ describe('TweetPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TweetPageComponent],
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

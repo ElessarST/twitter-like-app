@@ -41,7 +41,7 @@ const profileReducer = createReducer<IProfileState>(
     ...adapter.addMany(tweets, state),
     isHasMore: tweets.length > 0,
     isLoadingMore: false,
-  })),
+  }))
 )
 
 export function reducer(state: IProfileState, action) {

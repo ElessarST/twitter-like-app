@@ -9,8 +9,7 @@ describe('RetweetModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RetweetModalComponent],
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

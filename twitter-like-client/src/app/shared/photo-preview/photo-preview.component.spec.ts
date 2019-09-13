@@ -9,8 +9,7 @@ describe('PhotoPreviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PhotoPreviewComponent],
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

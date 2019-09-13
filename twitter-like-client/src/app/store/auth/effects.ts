@@ -18,8 +18,8 @@ export class AuthEffects {
       this.authService.fetchCurrentUser().pipe(
         map(user => AuthActions.getCurrentUserSuccess({ user })),
         catchError(() => of(AuthActions.getCurrentUserError({}))),
-      ),
-    ),
+      )
+    )
   )
 
   @Effect({ dispatch: false })

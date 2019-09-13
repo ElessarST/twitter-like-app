@@ -5,9 +5,7 @@ import { AuthService } from './auth.service'
 
 @Injectable({ providedIn: 'root' })
 export class NoAuthGuard implements CanActivate {
-  constructor(
-    private router: Router,
-  ) {
+  constructor(private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

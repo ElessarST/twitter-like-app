@@ -38,7 +38,6 @@ export const selectUserName = createSelector(
   (user: User) => (user ? user.name : ''),
 )
 
-
 export const selectIsLoadingMore = createSelector(
   selectProfileState,
   (state: IProfileState) => state.isLoadingMore,
@@ -51,5 +50,5 @@ export const selectIsHasMore = createSelector(
 
 export const selectLastTweet = createSelector(
   selectTweetsSorted,
-  (tweets) => tweets ? tweets[tweets.length - 1] : null,
+  tweets => (tweets ? tweets[tweets.length - 1] : null),
 )

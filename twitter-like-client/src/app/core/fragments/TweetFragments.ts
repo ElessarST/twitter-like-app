@@ -18,7 +18,7 @@ export const TweetFragments = gql`
   fragment TweetFragment on Tweet {
     ...ShortTweetInfoFragment
     likedBy {
-     ...UserFragment
+      ...UserFragment
     }
     createdBy {
       ...UserFragment
@@ -27,7 +27,7 @@ export const TweetFragments = gql`
     retweetFrom {
       ...ShortTweetInfoFragment
     }
-    replyTo{
+    replyTo {
       ...ShortTweetInfoFragment
     }
     replies {

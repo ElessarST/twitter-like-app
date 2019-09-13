@@ -21,7 +21,7 @@ export const selectFavoritesTweets = createSelector(
 
 export const selectSortedFavorites = createSelector(
   selectFavoritesTweets,
-  (tweets) => orderBy(tweets, t => -t.createdAt),
+  tweets => orderBy(tweets, t => -t.createdAt),
 )
 
 export const selectIsLoadingMore = createSelector(
@@ -36,5 +36,5 @@ export const selectIsHasMore = createSelector(
 
 export const selectLastTweet = createSelector(
   selectSortedFavorites,
-  (tweets) => tweets ? tweets[tweets.length - 1] : null,
+  tweets => (tweets ? tweets[tweets.length - 1] : null),
 )

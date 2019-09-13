@@ -32,7 +32,7 @@ export class FavoritesEffects {
         map(tweets => FavoritesActions.loadMoreSuccess({ tweets })),
         catchError(() => of(FavoritesActions.loadMoreError({}))),
       )
-    }),
+    })
   )
 
   constructor(

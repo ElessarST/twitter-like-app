@@ -43,7 +43,7 @@ const getFeed = gql`
 `
 
 const getFavorites = gql`
-   query favorites($cursor: Date) {
+  query favorites($cursor: Date) {
     favorites(cursor: $cursor) {
       ...TweetFragment
     }

@@ -53,7 +53,7 @@ export class SignUpComponent implements OnInit {
       (error: Response<User>) => {
         setServerErrors(this.signUpForm, error.fieldErrors)
         this.loading = false
-      },
+      }
     )
   }
 

@@ -44,8 +44,8 @@ export class ProfileEffects {
         map(lastTweet => ({
           username,
           lastTweet,
-        })),
-      ),
+        }))
+      )
     ),
     switchMap(({ username, lastTweet }) => {
       return this.tweetsService
@@ -54,7 +54,7 @@ export class ProfileEffects {
           map(tweets => ProfileActions.loadMoreSuccess({ tweets })),
           catchError(() => of(ProfileActions.loadMoreError({}))),
         )
-    }),
+    })
   )
 
   constructor(

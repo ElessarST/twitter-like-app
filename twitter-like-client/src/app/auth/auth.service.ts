@@ -45,7 +45,7 @@ export class AuthService {
       map(resp => {
         localStorage.setItem(TOKEN_KEY, resp.data.token)
         return resp.data.token
-      }),
+      })
     )
   }
 

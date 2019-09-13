@@ -41,4 +41,7 @@ export const updateTweet = createAction(ProfileActionType.UpdateTweet, props<{ t
 export const updateProfile = createAction(ProfileActionType.UpdateProfile, props<{ user: User }>())
 export const loadMore = createAction(ProfileActionType.LoadMore, props<{ username: string }>())
 export const loadMoreError = createAction(ProfileActionType.LoadMoreSuccess, props<{}>())
-export const loadMoreSuccess = createAction(ProfileActionType.LoadMoreError, props<{ tweets: Tweet[] }>())
+export const loadMoreSuccess = createAction(
+  ProfileActionType.LoadMoreError,
+  props<{ tweets: Tweet[] }>(),
+)

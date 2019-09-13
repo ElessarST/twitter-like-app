@@ -20,7 +20,7 @@ export const selectFeedTweets = createSelector(
 
 export const selectSortedFeed = createSelector(
   selectFeedTweets,
-  (tweets) => orderBy(tweets, t => -t.createdAt),
+  tweets => orderBy(tweets, t => -t.createdAt),
 )
 
 export const selectIsLoadingMore = createSelector(
@@ -35,5 +35,5 @@ export const selectIsHasMore = createSelector(
 
 export const selectLastTweet = createSelector(
   selectSortedFeed,
-  (tweets) => tweets ? tweets[tweets.length - 1] : null,
+  tweets => (tweets ? tweets[tweets.length - 1] : null),
 )
