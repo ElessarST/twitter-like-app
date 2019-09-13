@@ -7,7 +7,8 @@
   "scripts": {
     "build-ts": "tsc",
     "start": "yarn serve",
-    "start:prod": "yarn build-ts && yarn serve",
+    "postinstall": "yarn build-ts",
+    "start:prod": "yarn serve",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w"
