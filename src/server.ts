@@ -7,6 +7,8 @@ import { graphqlLogin, login, signUp } from './auth'
 import { resolvers } from './graphql'
 import { typeDefs } from './graphql/schema'
 
+const PORT = process.env.PORT || 5000
+
 dotenv.config()
 
 const app = express()
@@ -35,4 +37,4 @@ const apolloServer: ApolloServer = new ApolloServer({
 
 apolloServer.applyMiddleware({ app })
 
-app.listen(3000, () => console.log('app listening on port 3000!'))
+app.listen(PORT, () => console.log(`app listening on port ${PORT}!`))
