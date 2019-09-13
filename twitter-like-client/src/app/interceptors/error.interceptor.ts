@@ -10,8 +10,7 @@ import { AlertsService } from '../core/alerts.service'
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthService, private alertsService: AlertsService) {
-  }
+  constructor(private authenticationService: AuthService, private alertsService: AlertsService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(

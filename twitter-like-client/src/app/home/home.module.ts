@@ -8,5 +8,4 @@ import { FeedComponent } from './feed/feed.component'
   declarations: [HomePageComponent, FeedComponent],
   imports: [SharedModule, CommonModule],
 })
-export class HomeModule {
-}
+export class HomeModule {}

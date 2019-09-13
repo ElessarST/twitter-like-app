@@ -24,9 +24,8 @@ export class EditProfileDialogComponent implements OnInit {
     private router: Router,
     private store: Store<IAppState>,
     private userService: UserService,
-    private dialogRef: MatDialogRef<EditProfileDialogComponent>,
-  ) {
-  }
+    private dialogRef: MatDialogRef<EditProfileDialogComponent>
+  ) {}
 
   ngOnInit() {
     this.store.select(selectCurrentUser).subscribe(currentUser => {
@@ -50,7 +49,7 @@ export class EditProfileDialogComponent implements OnInit {
         setServerErrors(this.editProfileForm, error.fieldErrors)
         this.loading = false
       },
-      () => (this.loading = false),
+      () => (this.loading = false)
     )
   }
 

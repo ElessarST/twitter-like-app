@@ -73,14 +73,13 @@ const getTweetById = gql`
   providedIn: 'root',
 })
 export class TweetsService {
-  constructor(private apollo: Apollo) {
-  }
+  constructor(private apollo: Apollo) {}
 
   createTweet(
     text: string,
     photos: string[],
     retweetFrom?: string,
-    replyTo?: string,
+    replyTo?: string
   ): Observable<Response<Tweet>> {
     return this.apollo
       .mutate<{ createTweet: Response<Tweet> }>({
@@ -90,7 +89,7 @@ export class TweetsService {
       .pipe(
         map(result => result.data),
         map(result => result.createTweet),
-        switchMap(checkError),
+        switchMap(checkError)
       )
   }
 
@@ -139,7 +138,7 @@ export class TweetsService {
       .pipe(
         map(result => result.data),
         map(result => result.likeTweet),
-        switchMap(checkError),
+        switchMap(checkError)
       )
   }
 }

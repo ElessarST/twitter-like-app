@@ -17,7 +17,7 @@ export class AuthEffects {
     switchMap(() =>
       this.authService.fetchCurrentUser().pipe(
         map(user => AuthActions.getCurrentUserSuccess({ user })),
-        catchError(() => of(AuthActions.getCurrentUserError({}))),
+        catchError(() => of(AuthActions.getCurrentUserError({})))
       )
     )
   )
@@ -27,14 +27,13 @@ export class AuthEffects {
     ofType(AuthActions.logout),
     tap(() => this.authService.logout()),
     tap(() => this.router.navigate(['/'])),
-    switchMap(() => of(EMPTY)),
+    switchMap(() => of(EMPTY))
   )
 
   constructor(
     private authService: AuthService,
     private _actions$: Actions,
     private router: Router,
-    private _store: Store<IAppState>,
-  ) {
-  }
+    private _store: Store<IAppState>
+  ) {}
 }

@@ -7,8 +7,7 @@ import { logout } from '../../store/auth/actions'
   template: '',
 })
 export class LogoutComponent implements OnInit {
-  constructor(private store: Store<IAppState>) {
-  }
+  constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
     this.store.dispatch(logout({}))

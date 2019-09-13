@@ -22,8 +22,7 @@ export class FavoritesPageComponent implements OnInit {
   public isHasMore: boolean = false
   public tweets$: Observable<Tweet[]>
 
-  constructor(private store: Store<IAppState>) {
-  }
+  constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
     this.store.dispatch(getFavorites({}))

@@ -6,5 +6,4 @@ import { GraphQLModule } from '../graphql/graphql.module'
   declarations: [],
   imports: [GraphQLModule, CommonModule],
 })
-export class CoreModule {
-}
+export class CoreModule {}

@@ -10,11 +10,9 @@ import { addTweet } from '../../store/feed/actions'
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  constructor(private store: Store<IAppState>) {
-  }
+  constructor(private store: Store<IAppState>) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onTweetCreate(tweet: Tweet) {
     this.store.dispatch(addTweet({ tweet }))

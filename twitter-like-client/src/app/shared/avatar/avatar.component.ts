@@ -12,8 +12,7 @@ export class AvatarComponent implements OnInit {
   @Input() changeable?: boolean = false
   @Output() onChange: EventEmitter<string> = new EventEmitter()
 
-  constructor() {
-  }
+  constructor() {}
 
   public fileUploader: FileUploader = new FileUploader({
     url: 'https://api.cloudinary.com/v1_1/drqvrxltc/image/upload',

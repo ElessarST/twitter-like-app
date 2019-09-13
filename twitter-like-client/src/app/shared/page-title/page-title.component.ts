@@ -10,11 +10,9 @@ export class PageTitleComponent implements OnInit {
   @Input() public title: string
   @Input() public canGoBack?: boolean = false
 
-  constructor(private location: Location) {
-  }
+  constructor(private location: Location) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   goBack() {
     this.location.back()

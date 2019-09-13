@@ -28,13 +28,12 @@ export class TweetComponent implements OnInit {
     private store: Store<IAppState>,
     private tweetService: TweetsService,
     private dialog: MatDialog,
-    private router: Router,
+    private router: Router
   ) {
     this.store.select(selectCurrentUser).subscribe(user => (this.currentUser = user))
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   get likedBy() {
     return this.tweet.likedBy || []

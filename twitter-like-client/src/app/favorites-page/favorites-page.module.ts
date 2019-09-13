@@ -7,5 +7,4 @@ import { SharedModule } from '../shared/shared.module'
   declarations: [FavoritesPageComponent],
   imports: [SharedModule, CommonModule],
 })
-export class FavoritesPageModule {
-}
+export class FavoritesPageModule {}

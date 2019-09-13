@@ -14,8 +14,7 @@ type TokenResponse = {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient, private userService: UserService) {
-  }
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   public static get token(): string {
     return localStorage.getItem(TOKEN_KEY)

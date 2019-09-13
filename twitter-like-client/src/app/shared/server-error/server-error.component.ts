@@ -11,11 +11,9 @@ export class ServerErrorComponent implements OnInit {
   @Input() form: FormGroup
   @Input() field: string
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   get errors() {
     const control = this.form.get(this.field)

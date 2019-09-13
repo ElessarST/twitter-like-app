@@ -20,7 +20,7 @@ export class ProfileEffects {
     switchMap(action =>
       this.tweetsService.getTweetsByUser(action.username).pipe(
         map(tweets => ProfileActions.getTweetsSuccess({ tweets })),
-        catchError(() => of(ProfileActions.getTweetsError({}))),
+        catchError(() => of(ProfileActions.getTweetsError({})))
       )
     )
   )
@@ -30,7 +30,7 @@ export class ProfileEffects {
     switchMap(action =>
       this.userService.getUser(action.username).pipe(
         map(user => ProfileActions.getProfileSuccess({ user })),
-        catchError(() => of(ProfileActions.getProfileError({}))),
+        catchError(() => of(ProfileActions.getProfileError({})))
       )
     )
   )
@@ -52,7 +52,7 @@ export class ProfileEffects {
         .getTweetsByUser(username, get(lastTweet, 'createdAt', new Date().getTime()))
         .pipe(
           map(tweets => ProfileActions.loadMoreSuccess({ tweets })),
-          catchError(() => of(ProfileActions.loadMoreError({}))),
+          catchError(() => of(ProfileActions.loadMoreError({})))
         )
     })
   )
@@ -62,7 +62,6 @@ export class ProfileEffects {
     private userService: UserService,
     private alertSerivce: AlertsService,
     private _actions$: Actions,
-    private _store: Store<IAppState>,
-  ) {
-  }
+    private _store: Store<IAppState>
+  ) {}
 }

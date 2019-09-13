@@ -7,15 +7,15 @@ const selectAuth = (state: IAppState) => state.auth
 
 export const selectIsLoggedIn = createSelector(
   selectAuth,
-  (state: IAuthState) => !!state.currentUser,
+  (state: IAuthState) => !!state.currentUser
 )
 
 export const selectIsFetchingCurrentUser = createSelector(
   selectAuth,
-  (state: IAuthState) => state.isFetchingCurrentUser,
+  (state: IAuthState) => state.isFetchingCurrentUser
 )
 
 export const selectCurrentUser = createSelector(
   selectAuth,
-  (state: IAuthState) => state.currentUser,
+  (state: IAuthState) => state.currentUser
 )

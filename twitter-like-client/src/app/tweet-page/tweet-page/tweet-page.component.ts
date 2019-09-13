@@ -16,8 +16,7 @@ export class TweetPageComponent implements OnInit {
   public replies: Tweet[] = []
   public isLoading: boolean = true
 
-  constructor(private store: Store<IAppState>, private route: ActivatedRoute) {
-  }
+  constructor(private store: Store<IAppState>, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.store.select(selectTweet).subscribe(tweet => (this.tweet = tweet))

@@ -7,14 +7,13 @@ import { MatSnackBar } from '@angular/material'
   template: '',
 })
 export class AlertsComponent implements OnInit {
-  constructor(private alertsService: AlertsService, private _snackBar: MatSnackBar) {
-  }
+  constructor(private alertsService: AlertsService, private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.alertsService
       .getAlerts()
       .subscribe(
-        message => message.length > 0 && this._snackBar.open(message, undefined, { duration: 3000 }),
+        message => message.length > 0 && this._snackBar.open(message, undefined, { duration: 3000 })
       )
   }
 }

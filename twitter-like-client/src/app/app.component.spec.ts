@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     fixture.detectChanges()
     const compiled = fixture.debugElement.nativeElement
     expect(compiled.querySelector('.content span').textContent).toContain(
-      'twitter-like-client app is running!',
+      'twitter-like-client app is running!'
     )
   })
 })

@@ -10,11 +10,9 @@ export class LoadMoreButtonComponent implements OnInit {
   @Input() isHasMore: boolean
   @Output() onLoadMore: EventEmitter<void> = new EventEmitter<void>()
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   loadMore() {
     this.onLoadMore.emit()

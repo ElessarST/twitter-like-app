@@ -20,22 +20,22 @@ export enum ProfileActionType {
 export const getProfile = createAction(ProfileActionType.GetProfile, props<{ username: string }>())
 export const getProfileSuccess = createAction(
   ProfileActionType.GetProfileSuccess,
-  props<{ user: User }>(),
+  props<{ user: User }>()
 )
 export const getProfileError = createAction(ProfileActionType.GetProfileError, props<{}>())
 export const getTweets = createAction(ProfileActionType.GetTweets, props<{ username: string }>())
 export const getTweetsSuccess = createAction(
   ProfileActionType.GetTweetsSuccess,
-  props<{ tweets: Tweet[] }>(),
+  props<{ tweets: Tweet[] }>()
 )
 export const getTweetsError = createAction(ProfileActionType.GetTweetsError, props<{}>())
 export const addReply = createAction(
   ProfileActionType.AddReply,
-  props<{ tweet: Tweet; reply: Tweet }>(),
+  props<{ tweet: Tweet; reply: Tweet }>()
 )
 export const addRetweet = createAction(
   ProfileActionType.AddRetweet,
-  props<{ tweet: Tweet; retweet: Tweet }>(),
+  props<{ tweet: Tweet; retweet: Tweet }>()
 )
 export const updateTweet = createAction(ProfileActionType.UpdateTweet, props<{ tweet: Tweet }>())
 export const updateProfile = createAction(ProfileActionType.UpdateProfile, props<{ user: User }>())
@@ -43,5 +43,5 @@ export const loadMore = createAction(ProfileActionType.LoadMore, props<{ usernam
 export const loadMoreError = createAction(ProfileActionType.LoadMoreSuccess, props<{}>())
 export const loadMoreSuccess = createAction(
   ProfileActionType.LoadMoreError,
-  props<{ tweets: Tweet[] }>(),
+  props<{ tweets: Tweet[] }>()
 )

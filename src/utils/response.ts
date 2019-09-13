@@ -11,13 +11,13 @@ function transformToErrors(error: ValidationError) {
       ...res,
       [err.path]: err.message,
     }),
-    {},
+    {}
   )
 }
 
 export function createErrorResponse(
   errorMessage: string,
-  fieldErrors: ValidationError = null,
+  fieldErrors: ValidationError = null
 ): IErrorResponse {
   return {
     status: ResponseStatus.Error,
@@ -29,7 +29,7 @@ export function createErrorResponse(
 export function sendError(
   res: Express.Response,
   errorMessage: string,
-  fieldErrors: ValidationError,
+  fieldErrors: ValidationError
 ) {
   res.status(400)
   return res.json(createErrorResponse(errorMessage, fieldErrors))

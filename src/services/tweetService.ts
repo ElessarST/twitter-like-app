@@ -52,7 +52,7 @@ async function toggleLike(tweetId: string, isLike: boolean, userId: string) {
   const operator = isLike ? '$addToSet' : '$pull'
   await TweetModel.updateOne(
     { _id: toObjectId(tweetId) },
-    { [operator]: { likedBy: toObjectId(userId) } },
+    { [operator]: { likedBy: toObjectId(userId) } }
   ).exec()
   return findById(tweetId)
 }

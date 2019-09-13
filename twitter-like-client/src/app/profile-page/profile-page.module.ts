@@ -16,5 +16,4 @@ import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-d
   imports: [SharedModule, CommonModule],
   entryComponents: [EditProfileDialogComponent],
 })
-export class ProfilePageModule {
-}
+export class ProfilePageModule {}

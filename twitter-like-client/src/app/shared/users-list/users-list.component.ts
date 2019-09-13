@@ -21,6 +21,5 @@ export class UsersListComponent implements OnInit {
     this.title = data.title
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

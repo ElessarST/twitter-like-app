@@ -7,5 +7,4 @@ import { SharedModule } from '../shared/shared.module'
   declarations: [TweetPageComponent],
   imports: [SharedModule, CommonModule],
 })
-export class TweetPageModule {
-}
+export class TweetPageModule {}

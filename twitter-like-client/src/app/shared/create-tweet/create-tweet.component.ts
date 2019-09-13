@@ -19,7 +19,7 @@ export class CreateTweetComponent implements OnInit {
   public createTweetForm: FormGroup
   public currentUser$: Observable<User>
   public isCreating: boolean = false
-  @Input() public placeholder?: string = 'What\'s happening?'
+  @Input() public placeholder?: string = "What's happening?"
   @Input() public retweetFrom?: string
   @Input() public replyTo?: string
   @Output() onCreate: EventEmitter<Tweet> = new EventEmitter()
@@ -27,7 +27,7 @@ export class CreateTweetComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private tweetsService: TweetsService,
-    private store: Store<IAppState>,
+    private store: Store<IAppState>
   ) {
     this.setFormInitialState()
   }
@@ -95,7 +95,7 @@ export class CreateTweetComponent implements OnInit {
           setServerErrors(this.createTweetForm, error.fieldErrors)
           this.isCreating = false
         },
-        () => (this.isCreating = false),
+        () => (this.isCreating = false)
       )
   }
 }

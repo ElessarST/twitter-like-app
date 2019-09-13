@@ -12,8 +12,7 @@ import { User } from '../../models'
 export class SidebarComponent implements OnInit {
   public user: User
 
-  constructor(private store: Store<IAppState>) {
-  }
+  constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
     this.store.select(selectCurrentUser).subscribe(user => (this.user = user))

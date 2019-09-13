@@ -14,14 +14,13 @@ export class SearchPanelComponent implements OnInit {
   public searchUserControl = new FormControl()
   public users$: Observable<User[]>
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.users$ = this.searchUserControl.valueChanges.pipe(
       debounceTime(300),
       filter(value => value && value.length > 2),
-      switchMap(value => this.userService.searchUsers(value)),
+      switchMap(value => this.userService.searchUsers(value))
     )
   }
 }

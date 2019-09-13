@@ -13,8 +13,7 @@ export class AppComponent {
   public isLoading: boolean = true
   public isLoggedIn: boolean = false
 
-  constructor(private _store: Store<IAppState>) {
-  }
+  constructor(private _store: Store<IAppState>) {}
 
   ngOnInit() {
     this._store.dispatch(getCurrentUser({}))

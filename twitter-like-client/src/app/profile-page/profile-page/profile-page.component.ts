@@ -13,8 +13,7 @@ import { selectUserName } from '../../store/profile/selectors'
 export class ProfilePageComponent implements OnInit {
   private name: string
 
-  constructor(private route: ActivatedRoute, private store: Store<IAppState>) {
-  }
+  constructor(private route: ActivatedRoute, private store: Store<IAppState>) {}
 
   ngOnInit() {
     this.store.select(selectUserName).subscribe(name => (this.name = name))

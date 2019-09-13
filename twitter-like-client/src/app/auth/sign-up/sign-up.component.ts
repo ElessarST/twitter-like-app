@@ -22,9 +22,8 @@ export class SignUpComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private store: Store<IAppState>,
-  ) {
-  }
+    private store: Store<IAppState>
+  ) {}
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({

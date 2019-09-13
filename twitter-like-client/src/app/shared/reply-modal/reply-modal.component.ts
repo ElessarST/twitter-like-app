@@ -14,16 +14,14 @@ type ReplyData = {
 export class ReplyModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ReplyModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ReplyData,
-  ) {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: ReplyData
+  ) {}
 
   get tweet() {
     return this.data.tweet
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onCreate(tweet) {
     this.dialogRef.close(tweet)

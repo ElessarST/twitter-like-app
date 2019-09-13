@@ -24,15 +24,14 @@ export class ProfileTweetsComponent implements OnInit {
   public isHasMore: boolean = false
   public isLoading: boolean
 
-  constructor(private store: Store<IAppState>) {
-  }
+  constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
     this.store
       .select(selectUser)
       .pipe(
         filter(u => !!u),
-        map(u => u.username),
+        map(u => u.username)
       )
       .subscribe(username => (this.username = username))
     this.store.select(selectTweetsSorted).subscribe(tweets => (this.tweets = tweets))

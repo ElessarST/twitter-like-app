@@ -72,5 +72,4 @@ import {
   ],
   providers: [MatDatepickerModule],
 })
-export class MaterialComponentsModule {
-}
+export class MaterialComponentsModule {}

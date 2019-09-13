@@ -11,7 +11,7 @@ export enum AuthActionType {
 export const getCurrentUser = createAction(AuthActionType.GetCurrentUser, props<{}>())
 export const getCurrentUserSuccess = createAction(
   AuthActionType.GetCurrentUserSuccess,
-  props<{ user: User }>(),
+  props<{ user: User }>()
 )
 export const getCurrentUserError = createAction(AuthActionType.GetCurrentUserError, props<{}>())
 export const logout = createAction(AuthActionType.Logout, props<{}>())

@@ -7,8 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs'
 export class AlertsService {
   private alerts: Subject<string> = new BehaviorSubject('')
 
-  constructor() {
-  }
+  constructor() {}
 
   push(message: string) {
     this.alerts.next(message)

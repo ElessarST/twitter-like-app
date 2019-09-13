@@ -79,8 +79,7 @@ const unfollow = gql`
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private apollo: Apollo) {
-  }
+  constructor(private apollo: Apollo) {}
 
   getCurrentUser(): Observable<User> {
     return this.apollo
@@ -117,7 +116,7 @@ export class UserService {
       .pipe(
         map(result => result.data),
         map(result => result.editProfile),
-        switchMap(checkError),
+        switchMap(checkError)
       )
   }
 
@@ -129,7 +128,7 @@ export class UserService {
       })
       .pipe(
         map(result => result.data.follow),
-        switchMap(checkError),
+        switchMap(checkError)
       )
   }
 
@@ -141,7 +140,7 @@ export class UserService {
       })
       .pipe(
         map(result => result.data.unfollow),
-        switchMap(checkError),
+        switchMap(checkError)
       )
   }
 }

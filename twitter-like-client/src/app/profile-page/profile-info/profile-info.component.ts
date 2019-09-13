@@ -24,9 +24,8 @@ export class ProfileInfoComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private userService: UserService,
-    private dialog: MatDialog,
-  ) {
-  }
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.store.select(selectUser).subscribe(user => (this.user = user))

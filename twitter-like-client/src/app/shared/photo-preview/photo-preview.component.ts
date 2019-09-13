@@ -7,9 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material'
   styleUrls: ['./photo-preview.component.scss'],
 })
 export class PhotoPreviewComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

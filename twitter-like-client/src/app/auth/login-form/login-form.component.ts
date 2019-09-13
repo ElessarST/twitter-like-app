@@ -23,9 +23,8 @@ export class LoginFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private store: Store<IAppState>,
-  ) {
-  }
+    private store: Store<IAppState>
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -52,7 +51,7 @@ export class LoginFormComponent implements OnInit {
         this.isLogging = false
         this.error = 'Invalid Email or Password'
       },
-      () => (this.isLogging = false),
+      () => (this.isLogging = false)
     )
   }
 }

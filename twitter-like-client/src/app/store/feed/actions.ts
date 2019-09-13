@@ -8,12 +8,12 @@ export const addTweet = createAction('[Feed] Add Tweet', props<{ tweet: Tweet }>
 export const addReply = createAction('[Feed] Add Reply', props<{ tweet: Tweet; reply: Tweet }>())
 export const addRetweet = createAction(
   '[Feed] Add Retweet',
-  props<{ tweet: Tweet; retweet: Tweet }>(),
+  props<{ tweet: Tweet; retweet: Tweet }>()
 )
 export const updateTweet = createAction('[Feed] Update Tweet', props<{ tweet: Tweet }>())
 export const loadMore = createAction('[Feed] Load More', props<{}>())
 export const loadMoreError = createAction('[Feed] Load More Error', props<{}>())
 export const loadMoreSuccess = createAction(
   '[Feed] Load More Success',
-  props<{ tweets: Tweet[] }>(),
+  props<{ tweets: Tweet[] }>()
 )

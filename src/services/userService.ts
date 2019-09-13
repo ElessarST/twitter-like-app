@@ -43,11 +43,11 @@ async function changeFollowing(userId: Identifier, currentUserId: Identifier, is
   await Promise.all([
     UserModel.updateOne(
       { _id: toObjectId(userId) },
-      { [operation]: { followers: currentUserId } },
+      { [operation]: { followers: currentUserId } }
     ).exec(),
     UserModel.updateOne(
       { _id: toObjectId(currentUserId) },
-      { [operation]: { following: userId } },
+      { [operation]: { following: userId } }
     ).exec(),
   ])
   return findById(currentUserId)
