@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { User } from '../../models'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
@@ -10,13 +10,16 @@ import { getCurrentUserSuccess } from '../../store/auth/actions'
 import { updateProfile } from '../../store/profile/actions'
 import { UserService } from '../../core/user.service'
 import { UsersListComponent } from '../../shared/users-list/users-list.component'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
   styleUrls: ['./profile-info.component.scss'],
 })
-export class ProfileInfoComponent implements OnInit {
+export class ProfileInfoComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<void> = new Subject<void>()
   public user: User
   public currentUser: User
   public isLoading: boolean = true
@@ -28,9 +31,18 @@ export class ProfileInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select(selectUser).subscribe(user => (this.user = user))
-    this.store.select(selectCurrentUser).subscribe(user => (this.currentUser = user))
-    this.store.select(selectIsUserLoading).subscribe(isLoading => (this.isLoading = isLoading))
+    this.store
+      .select(selectUser)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(user => (this.user = user))
+    this.store
+      .select(selectCurrentUser)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(user => (this.currentUser = user))
+    this.store
+      .select(selectIsUserLoading)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isLoading => (this.isLoading = isLoading))
   }
 
   get isCurrentUser() {
@@ -93,5 +105,10 @@ export class ProfileInfoComponent implements OnInit {
     this.dialog.open(UsersListComponent, {
       data: { users: this.user.following, title: 'Following' },
     })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next()
+    this.unsubscribe.complete()
   }
 }

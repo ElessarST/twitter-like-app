@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
 import { addReply, addRetweet, getFavorites, loadMore, updateTweet } from '../../store/favorites/actions'
@@ -9,14 +9,16 @@ import {
   selectSortedFavorites,
 } from '../../store/favorites/selectors'
 import { Tweet } from '../../models'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
   selector: 'app-favorites-page',
   templateUrl: './favorites-page.component.html',
   styleUrls: ['./favorites-page.component.scss'],
 })
-export class FavoritesPageComponent implements OnInit {
+export class FavoritesPageComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<void> = new Subject<void>()
   public isLoading: boolean = true
   public isLoadingMore: boolean = false
   public isHasMore: boolean = false
@@ -26,9 +28,18 @@ export class FavoritesPageComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(getFavorites())
-    this.store.select(selectIsLoading).subscribe(isLoading => (this.isLoading = isLoading))
-    this.store.select(selectIsLoadingMore).subscribe(isLoading => (this.isLoadingMore = isLoading))
-    this.store.select(selectIsHasMore).subscribe(isHasMore => (this.isHasMore = isHasMore))
+    this.store
+      .select(selectIsLoading)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isLoading => (this.isLoading = isLoading))
+    this.store
+      .select(selectIsLoadingMore)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isLoading => (this.isLoadingMore = isLoading))
+    this.store
+      .select(selectIsHasMore)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isHasMore => (this.isHasMore = isHasMore))
     this.tweets$ = this.store.select(selectSortedFavorites)
   }
 
@@ -50,5 +61,10 @@ export class FavoritesPageComponent implements OnInit {
 
   loadMore() {
     this.store.dispatch(loadMore())
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next()
+    this.unsubscribe.complete()
   }
 }

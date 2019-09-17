@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Tweet } from '../../models'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
 import { selectIsHasMore, selectIsLoading, selectIsLoadingMore, selectSortedFeed } from '../../store/feed/selectors'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { addReply, addRetweet, getFeed, loadMore, updateTweet } from '../../store/feed/actions'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<void> = new Subject<void>()
   public isLoading: boolean = true
   public isLoadingMore: boolean = false
   public isHasMore: boolean = false
@@ -21,9 +23,18 @@ export class FeedComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(getFeed())
-    this.store.select(selectIsLoading).subscribe(isLoading => (this.isLoading = isLoading))
-    this.store.select(selectIsLoadingMore).subscribe(isLoading => (this.isLoadingMore = isLoading))
-    this.store.select(selectIsHasMore).subscribe(isHasMore => (this.isHasMore = isHasMore))
+    this.store
+      .select(selectIsLoading)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isLoading => (this.isLoading = isLoading))
+    this.store
+      .select(selectIsLoadingMore)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isLoading => (this.isLoadingMore = isLoading))
+    this.store
+      .select(selectIsHasMore)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(isHasMore => (this.isHasMore = isHasMore))
     this.tweets$ = this.store.select(selectSortedFeed)
   }
 
@@ -45,5 +56,10 @@ export class FeedComponent implements OnInit {
 
   loadMore() {
     this.store.dispatch(loadMore())
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next()
+    this.unsubscribe.complete()
   }
 }

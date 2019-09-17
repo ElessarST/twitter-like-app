@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { Tweet, User } from '../../models'
 import { Store } from '@ngrx/store'
 import { IAppState } from '../../store/app/state'
@@ -9,13 +9,14 @@ import { RetweetModalComponent } from '../retweet-modal/retweet-modal.component'
 import { ReplyModalComponent } from '../reply-modal/reply-modal.component'
 import { Router } from '@angular/router'
 import { PhotoPreviewComponent } from '../photo-preview/photo-preview.component'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.scss'],
 })
-export class TweetComponent implements OnInit {
+export class TweetComponent implements OnInit, OnDestroy {
   @Input() tweet: Tweet
   @Input() hideActions?: boolean = false
   @Input() hideSubTweets?: boolean = false
@@ -23,6 +24,7 @@ export class TweetComponent implements OnInit {
   @Output() onRetweet: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   @Output() onLike: EventEmitter<Tweet> = new EventEmitter<Tweet>()
   private currentUser: User
+  private currentUser$: Subscription
 
   constructor(
     private store: Store<IAppState>,
@@ -30,7 +32,9 @@ export class TweetComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router
   ) {
-    this.store.select(selectCurrentUser).subscribe(user => (this.currentUser = user))
+    this.currentUser$ = this.store
+      .select(selectCurrentUser)
+      .subscribe(user => (this.currentUser = user))
   }
 
   ngOnInit() {}
@@ -92,5 +96,9 @@ export class TweetComponent implements OnInit {
     this.dialog.open(PhotoPreviewComponent, {
       data: photo,
     })
+  }
+
+  ngOnDestroy() {
+    this.currentUser$.unsubscribe()
   }
 }

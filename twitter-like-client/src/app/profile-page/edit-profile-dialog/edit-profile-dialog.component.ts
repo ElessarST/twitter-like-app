@@ -8,6 +8,7 @@ import { UserService } from '../../core/user.service'
 import { Response, User } from '../../models'
 import { setServerErrors } from '../../utils/response'
 import { MatDialogRef } from '@angular/material'
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-edit-profile-dialog',
@@ -28,14 +29,17 @@ export class EditProfileDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select(selectCurrentUser).subscribe(currentUser => {
-      this.editProfileForm = this.formBuilder.group({
-        username: [currentUser.username, Validators.required],
-        name: [currentUser.name, Validators.required],
-        bio: currentUser.bio,
-        photoUrl: currentUser.photoUrl,
+    this.store
+      .select(selectCurrentUser)
+      .pipe(take(1))
+      .subscribe(currentUser => {
+        this.editProfileForm = this.formBuilder.group({
+          username: [currentUser.username, Validators.required],
+          name: [currentUser.name, Validators.required],
+          bio: currentUser.bio,
+          photoUrl: currentUser.photoUrl,
+        })
       })
-    })
   }
 
   onSubmit() {
